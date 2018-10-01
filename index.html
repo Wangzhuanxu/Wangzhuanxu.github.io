@@ -263,6 +263,164 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/01/20181001150521/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wangzhuanxu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的独立博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/01/20181001150521/" itemprop="url">Lua与C#交互问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-01T15:05:21+08:00">
+                2018-10-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Lua/" itemprop="url" rel="index">
+                    <span itemprop="name">Lua</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/10/01/20181001150521/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/10/01/20181001150521/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>　　在学习Lua热更新的时候，遇到了一个很小的问题，但出错原因却很容易被忽略，从而浪费许多不必要的时间。</p>
+<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>　　在开始学习Lua的时候，我先是建立了一个项目，名称为<strong>LuaInterface(这个名称就是出错的罪魁祸首，因为VS会自动创建一个名称为LuaInterface的命名空间)</strong>，  然后我再里面写了如下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using LuaInterface;</span><br><span class="line">namespace LuaInterface</span><br><span class="line">&#123;</span><br><span class="line">    public class Program</span><br><span class="line">    &#123;</span><br><span class="line">        public Program()</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            Lua luaw = new Lua();</span><br><span class="line">            //执行lua脚本</span><br><span class="line">            luaw.DoFile(&quot;Script.lua&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        public static void staticMethod(int i, double d)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;静态方法&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        public void CLRMethod()</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;非静态方法&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public class MyClass</span><br><span class="line">    &#123;</span><br><span class="line">        public MyClass()</span><br><span class="line">        &#123; </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>　　然后我又写了Script.lua脚本<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--require "luanet"</span></span><br><span class="line"><span class="comment">--加载CLR的类型</span></span><br><span class="line">luanet.load_assembly(<span class="string">"LuaInterface"</span>)</span><br><span class="line">Program = luanet.import_type(<span class="string">"LuaInterface.Program"</span>)</span><br><span class="line"><span class="comment">--实例化CLR对象</span></span><br><span class="line">program = Program()</span><br><span class="line">program:CLRMethod()</span><br></pre></td></tr></table></figure></p>
+<p>　　然后ctrl+f5运行程序，却报如下错误。<br>  <img src="https://i.loli.net/2018/10/01/5bb1cd7ea53da.png" alt="alt" title="错误信息"></p>
+<p>　　<strong>经过查找发现是命名空间冲突导致，Lua与C#交互需要用到LuaInterface.dll,而此处又定义了LuaInterface命名空间，造成冲突。</strong></p>
+<h3 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h3><p>　　这里需要将LuaInterface命名空间间换为其他名称，然后右键点击项目，选择属性<br>  <img src="https://i.loli.net/2018/10/01/5bb1cf09868fc.png" alt=""><br>　　然后将程序集名称和默认命名空间换为新的命名空间名称后保存即可。<br> <img src="https://i.loli.net/2018/10/01/5bb1cfac4829f.png" alt=""><br>　　<strong>若lua想要访问其他的自定义命名空间，都需要将此处的程序集名称和默认命名空间换为lua想要访问的命名空间的名称，否则坏事会出现上述错误。</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/26/Hexo搭建个人博客并发布到Github/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -933,7 +1091,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -944,7 +1102,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -955,7 +1113,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
