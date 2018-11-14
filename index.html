@@ -263,6 +263,138 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/14/UI穿透问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wangzhuanxu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的独立博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/14/UI穿透问题/" itemprop="url">UI穿透问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-14T19:31:11+08:00">
+                2018-11-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/11/14/UI穿透问题/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/11/14/UI穿透问题/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>　　在做unity的时候，有时候会受到UI穿透的影响，也就是两个UI图片重合了，本来是下方的UI图片是不能够被点击的，但是Unity默认下方UI图片可以被点击，这就需要编写相应方法来抵制这一现象。<br>    脚本如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">using UnityEngine;</span><br><span class="line">using System.Collections;</span><br><span class="line">public class DUIRayIgnore : MonoBehaviour, ICanvasRaycastFilter</span><br><span class="line">&#123;</span><br><span class="line">    public bool IsRaycastLocationValid(Vector2 screenPoint, Camera eventCamera)</span><br><span class="line">    &#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>该脚本主要是需要实现ICanvasRaycastFilter接口，并重写里面的IsRaycastLocationValid方法。将该脚本挂载在上一层方UI图片即可</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/12/Unity3d-UGUI-的多分辨率适配/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -495,7 +627,15 @@
 <li>定义：把一组数据结构和处理它们的方法组成<strong>对象</strong>（object），把相同行为的对象归纳为<strong>类</strong>（class），通过类的<strong>封装</strong>（encapsulation）隐藏内部细节，通过<strong>继承</strong>（inheritance）实现类的特化（specialization）／泛化（generalization），通过<strong>多态</strong>（polymorphism）实现基于对象类型的动态分派（dynamic dispatch）。</li>
 <li><a href="https://blog.csdn.net/jiyiqinlovexx/article/details/46593053" target="_blank" rel="noopener">三大特性链接</a><h3 id="bit和byte的定义及区别"><a href="#bit和byte的定义及区别" class="headerlink" title="bit和byte的定义及区别"></a>bit和byte的定义及区别</h3><a href="https://blog.csdn.net/panjunnn/article/details/5611241" target="_blank" rel="noopener">链接</a></li>
 </ul>
-<h3 id="三次握手四次挥手"><a href="#三次握手四次挥手" class="headerlink" title="三次握手四次挥手"></a>三次握手四次挥手</h3><h3 id="MipMap作用及计算方法"><a href="#MipMap作用及计算方法" class="headerlink" title="MipMap作用及计算方法"></a>MipMap作用及计算方法</h3><h3 id="map，ArrayList-Dictionary区别"><a href="#map，ArrayList-Dictionary区别" class="headerlink" title="map，ArrayList,Dictionary区别"></a>map，ArrayList,Dictionary区别</h3><h3 id="数组和链表内存上的区别"><a href="#数组和链表内存上的区别" class="headerlink" title="数组和链表内存上的区别"></a>数组和链表内存上的区别</h3><h3 id="java和C-泛型区别"><a href="#java和C-泛型区别" class="headerlink" title="java和C#泛型区别"></a>java和C#泛型区别</h3><h3 id="内存处理"><a href="#内存处理" class="headerlink" title="内存处理"></a>内存处理</h3><h3 id="java中jc运行时间"><a href="#java中jc运行时间" class="headerlink" title="java中jc运行时间"></a>java中jc运行时间</h3><h3 id="渲染流程"><a href="#渲染流程" class="headerlink" title="渲染流程"></a>渲染流程</h3><h3 id="结构体和类的区别"><a href="#结构体和类的区别" class="headerlink" title="结构体和类的区别"></a>结构体和类的区别</h3><h3 id="值类型和引用类型区别"><a href="#值类型和引用类型区别" class="headerlink" title="值类型和引用类型区别"></a>值类型和引用类型区别</h3><h3 id="重载和重写区别"><a href="#重载和重写区别" class="headerlink" title="重载和重写区别"></a>重载和重写区别</h3><h3 id="协成和线程"><a href="#协成和线程" class="headerlink" title="协成和线程"></a>协成和线程</h3><h3 id="线程和进程"><a href="#线程和进程" class="headerlink" title="线程和进程"></a>线程和进程</h3><h3 id="yield返回值"><a href="#yield返回值" class="headerlink" title="yield返回值"></a>yield返回值</h3><h3 id="foreach实现"><a href="#foreach实现" class="headerlink" title="foreach实现"></a>foreach实现</h3><p><a href="https://blog.csdn.net/dk_0520/article/details/68946830" target="_blank" rel="noopener">点击这里</a></p>
+<h3 id="三次握手四次挥手"><a href="#三次握手四次挥手" class="headerlink" title="三次握手四次挥手"></a>三次握手四次挥手</h3><h3 id="MipMap作用及计算方法"><a href="#MipMap作用及计算方法" class="headerlink" title="MipMap作用及计算方法"></a>MipMap作用及计算方法</h3><h3 id="map，ArrayList-Dictionary区别"><a href="#map，ArrayList-Dictionary区别" class="headerlink" title="map，ArrayList,Dictionary区别"></a>map，ArrayList,Dictionary区别</h3><h3 id="数组和链表内存上的区别"><a href="#数组和链表内存上的区别" class="headerlink" title="数组和链表内存上的区别"></a>数组和链表内存上的区别</h3><h3 id="java和C-泛型区别"><a href="#java和C-泛型区别" class="headerlink" title="java和C#泛型区别"></a>java和C#泛型区别</h3><h3 id="内存处理"><a href="#内存处理" class="headerlink" title="内存处理"></a>内存处理</h3><h3 id="java中jc运行时间"><a href="#java中jc运行时间" class="headerlink" title="java中jc运行时间"></a>java中jc运行时间</h3><h3 id="渲染流程"><a href="#渲染流程" class="headerlink" title="渲染流程"></a>渲染流程</h3><h3 id="结构体和类的区别"><a href="#结构体和类的区别" class="headerlink" title="结构体和类的区别"></a>结构体和类的区别</h3><h3 id="值类型和引用类型区别"><a href="#值类型和引用类型区别" class="headerlink" title="值类型和引用类型区别"></a>值类型和引用类型区别</h3><h3 id="重载和重写区别"><a href="#重载和重写区别" class="headerlink" title="重载和重写区别"></a>重载和重写区别</h3><h3 id="协成和线程"><a href="#协成和线程" class="headerlink" title="协成和线程"></a>协成和线程</h3><h3 id="线程和进程"><a href="#线程和进程" class="headerlink" title="线程和进程"></a>线程和进程</h3><h3 id="yield返回值"><a href="#yield返回值" class="headerlink" title="yield返回值"></a>yield返回值</h3><ul>
+<li>WaitForEndOfFrame，顾名思义是在等到本帧的帧末进行在进行处理，这个问题不大，比较不容易搞错</li>
+<li>yield return null/任何数字：暂缓一帧，协程在下一帧的所有Update函数调用后继续执行。</li>
+<li>yield return new WaitForSeconds：在一个指定的时间延迟后继续执行，在所有的Update函数被调用之后。（这个要注意的是1·实际时间等于给定的时间乘以Time.timeScale的值。2·触发间隔一定大等于1中计算出的实际时间，而且误差的大小取决于帧率，因为它是在每帧处理协程的时候去计算时间间隔是否满足条件，如果满足则继续执行。例如，当帧率为5的情况下，一帧的时间为200ms，这时即使时间参数再小，最快也要200ms之后才能继续执行剩余部分。）</li>
+<li>yield WaitForFixedUpdate()：在所有脚本上所有的FixedUpdate被调用之后继续执行。</li>
+<li>yield WWW：在WWW加载完成之后继续执行。</li>
+<li>yield StartCoroutine(MyFunc)：用于链接协程，此将等待MyFunc协程完成先。</li>
+</ul>
+<h3 id="foreach实现"><a href="#foreach实现" class="headerlink" title="foreach实现"></a>foreach实现</h3><p><a href="https://blog.csdn.net/dk_0520/article/details/68946830" target="_blank" rel="noopener">点击这里</a></p>
 <h3 id="private、protected、public、internal区别"><a href="#private、protected、public、internal区别" class="headerlink" title="private、protected、public、internal区别"></a>private、protected、public、internal区别</h3><ul>
 <li>private是完全私有的，只有在类自己里面可以调用，在类的外部和子类都不能调用，子类也不能继承父类的private的属性和方法</li>
 <li>protected虽然可以被外界看到，但外界却不能调用，只有自己及自己的子类可以调用（protected的属性和方法都可以被子类所继承和调用）。</li>
@@ -1074,8 +1214,8 @@
 <p>这里面物体围绕自身坐标系的轴的旋转角度就是动态欧拉角。</p>
 <h3 id="二者之间的关系"><a href="#二者之间的关系" class="headerlink" title="二者之间的关系"></a>二者之间的关系</h3><p>　　静态欧拉角和动态欧拉角之间是可以相互转化的，具体转化可以参考<a href="http://www.cnitblog.com/luckydmz/archive/2010/09/07/68674.html" target="_blank" rel="noopener">这篇文章</a>。<br>　　其结论就是：<strong>在Space.World中旋转以 Z-X-Y 归顺旋转角度（x、y、z），等价于在Space.Self中分别顺次旋转（0，y，0）、（x，0，0）、（0，0，z）。</strong><br>　　例如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">privatevoid Rotate_World(float x, float y, float z) &#123;  </span><br><span class="line">    transform.Rotate(x, y, z, Space.World);  </span><br><span class="line">&#125;  </span><br><span class="line">privatevoid Rotate_Self(float x, float y, float z) &#123;  </span><br><span class="line">    transform.Rotate(0, y, 0, Space.Self);  </span><br><span class="line">    transform.Rotate(x, 0, 0, Space.Self);  </span><br><span class="line">    transform.Rotate(0, 0, z, Space.Self);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>　　以上两段代码就是等价的。</p>
-<h2 id="万向节死锁现象"><a href="#万向节死锁现象" class="headerlink" title="万向节死锁现象"></a>万向节死锁现象</h2><p>　　我们已经明白了什么是动态欧拉角与静态欧拉角，且二者可互相转化，下面就拿动态欧拉角说明。<br>　　假如一个物体的物体坐标系A和世界坐标系B重合，物体坐标系A先围A的Y轴转50度得到新的物体坐标系C（旋转前A和B的y轴还处于同一平面，从世界坐标系B来看，物体确实围绕y中轴旋转了），然后物体坐标系C在绕C的x轴转90度得到新的物体坐标系D（旋转前C和B的X轴还处于同一平面，从世界坐标系B来看，物体确实围绕X中轴旋转了），这时候我们会发现新的物体坐标系D的Z轴和世界坐标系B的Y轴重合了，这时候我们再让物体坐标系D绕D的z轴转10度，从世界坐标系B来看，就好像是绕y轴旋转了，好像缺失了一个轴，这就是万向节死锁。<br>　　静态欧拉角和动态欧拉角可以互相转化，故二者都会发生万向节死锁。</p>
-<h2 id="如何产生万向节死锁"><a href="#如何产生万向节死锁" class="headerlink" title="如何产生万向节死锁"></a>如何产生万向节死锁</h2><p>　　从上面的过程就可以看到，要产生万向节锁，只需针对规顺的中间的那个坐标轴，进行90度的旋转，就会使得规顺前后两头的坐标轴产生共线。对于Unity中使用的Z-X-Y规顺，这个中间的坐标轴就是X轴。</p>
+<h2 id="万向节死锁现象"><a href="#万向节死锁现象" class="headerlink" title="万向节死锁现象"></a>万向节死锁现象</h2><p>　　我们已经明白了什么是动态欧拉角与静态欧拉角，且二者可互相转化，但只有动态欧拉角才有万向节死锁现象，静态欧拉角不会产生万向节死锁，解释如下。<br>　　假如一个物体的物体坐标系A和世界坐标系B重合，物体坐标系A先围A的Y轴转50度得到新的物体坐标系C（旋转前A和B的y轴还处于同一平面，从世界坐标系B来看，物体确实围绕y中轴旋转了），然后物体坐标系C在绕C的x轴转90度得到新的物体坐标系D（旋转前C和B的X轴还处于同一平面，从世界坐标系B来看，物体确实围绕X中轴旋转了），这时候我们会发现新的物体坐标系D的Z轴和世界坐标系B的Y轴重合了，这时候我们再让物体坐标系D绕D的z轴转10度，从世界坐标系B来看，就好像是绕y轴旋转了，好像缺失了一个轴，这就是万向节死锁。</p>
+<h2 id="如何产生万向节死锁"><a href="#如何产生万向节死锁" class="headerlink" title="如何产生万向节死锁"></a>如何产生万向节死锁</h2><p>　　从上面的过程就可以看到，要产生万向节锁，只需针对规顺的中间的那个坐标轴，进行90度的旋转，就会使得顺规前后两头的坐标轴产生共线。对于Unity中使用的Z-X-Y顺规，这个中间的坐标轴就是X轴。</p>
 <h2 id="四元数为什么会解决万向节死锁"><a href="#四元数为什么会解决万向节死锁" class="headerlink" title="四元数为什么会解决万向节死锁"></a>四元数为什么会解决万向节死锁</h2><p>　　欧拉旋转的本质是将绕任意轴旋转最终分解为绕x，y，z轴的旋转，才会导致万向节死锁。而用四元数旋转可直接表示为绕任意轴旋转。通过四元数的表示方法就可以看出<br>  <img src="https://i.loli.net/2018/10/28/5bd5b36bbf5b3.png" alt=""></p>
 <h2 id="其他好文章"><a href="#其他好文章" class="headerlink" title="其他好文章"></a>其他好文章</h2><ul>
 <li><a href="https://blog.csdn.net/coffeecato/article/details/52795850" target="_blank" rel="noopener">强烈推荐</a>,我这篇博客可以说是对这篇博客的小总结。</li>
@@ -1519,164 +1659,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/01/Lua与C-交互问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wangzhuanxu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的独立博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/01/Lua与C-交互问题/" itemprop="url">Lua与C#交互问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-01T15:05:21+08:00">
-                2018-10-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Lua/" itemprop="url" rel="index">
-                    <span itemprop="name">Lua</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/10/01/Lua与C-交互问题/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/10/01/Lua与C-交互问题/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>　　在学习Lua热更新的时候，遇到了一个很小的问题，但出错原因却很容易被忽略，从而浪费许多不必要的时间。</p>
-<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>　　在开始学习Lua的时候，我先是建立了一个项目，名称为<strong>LuaInterface(这个名称就是出错的罪魁祸首，因为VS会自动创建一个名称为LuaInterface的命名空间)</strong>，  然后我再里面写了如下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using LuaInterface;</span><br><span class="line">namespace LuaInterface</span><br><span class="line">&#123;</span><br><span class="line">    public class Program</span><br><span class="line">    &#123;</span><br><span class="line">        public Program()</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            Lua luaw = new Lua();</span><br><span class="line">            //执行lua脚本</span><br><span class="line">            luaw.DoFile(&quot;Script.lua&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        public static void staticMethod(int i, double d)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;静态方法&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        public void CLRMethod()</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;非静态方法&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public class MyClass</span><br><span class="line">    &#123;</span><br><span class="line">        public MyClass()</span><br><span class="line">        &#123; </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>　　然后我又写了Script.lua脚本<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--require "luanet"</span></span><br><span class="line"><span class="comment">--加载CLR的类型</span></span><br><span class="line">luanet.load_assembly(<span class="string">"LuaInterface"</span>)</span><br><span class="line">Program = luanet.import_type(<span class="string">"LuaInterface.Program"</span>)</span><br><span class="line"><span class="comment">--实例化CLR对象</span></span><br><span class="line">program = Program()</span><br><span class="line">program:CLRMethod()</span><br></pre></td></tr></table></figure></p>
-<p>　　然后ctrl+f5运行程序，却报如下错误。<br>  <img src="https://i.loli.net/2018/10/01/5bb1cd7ea53da.png" alt="alt" title="错误信息"></p>
-<p>　　<strong>经过查找发现是命名空间冲突导致，Lua与C#交互需要用到LuaInterface.dll,而此处又定义了LuaInterface命名空间，造成冲突。</strong></p>
-<h3 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h3><p>　　这里需要将LuaInterface命名空间间换为其他名称，然后右键点击项目，选择属性<br>  <img src="https://i.loli.net/2018/10/01/5bb1cf09868fc.png" alt=""><br>　　然后将程序集名称和默认命名空间换为新的命名空间名称后保存即可。<br> <img src="https://i.loli.net/2018/10/01/5bb1cfac4829f.png" alt=""><br>　　<strong>若lua想要访问其他的自定义命名空间，都需要将此处的程序集名称和默认命名空间换为lua想要访问的命名空间的名称，否则坏事会出现上述错误。</strong></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1731,7 +1713,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
