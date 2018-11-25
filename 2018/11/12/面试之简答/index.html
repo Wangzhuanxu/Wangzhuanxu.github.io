@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="我的独立博客">
 <meta property="og:description" content="点积和叉积的物理意义　　点积:点积结果是个标量，主要用来求两个向量之间的夹角和一个向量在另一个向量上的投影（对于单位向量来讲）。　　叉积:叉积结果是个标量，两个向量a，b相乘可以获得一个垂直于a，b的向量c。 Unity组件删除和添加12341. 添加GameObect.AddComponent&amp;lt;ScriptName&amp;gt;();2. 删除Destroy(GameObect.GetCompo">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-23T07:35:21.046Z">
+<meta property="og:updated_time" content="2018-11-25T14:29:43.311Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试之简答">
 <meta name="twitter:description" content="点积和叉积的物理意义　　点积:点积结果是个标量，主要用来求两个向量之间的夹角和一个向量在另一个向量上的投影（对于单位向量来讲）。　　叉积:叉积结果是个标量，两个向量a，b相乘可以获得一个垂直于a，b的向量c。 Unity组件删除和添加12341. 添加GameObect.AddComponent&amp;lt;ScriptName&amp;gt;();2. 删除Destroy(GameObect.GetCompo">
@@ -401,7 +401,9 @@
 <li>用途：MipMap可以用于跑酷类游戏，当角色靠近时，贴图清晰显示，否则模糊显示如果我们使用的贴图不需要这样效果的话，就一定要把Generate Mip Maps选项和Read/Write Enabled选项取消勾选！因为Mipmap会十分占内存！</li>
 <li>内存大小：Mipmap 会多占 1/3 内存。</li>
 <li>多占内存原因：想要用数学求解，必须先了解 Mipmap 各个级别的尺寸大小是如何确定的，正常来说，Mipmap 会生成很多级别，每一级别的宽高都是上一个级别的 1/2，也就是说面积为上一个级别的 1/4，直到最终只有 1x1 分辨率的大小。<br>举个例子，一张 1024 x1024 的纹理，生成 Mipmap 后，会新产生 512  x 512，256  x256，128  x 128，64  x 64，32  x 32，16  x 16，8  x 8，4  x 4，2  x 2，1  x 1 这几张不同纹理级别的纹理。可以手动计算一下，新产生的纹理大小总和是 349525 个像素，而原来的 1024  x1024 纹理有 1048576 个像素，349525 / 1048576 约等于 0.33333302，也就是大约 1/3。</li>
-<li><a href="https://zhuanlan.zhihu.com/p/36939174" target="_blank" rel="noopener">推理链接</a><h3 id="C-常用容器及其数据结构"><a href="#C-常用容器及其数据结构" class="headerlink" title="C#常用容器及其数据结构"></a>C#常用容器及其数据结构</h3></li>
+<li><a href="https://zhuanlan.zhihu.com/p/36939174" target="_blank" rel="noopener">推理链接</a></li>
+</ul>
+<h3 id="C-常用容器及其数据结构"><a href="#C-常用容器及其数据结构" class="headerlink" title="C#常用容器及其数据结构"></a>C#常用容器及其数据结构</h3><ul>
 <li>Array： 属于System命名空间。<strong>数组</strong>，在内存中是连续存储的，所以它的索引速度非常快，但是插入删除比较慢。</li>
 <li><p>ArrayList：是命名空间System.Collections下的一部分，在使用该类时必须进行引用，同时继承了IList接口，提供了数据存储和检索。ArrayList对象的大小是按照其中存储的数据来动态扩充与收缩的。所以，在声明ArrayList对象时并不需要指定它的长度。<strong>ArrayList会把所有插入其中的数据当作为object类型来处理，在我们使用ArrayList处理数据时，存在装箱和拆箱操作，会损失性能。其底层数据结构使用的是object类型数组</strong>。类似于C++中的Vector，类似于java中ArrayList和Vector</p>
 </li>
@@ -470,9 +472,9 @@
 </ul>
 <h3 id="协成和线程"><a href="#协成和线程" class="headerlink" title="协成和线程"></a>协成和线程</h3><ul>
 <li>协成：在主线程运行时同时开启另一段逻辑处理，来协助当前程序的执行。换句话说，开启协程就是开启一个可以与程序并行的逻辑。可以用来控制运动、序列以及对象的行为。</li>
-<li>协成同一时间只可以有一个运行，协成还是在主线程中运行（从脚本执行流程中可以找到），线程可以并发执行，<h3 id="线程和进程"><a href="#线程和进程" class="headerlink" title="线程和进程"></a>线程和进程</h3></li>
+<li>协成同一时间只可以有一个运行，协成还是在主线程中运行（从脚本执行流程中可以找到），线程可以并发执行，</li>
 </ul>
-<h3 id="yield返回值"><a href="#yield返回值" class="headerlink" title="yield返回值"></a>yield返回值</h3><ul>
+<h3 id="线程和进程"><a href="#线程和进程" class="headerlink" title="线程和进程"></a>线程和进程</h3><h3 id="yield返回值"><a href="#yield返回值" class="headerlink" title="yield返回值"></a>yield返回值</h3><ul>
 <li>WaitForEndOfFrame，顾名思义是在等到本帧的帧末进行在进行处理，这个问题不大，比较不容易搞错</li>
 <li>yield return null/任何数字：暂缓一帧，协程在下一帧的所有Update函数调用后继续执行。</li>
 <li>yield return new WaitForSeconds：在一个指定的时间延迟后继续执行，在所有的Update函数被调用之后。（这个要注意的是1·实际时间等于给定的时间乘以Time.timeScale的值。2·触发间隔一定大等于1中计算出的实际时间，而且误差的大小取决于帧率，因为它是在每帧处理协程的时候去计算时间间隔是否满足条件，如果满足则继续执行。例如，当帧率为5的情况下，一帧的时间为200ms，这时即使时间参数再小，最快也要200ms之后才能继续执行剩余部分。）</li>
