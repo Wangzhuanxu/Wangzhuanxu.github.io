@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="我的独立博客">
 <meta property="og:description" content="点积和叉积的物理意义　　点积:点积结果是个标量，主要用来求两个向量之间的夹角和一个向量在另一个向量上的投影（对于单位向量来讲）。　　叉积:叉积结果是个标量，两个向量a，b相乘可以获得一个垂直于a，b的向量c。 Unity组件删除和添加12341. 添加GameObect.AddComponent&amp;lt;ScriptName&amp;gt;();2. 删除Destroy(GameObect.GetCompo">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-18T01:59:21.448Z">
+<meta property="og:updated_time" content="2018-11-23T07:35:21.046Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试之简答">
 <meta name="twitter:description" content="点积和叉积的物理意义　　点积:点积结果是个标量，主要用来求两个向量之间的夹角和一个向量在另一个向量上的投影（对于单位向量来讲）。　　叉积:叉积结果是个标量，两个向量a，b相乘可以获得一个垂直于a，b的向量c。 Unity组件删除和添加12341. 添加GameObect.AddComponent&amp;lt;ScriptName&amp;gt;();2. 删除Destroy(GameObect.GetCompo">
@@ -350,21 +350,129 @@
 <h3 id="Unity组件删除和添加"><a href="#Unity组件删除和添加" class="headerlink" title="Unity组件删除和添加"></a>Unity组件删除和添加</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 添加</span><br><span class="line">GameObect.AddComponent&lt;ScriptName&gt;();</span><br><span class="line">2. 删除</span><br><span class="line">Destroy(GameObect.GetComponent&lt;ScriptName&gt;());</span><br></pre></td></tr></table></figure>
 <h3 id="Unity3d获取游戏对象的几种方法"><a href="#Unity3d获取游戏对象的几种方法" class="headerlink" title="Unity3d获取游戏对象的几种方法"></a>Unity3d获取游戏对象的几种方法</h3><p><a href="https://www.cnblogs.com/qiaogaojian/p/6368274.html" target="_blank" rel="noopener">点击这里</a></p>
 <h3 id="Unity3d中的碰撞器和触发器的区别"><a href="#Unity3d中的碰撞器和触发器的区别" class="headerlink" title="Unity3d中的碰撞器和触发器的区别"></a>Unity3d中的碰撞器和触发器的区别</h3><p>　碰撞器有碰撞的效果，IsTrigger=false，可以调用OnCollisionEnter/Stay/Exit函数； 触发器没有碰撞效果，IsTrigger=true，可以调OnTriggerEnter/Stay/Exit函数。</p>
-<h3 id="脚本声明周期"><a href="#脚本声明周期" class="headerlink" title="脚本声明周期"></a>脚本声明周期</h3><p><a href="http://gad.qq.com/article/detail/29452" target="_blank" rel="noopener">点击这里</a></p>
+<h3 id="脚本声明周期"><a href="#脚本声明周期" class="headerlink" title="脚本声明周期"></a>脚本声明周期</h3><p><a href="http://gad.qq.com/article/detail/29452" target="_blank" rel="noopener">点击这里</a><br>个人总结：主要的执行方法</p>
+<ul>
+<li>Reset：点击Inspector面板中的Reset按钮或者脚本第一次挂载在物体上时执行。</li>
+<li>Awake：在预制件初始化之后，Start方法运行之前执行（物体在初始化时未被激活，该方法会在其被激活后执行）</li>
+<li>OnEnable：在对象可用之后被调用，这通常发生在一个脚本的引用被创建时。</li>
+<li>Start：若对象可用，在第一帧执行前调用。</li>
+<li>FixUpdate：固定物理时间后调用，可能在一帧内调用多次，其执行时间间隔可通过修改Edit–ProjectSetting–Time面板中的timestep参数来改变。</li>
+<li>yield WaitForFixUpdate：协程调用。</li>
+<li>OnTriggerEnter/Stay/Exit：触发器执行的相应方法。</li>
+<li>OnCollisionEnter/Stay/Exit:碰撞器执行方法</li>
+<li>OnMouseEvent：鼠标监听执行事件</li>
+<li>Update：每帧调用一次，是帧更新的主要函数。</li>
+<li>yield null：协程调用</li>
+<li>yield WaitForSeconds：协程调用</li>
+<li>yield www:协程调用</li>
+<li>yield StartCoroutine:协程调用</li>
+<li>LateUpdate:所有Update函数调用完执行，通常用在第三人称更新摄像机位置。</li>
+<li>OnGUI：每帧执行多次来回应GUI事件。</li>
+<li>yield WaitForEndOfFrame:协程调用</li>
+<li>OnApplicationPause:若暂停被检测到，当前帧执行后就调用此函数，在正常的运行期间调用是有效的。在OnApplicationPause被调用后，额外的用一帧来显示图像表明暂停状态。</li>
+<li>OnDisabled:对象不可用是执行</li>
+<li>OnDestroy：这个函数在所有帧更新之后被调用，在对象存在的最后一帧（对象将销毁来响应Object.Destroy或关闭一个场景）。</li>
+<li>OnApplicationQuit：在应用退出之前所有的游戏对象都会调用这个函数。在编辑器中当用户停止播放时它将被调用。<br><strong>也就是是说</strong>：一帧内执行一次的方法有：Update、协成调用（出WaitForFixUpdate外)、LateUpdate、Rendering方法（如OnRenderImage等等）。</li>
+</ul>
 <h3 id="Unity物体之间的通信"><a href="#Unity物体之间的通信" class="headerlink" title="Unity物体之间的通信"></a>Unity物体之间的通信</h3><p>主要是运用委托和事件</p>
 <ul>
 <li><a href="https://blog.csdn.net/beyonddeg/article/details/53528482" target="_blank" rel="noopener">第一篇</a></li>
 <li><a href="https://blog.csdn.net/KingSea168/article/details/47701673" target="_blank" rel="noopener">第二篇</a></li>
 <li><a href="http://gad.qq.com/article/detail/32480" target="_blank" rel="noopener">第三篇</a></li>
-<li><a href="https://blog.csdn.net/cuit_xuchen/article/details/69789372" target="_blank" rel="noopener">第四篇</a></li>
+<li><a href="https://blog.csdn.net/cuit_xuchen/article/details/69789372" target="_blank" rel="noopener">第四篇</a><br>总结：首先要明白：</li>
+<li>什么是委托：委托实质上是一个类，这个类实现了可以将方法作为参数进行传递，一个委托可以同时挂载多个方法，只是在运行时这些方法将按顺序全部执行</li>
+<li>什么是事件：事件实质上是一个封装了的委托变量，封装了的含义是指：在类的内部，无论定义一个public还是protected类型的事件，其都是private类型的；在类的外部调用是，为其添加和删除的方法的访问修饰符必须与该事件的访问修饰符一样。</li>
+<li>理解什么是观察者模式。利用该模式可以实现在物体对象之间传递消息，可以查看第一个链接的相关案例。</li>
 </ul>
 <h3 id="什么是面向对象"><a href="#什么是面向对象" class="headerlink" title="什么是面向对象"></a>什么是面向对象</h3><ul>
 <li>定义：把一组数据结构和处理它们的方法组成<strong>对象</strong>（object），把相同行为的对象归纳为<strong>类</strong>（class），通过类的<strong>封装</strong>（encapsulation）隐藏内部细节，通过<strong>继承</strong>（inheritance）实现类的特化（specialization）／泛化（generalization），通过<strong>多态</strong>（polymorphism）实现基于对象类型的动态分派（dynamic dispatch）。</li>
-<li><a href="https://blog.csdn.net/jiyiqinlovexx/article/details/46593053" target="_blank" rel="noopener">三大特性链接</a><h3 id="bit和byte的定义及区别"><a href="#bit和byte的定义及区别" class="headerlink" title="bit和byte的定义及区别"></a>bit和byte的定义及区别</h3><a href="https://blog.csdn.net/panjunnn/article/details/5611241" target="_blank" rel="noopener">链接</a></li>
+<li><a href="https://blog.csdn.net/jiyiqinlovexx/article/details/46593053" target="_blank" rel="noopener">三大特性链接</a></li>
 </ul>
-<h3 id="三次握手四次挥手"><a href="#三次握手四次挥手" class="headerlink" title="三次握手四次挥手"></a>三次握手四次挥手</h3><h3 id="MipMap作用及计算方法"><a href="#MipMap作用及计算方法" class="headerlink" title="MipMap作用及计算方法"></a>MipMap作用及计算方法</h3><h3 id="map，ArrayList-Dictionary区别"><a href="#map，ArrayList-Dictionary区别" class="headerlink" title="map，ArrayList,Dictionary区别"></a>map，ArrayList,Dictionary区别</h3><h3 id="数组和链表内存上的区别"><a href="#数组和链表内存上的区别" class="headerlink" title="数组和链表内存上的区别"></a>数组和链表内存上的区别</h3><h3 id="Java和C-泛型区别"><a href="#Java和C-泛型区别" class="headerlink" title="Java和C#泛型区别"></a>Java和C#泛型区别</h3><p>C#泛型无论实在源码中、编译后的IL文件中（Intermediate Language，中间语言，这时候泛型是一个占位符），还是在运行期的CLR中都是切实存在的，也就是List<int>与List<string>就是两个不同的类<br>型。而Java泛型只是在源码中存在，在编译后的字节码中，就已经被替换为了原始类型，并在相应地方插入了强制类型转换，因此对于运行期的Java语言来说，ArrayList<int>与ArrayList<string>就是同一个类。所以C#是真泛型，Java是假泛型。</string></int></string></int></p>
+<h3 id="bit和byte的定义及区别"><a href="#bit和byte的定义及区别" class="headerlink" title="bit和byte的定义及区别"></a>bit和byte的定义及区别</h3><p><a href="https://blog.csdn.net/panjunnn/article/details/5611241" target="_blank" rel="noopener">链接</a><br>个人总结：</p>
+<ul>
+<li>bit是计算机存储的单位，在二进制计算机中1bit为0或1，中文为比特，简写b</li>
+<li>byte是计算机处理数据的单位，lbyte=8bit，中文为张字节，简写B</li>
+<li>1kB=1024B=1024*8b</li>
+</ul>
+<h3 id="三次握手四次挥手"><a href="#三次握手四次挥手" class="headerlink" title="三次握手四次挥手"></a>三次握手四次挥手</h3><h3 id="MipMap作用及计算方法"><a href="#MipMap作用及计算方法" class="headerlink" title="MipMap作用及计算方法"></a>MipMap作用及计算方法</h3><ul>
+<li>定义：Mipmap技术有点类似于LOD技术，但是不同的是，LOD针对的是模型资源，而Mipmap针对的纹理贴图资源。使用Mipmap后，贴图会根据摄像机距离的远近，选择使用不同精度的贴图。</li>
+<li>缺点：会占用内存，因为mipmap会根据摄像机远近不同而生成对应的八个贴图，所以必然占内存！</li>
+<li>优点：会优化显存带宽，用来减少渲染，因为可以根据实际情况，会选择适合的贴图来渲染，距离摄像机越远，显示的贴图像素越低，反之，像素越高！</li>
+<li>用途：MipMap可以用于跑酷类游戏，当角色靠近时，贴图清晰显示，否则模糊显示如果我们使用的贴图不需要这样效果的话，就一定要把Generate Mip Maps选项和Read/Write Enabled选项取消勾选！因为Mipmap会十分占内存！</li>
+<li>内存大小：Mipmap 会多占 1/3 内存。</li>
+<li>多占内存原因：想要用数学求解，必须先了解 Mipmap 各个级别的尺寸大小是如何确定的，正常来说，Mipmap 会生成很多级别，每一级别的宽高都是上一个级别的 1/2，也就是说面积为上一个级别的 1/4，直到最终只有 1x1 分辨率的大小。<br>举个例子，一张 1024 x1024 的纹理，生成 Mipmap 后，会新产生 512  x 512，256  x256，128  x 128，64  x 64，32  x 32，16  x 16，8  x 8，4  x 4，2  x 2，1  x 1 这几张不同纹理级别的纹理。可以手动计算一下，新产生的纹理大小总和是 349525 个像素，而原来的 1024  x1024 纹理有 1048576 个像素，349525 / 1048576 约等于 0.33333302，也就是大约 1/3。</li>
+<li><a href="https://zhuanlan.zhihu.com/p/36939174" target="_blank" rel="noopener">推理链接</a><h3 id="C-常用容器及其数据结构"><a href="#C-常用容器及其数据结构" class="headerlink" title="C#常用容器及其数据结构"></a>C#常用容器及其数据结构</h3></li>
+<li>Array： 属于System命名空间。<strong>数组</strong>，在内存中是连续存储的，所以它的索引速度非常快，但是插入删除比较慢。</li>
+<li><p>ArrayList：是命名空间System.Collections下的一部分，在使用该类时必须进行引用，同时继承了IList接口，提供了数据存储和检索。ArrayList对象的大小是按照其中存储的数据来动态扩充与收缩的。所以，在声明ArrayList对象时并不需要指定它的长度。<strong>ArrayList会把所有插入其中的数据当作为object类型来处理，在我们使用ArrayList处理数据时，存在装箱和拆箱操作，会损失性能。其底层数据结构使用的是object类型数组</strong>。类似于C++中的Vector，类似于java中ArrayList和Vector</p>
+</li>
+<li><p>List“T”:包含在System.Collections.Generic命名空间中，<strong>底层数据结构就是数组</strong>，但是存取数据避免了拆箱和装箱操作，类似于C++里面的Vector“T”。</p>
+</li>
+<li>LinkedList：包含在 System.Collections.Generic命名空间中，<strong>双向链表</strong>，LinkedList“T”提供 LinkedListNode“T” 类型的单独节点，因此插入和移除的运算复杂度为 O(1)。可以移除节点，然后在同一列表或其他列表中重新插入它们，这样在堆中便不会分配额外的对象。由于该列表还维护内部计数，因此获取 Count 属性的运算复杂度为 O(1)。LinkedList“T”  对象中的每个节点都属于 LinkedListNode“T”  类型。由于 LinkedList“T” 是双向链表，因此每个节点向前指向 Next 节点，向后指向 Previous 节点。类似于java中的LinkedList</li>
+<li>HashSet：属于System.Collections.Generic命名空间。HashSet“T”类提供了高性能的集运算。一组是一个集合，不包含任何重复的元素，且的元素顺序不分先后。用了hash table来储存数据，是为了用O(n)的space来换取O(n)的时间，也就是查找元素的时间是O(1)。<strong>底层使用的是哈希表</strong>，类似于java中的Set“T”。</li>
+<li>HashTable:Hashtable是System.Collections命名空间提供的一个容器，用于处理和表现类似key/value的键值对，其中key通常可用来快速查找，同时key是区分大小写；value用于存储对应于key的值。Hashtable中key/value键值对均为object类型，所以Hashtable可以支持任何类型的key/value键值对。所以用的存取的时候存在装箱和拆箱操作。<strong>底层使用的是哈希表</strong>，类似于java中的HashMap，HashTable</li>
+<li>Dictionary：包含在System.Collections.Generic命名空间下。也是键值容器，存入对象是需要与[key]值一一对应的存入该泛型。相对于HashTable，存取时不需要拆箱和装箱出走。<strong>底层使用的是哈希表</strong></li>
+<li>java中改的TreeMap、TreeSet和c++中的hashMap为红黑树</li>
+</ul>
+<p><strong>总结：</strong>C#所有泛型容器都在System.Collections.Generic命名空间下，非泛型容器在System.Collections空间下。</p>
+<ul>
+<li>C#链接：<ul>
+<li><a href="https://blog.csdn.net/silangquan/article/details/51106968" target="_blank" rel="noopener">链接一</a></li>
+</ul>
+</li>
+<li>java链接：<ul>
+<li><a href="https://blog.csdn.net/qq_29631809/article/details/72599708" target="_blank" rel="noopener">基础</a></li>
+<li><a href="https://blog.csdn.net/xy2953396112/article/details/54891527" target="_blank" rel="noopener">进阶</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="数组和链表内存上的区别"><a href="#数组和链表内存上的区别" class="headerlink" title="数组和链表内存上的区别"></a>数组和链表内存上的区别</h3><ul>
+<li>数组是连续内存，索引查找比较快，添加删除比较慢，因为需要移动后面的元素</li>
+<li>链表是不连续内存，添加删除比较快，查找比较慢，因为需要从头查找</li>
+</ul>
+<h3 id="Java和C-泛型区别"><a href="#Java和C-泛型区别" class="headerlink" title="Java和C#泛型区别"></a>Java和C#泛型区别</h3><p>C#泛型无论实在源码中、编译后的IL文件中（Intermediate Language，中间语言，这时候泛型是一个占位符），还是在运行期的CLR中都是切实存在的，也就是List<int>与List<string>就是两个不同的类<br>型。而Java泛型只是在源码中存在，在编译后的字节码中，就已经被替换为了原始类型，并在相应地方插入了强制类型转换，因此对于运行期的Java语言来说，ArrayList<int>与ArrayList<string>就是同一个类。所以C#是真泛型，Java是假泛型。</string></int></string></int></p>
 <h3 id="C-运行流程"><a href="#C-运行流程" class="headerlink" title="C#运行流程"></a>C#运行流程</h3><p>（1）C#编译器先将源代码编译成IL文件和元数据，并连同其他资源文件合并成程序集，程序集的可执行文件存储在磁盘上，通常具有的扩展名为 .exe 或 .dll（编译阶段）。<br>（2）程序集合并完成后，若程序集可执行，在Main(）方法执行之前，window开启一个进程，并再加载MSCOREE.DLL,然后进程的主线程会调用MSCOREE.DLL中的方法初始化CLR（公共语言运行库），CLR中JIT（即时编译）会把IL语言转换为cpu指令（也称及其指令），并以文件方式存储在硬盘上，操作系统将文件从硬盘读入内存，CPU从内从取出指令执行（运行阶段）。<br><strong>延伸：</strong><br>（1）开发者编写的代码编译后，不依赖于操作系统和特定的CPU架构机器指令，而是依赖于一种中间的，在各个操作系统上都能执行的代码，这种代码Java里面叫做ByteCode（字节码），.NET里面我们称之为MSIL指令（微软中间语言）。<br>（2）不管是Java的字节码还是.NET的MSIL指令仍然需要最终被翻译成CPU能够执行的机器指令。这个功能是由一个运行在特定操作系统上的软件来完成，这个软件我们称之为“虚拟机”。</p>
-<h3 id="内存处理"><a href="#内存处理" class="headerlink" title="内存处理"></a>内存处理</h3><h3 id="C-中GC运行时间"><a href="#C-中GC运行时间" class="headerlink" title="C#中GC运行时间"></a>C#中GC运行时间</h3><h3 id="渲染流程"><a href="#渲染流程" class="headerlink" title="渲染流程"></a>渲染流程</h3><h3 id="结构体和类的区别"><a href="#结构体和类的区别" class="headerlink" title="结构体和类的区别"></a>结构体和类的区别</h3><h3 id="值类型和引用类型区别"><a href="#值类型和引用类型区别" class="headerlink" title="值类型和引用类型区别"></a>值类型和引用类型区别</h3><h3 id="重载和重写区别"><a href="#重载和重写区别" class="headerlink" title="重载和重写区别"></a>重载和重写区别</h3><h3 id="协成和线程"><a href="#协成和线程" class="headerlink" title="协成和线程"></a>协成和线程</h3><h3 id="线程和进程"><a href="#线程和进程" class="headerlink" title="线程和进程"></a>线程和进程</h3><h3 id="yield返回值"><a href="#yield返回值" class="headerlink" title="yield返回值"></a>yield返回值</h3><ul>
+<h3 id="C-内存结构"><a href="#C-内存结构" class="headerlink" title="C#内存结构"></a>C#内存结构</h3><p>C#主要由内存主要分为内存主要分为三类：</p>
+<ul>
+<li>栈内存：主要用于存储值类型数据</li>
+<li>SOH堆:存储小的引用对象</li>
+<li>LOH堆：存储大对象，主要是大小大于85000字节的对象</li>
+</ul>
+<h3 id="C-中GC运行时间"><a href="#C-中GC运行时间" class="headerlink" title="C#中GC运行时间"></a>C#中GC运行时间</h3><p>个人总结：</p>
+<ul>
+<li>托管堆：CLR初始化后，会保留一块连续内存，这就是托管堆。</li>
+<li>简要流程：C#编译器遇到new指令时，会在IL中添加一条newobj指令，CLR遇到该指令会计算该对象的大小，然后计算堆中是否存在该大小的内存，若存在，则直接分配相应大小的内存，并调用对象的构造函数将对象放在这块内存中，若不存在则需要执行相应的垃圾回收。</li>
+<li>垃圾回收时，垃圾回收器会首先认为堆中的所有对象都是垃圾，然后挨个遍历应用程序根列表（需要单独介绍应用程序根，列表由JIT编译器和CLR编译器进行维护，垃圾回收器可以访问这些对象）和引用对象，并构建一个由应用程序根和其所指向对象构成的图，由此可判断哪些对象是可达的，可达的话，就会标记此对象，若此对象已被标记，则不会再对其进行标记。（也就是根据这些应用程根，查看根所指向的内存地址，这块地址中存储的对象就是可达的，还会被引用，所以会被标记）。</li>
+<li>标记完毕后，垃圾回收器会遍历堆中的对象，未被标记的对象则会被当成垃圾释放其内存。并将不是垃圾的对象移到一起，消除内存碎片。</li>
+<li>注意，在移动可达对象之后，所有引用这些对象的变量将无效，接着垃圾回收器要重新遍历应用程序的所有根来修改它们的引用。在这个过程中如果各个线程正在执行，很可能导致变量引用到无效的对象地址，所以整个进程的正在执行托管代码的线程是被挂起的。<br><strong>应用程序根：</strong></li>
+<li>全局对象和静态对象的引用</li>
+<li>应用程序代码库中局部对象的引用</li>
+<li>传递进一个方法的对象参数的引用</li>
+<li>等待被终结（finalize）对象的引用</li>
+<li>任何引用对象的CPU寄存器<br><strong>垃圾回收在下列情况下发生：</strong></li>
+</ul>
+<ol>
+<li>申请的空间超过0代内存大小或者大对象堆的阀值，多数的托管堆垃圾回收在这种情况下发生</li>
+<li>在程序代码中调用GC.Collect方法时；如果在调用GC.Collect方法是传入GC.MaxGeneration参数时，会执行所有代对象的垃圾回收，包括大对象堆的垃圾回收</li>
+<li>操作系统内存不足时，当应用程序收到操作系统发出的高内存通知时</li>
+<li>如果垃圾回收算法认为做二代回收是有收效时会触发二代垃圾回收</li>
+<li>每一代对象堆的都有一个所占空间大小阀值的属性，当你分配对象到某一代，你增长了内存总量接近了该代的阀值，或者分配对象导致这一代的堆大小超过了堆阀值，就会发生一次垃圾回收。因此当你分配小对象或者大对象时，会对应消耗0代堆或者大对象堆的阀值。当垃圾回收器将对象代数提升到1代或者2代时，会消耗1、2代的阀值。在程序运行中这些阀值是动态变化的。（动态变化，也就是垃圾回收过程中，0,1,2代垃圾的可使用内存不断变化）<br><strong>垃圾回收是分代的：</strong></li>
+</ol>
+<ul>
+<li>0代：从没有被标记为回收的新分配的对象</li>
+<li>1代：在上一次垃圾回收中没有被回收的对象</li>
+<li>2代：在一次以上的垃圾回收后仍然没有被回收的对象</li>
+<li>每代垃圾存储超过其最大值都会触发垃圾回收。</li>
+<li>第0,1代大约16M左右，第二代是根据应用程序不断变化的，可达几GB。<br>链接：<br><a href="https://www.cnblogs.com/wilber2013/p/4357910.html" target="_blank" rel="noopener">重点一</a><br><a href="https://www.cnblogs.com/yukaizhao/archive/2011/11/21/dot_net_gc_large_object_heap.html" target="_blank" rel="noopener">重点二</a></li>
+</ul>
+<h3 id="渲染流程"><a href="#渲染流程" class="headerlink" title="渲染流程"></a>渲染流程</h3><h3 id="结构体和类的区别"><a href="#结构体和类的区别" class="headerlink" title="结构体和类的区别"></a>结构体和类的区别</h3><h3 id="值类型和引用类型区别"><a href="#值类型和引用类型区别" class="headerlink" title="值类型和引用类型区别"></a>值类型和引用类型区别</h3><h3 id="重载和重写区别"><a href="#重载和重写区别" class="headerlink" title="重载和重写区别"></a>重载和重写区别</h3><ul>
+<li>重载是对于同一类中的方法来讲：有相同的方法名，相同的返回值，只是参数不同</li>
+<li>重写是对继承来说，子类可以重写父类中的方法。要求方法名，返回值，参数都必须相同。</li>
+</ul>
+<h3 id="协成和线程"><a href="#协成和线程" class="headerlink" title="协成和线程"></a>协成和线程</h3><ul>
+<li>协成：在主线程运行时同时开启另一段逻辑处理，来协助当前程序的执行。换句话说，开启协程就是开启一个可以与程序并行的逻辑。可以用来控制运动、序列以及对象的行为。</li>
+<li>协成同一时间只可以有一个运行，协成还是在主线程中运行（从脚本执行流程中可以找到），线程可以并发执行，<h3 id="线程和进程"><a href="#线程和进程" class="headerlink" title="线程和进程"></a>线程和进程</h3></li>
+</ul>
+<h3 id="yield返回值"><a href="#yield返回值" class="headerlink" title="yield返回值"></a>yield返回值</h3><ul>
 <li>WaitForEndOfFrame，顾名思义是在等到本帧的帧末进行在进行处理，这个问题不大，比较不容易搞错</li>
 <li>yield return null/任何数字：暂缓一帧，协程在下一帧的所有Update函数调用后继续执行。</li>
 <li>yield return new WaitForSeconds：在一个指定的时间延迟后继续执行，在所有的Update函数被调用之后。（这个要注意的是1·实际时间等于给定的时间乘以Time.timeScale的值。2·触发间隔一定大等于1中计算出的实际时间，而且误差的大小取决于帧率，因为它是在每帧处理协程的时候去计算时间间隔是否满足条件，如果满足则继续执行。例如，当帧率为5的情况下，一帧的时间为200ms，这时即使时间参数再小，最快也要200ms之后才能继续执行剩余部分。）</li>
@@ -403,6 +511,8 @@
 </li>
 <li>抽象类实现的具体方法默认为虚的，但实现接口的类中的接口方法却默认为非虚的，当然您也可以声明为虚的.  </li>
 </ul>
+<h3 id="Unity其他相关面试题"><a href="#Unity其他相关面试题" class="headerlink" title="Unity其他相关面试题"></a>Unity其他相关面试题</h3><p><a href="http://gad.qq.com/article/detail/20995" target="_blank" rel="noopener">100道</a></p>
+<h3 id="线程池相关"><a href="#线程池相关" class="headerlink" title="线程池相关"></a>线程池相关</h3><p><a href="https://www.cnblogs.com/kissdodog/archive/2013/03/26/2983755.html" target="_blank" rel="noopener">共七篇</a></p>
 
       
     </div>
@@ -530,7 +640,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -552,7 +662,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -585,7 +695,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#点积和叉积的物理意义"><span class="nav-number">1.</span> <span class="nav-text">点积和叉积的物理意义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unity组件删除和添加"><span class="nav-number">2.</span> <span class="nav-text">Unity组件删除和添加</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unity3d获取游戏对象的几种方法"><span class="nav-number">3.</span> <span class="nav-text">Unity3d获取游戏对象的几种方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unity3d中的碰撞器和触发器的区别"><span class="nav-number">4.</span> <span class="nav-text">Unity3d中的碰撞器和触发器的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#脚本声明周期"><span class="nav-number">5.</span> <span class="nav-text">脚本声明周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unity物体之间的通信"><span class="nav-number">6.</span> <span class="nav-text">Unity物体之间的通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是面向对象"><span class="nav-number">7.</span> <span class="nav-text">什么是面向对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bit和byte的定义及区别"><span class="nav-number">8.</span> <span class="nav-text">bit和byte的定义及区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三次握手四次挥手"><span class="nav-number">9.</span> <span class="nav-text">三次握手四次挥手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MipMap作用及计算方法"><span class="nav-number">10.</span> <span class="nav-text">MipMap作用及计算方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#map，ArrayList-Dictionary区别"><span class="nav-number">11.</span> <span class="nav-text">map，ArrayList,Dictionary区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组和链表内存上的区别"><span class="nav-number">12.</span> <span class="nav-text">数组和链表内存上的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java和C-泛型区别"><span class="nav-number">13.</span> <span class="nav-text">Java和C#泛型区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-运行流程"><span class="nav-number">14.</span> <span class="nav-text">C#运行流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存处理"><span class="nav-number">15.</span> <span class="nav-text">内存处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-中GC运行时间"><span class="nav-number">16.</span> <span class="nav-text">C#中GC运行时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#渲染流程"><span class="nav-number">17.</span> <span class="nav-text">渲染流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结构体和类的区别"><span class="nav-number">18.</span> <span class="nav-text">结构体和类的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#值类型和引用类型区别"><span class="nav-number">19.</span> <span class="nav-text">值类型和引用类型区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重载和重写区别"><span class="nav-number">20.</span> <span class="nav-text">重载和重写区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#协成和线程"><span class="nav-number">21.</span> <span class="nav-text">协成和线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程和进程"><span class="nav-number">22.</span> <span class="nav-text">线程和进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#yield返回值"><span class="nav-number">23.</span> <span class="nav-text">yield返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#foreach实现"><span class="nav-number">24.</span> <span class="nav-text">foreach实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#private、protected、public、internal区别"><span class="nav-number">25.</span> <span class="nav-text">private、protected、public、internal区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口和类的区别"><span class="nav-number">26.</span> <span class="nav-text">接口和类的区别</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#点积和叉积的物理意义"><span class="nav-number">1.</span> <span class="nav-text">点积和叉积的物理意义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unity组件删除和添加"><span class="nav-number">2.</span> <span class="nav-text">Unity组件删除和添加</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unity3d获取游戏对象的几种方法"><span class="nav-number">3.</span> <span class="nav-text">Unity3d获取游戏对象的几种方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unity3d中的碰撞器和触发器的区别"><span class="nav-number">4.</span> <span class="nav-text">Unity3d中的碰撞器和触发器的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#脚本声明周期"><span class="nav-number">5.</span> <span class="nav-text">脚本声明周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unity物体之间的通信"><span class="nav-number">6.</span> <span class="nav-text">Unity物体之间的通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是面向对象"><span class="nav-number">7.</span> <span class="nav-text">什么是面向对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bit和byte的定义及区别"><span class="nav-number">8.</span> <span class="nav-text">bit和byte的定义及区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三次握手四次挥手"><span class="nav-number">9.</span> <span class="nav-text">三次握手四次挥手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MipMap作用及计算方法"><span class="nav-number">10.</span> <span class="nav-text">MipMap作用及计算方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-常用容器及其数据结构"><span class="nav-number">11.</span> <span class="nav-text">C#常用容器及其数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组和链表内存上的区别"><span class="nav-number">12.</span> <span class="nav-text">数组和链表内存上的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java和C-泛型区别"><span class="nav-number">13.</span> <span class="nav-text">Java和C#泛型区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-运行流程"><span class="nav-number">14.</span> <span class="nav-text">C#运行流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-内存结构"><span class="nav-number">15.</span> <span class="nav-text">C#内存结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-中GC运行时间"><span class="nav-number">16.</span> <span class="nav-text">C#中GC运行时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#渲染流程"><span class="nav-number">17.</span> <span class="nav-text">渲染流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结构体和类的区别"><span class="nav-number">18.</span> <span class="nav-text">结构体和类的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#值类型和引用类型区别"><span class="nav-number">19.</span> <span class="nav-text">值类型和引用类型区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重载和重写区别"><span class="nav-number">20.</span> <span class="nav-text">重载和重写区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#协成和线程"><span class="nav-number">21.</span> <span class="nav-text">协成和线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程和进程"><span class="nav-number">22.</span> <span class="nav-text">线程和进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#yield返回值"><span class="nav-number">23.</span> <span class="nav-text">yield返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#foreach实现"><span class="nav-number">24.</span> <span class="nav-text">foreach实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#private、protected、public、internal区别"><span class="nav-number">25.</span> <span class="nav-text">private、protected、public、internal区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口和类的区别"><span class="nav-number">26.</span> <span class="nav-text">接口和类的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unity其他相关面试题"><span class="nav-number">27.</span> <span class="nav-text">Unity其他相关面试题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程池相关"><span class="nav-number">28.</span> <span class="nav-text">线程池相关</span></a></li></ol></div>
             
 
           </div>

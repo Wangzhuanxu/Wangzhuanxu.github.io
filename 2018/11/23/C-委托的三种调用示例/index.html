@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="c#," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="同步调用运行描述委托的Invoke方法用来进行同步调用。同步调用也可以叫阻塞调用，它将阻塞当前线程，然后执行调用，调用完毕后再继续向下进行。运行代码12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849using System;using System.Collections">
+<meta name="keywords" content="c#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C#委托的三种调用示例">
+<meta property="og:url" content="http://yoursite.com/2018/11/23/C-委托的三种调用示例/index.html">
+<meta property="og:site_name" content="我的独立博客">
+<meta property="og:description" content="同步调用运行描述委托的Invoke方法用来进行同步调用。同步调用也可以叫阻塞调用，它将阻塞当前线程，然后执行调用，调用完毕后再继续向下进行。运行代码12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849using System;using System.Collections">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.loli.net/2018/11/23/5bf75bf8d2bb6.png">
+<meta property="og:image" content="https://i.loli.net/2018/11/23/5bf75dd310155.png">
+<meta property="og:image" content="https://i.loli.net/2018/11/23/5bf76195a0cfa.png">
+<meta property="og:updated_time" content="2018-11-23T02:29:35.104Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C#委托的三种调用示例">
+<meta name="twitter:description" content="同步调用运行描述委托的Invoke方法用来进行同步调用。同步调用也可以叫阻塞调用，它将阻塞当前线程，然后执行调用，调用完毕后再继续向下进行。运行代码12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849using System;using System.Collections">
+<meta name="twitter:image" content="https://i.loli.net/2018/11/23/5bf75bf8d2bb6.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/23/C-委托的三种调用示例/"/>
+
+
+
+
+
+  <title>C#委托的三种调用示例 | 我的独立博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?2012ab68f30f2a6afcb41a7e393fc4ea";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我的独立博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">闲谈</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/23/C-委托的三种调用示例/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wangzhuanxu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的独立博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C#委托的三种调用示例</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-23T09:45:02+08:00">
+                2018-11-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/11/23/C-委托的三种调用示例/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/11/23/C-委托的三种调用示例/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="同步调用"><a href="#同步调用" class="headerlink" title="同步调用"></a>同步调用</h3><p><strong>运行描述</strong><br>委托的Invoke方法用来进行同步调用。同步调用也可以叫阻塞调用，它将阻塞当前线程，然后执行调用，调用完毕后再继续向下进行。<br><strong>运行代码</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">namespace SuanFa</span><br><span class="line">&#123;</span><br><span class="line">    public delegate int  AddDelegate(int i, int j);</span><br><span class="line">    class Delegate_Three</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;Client application started!\n&quot;);</span><br><span class="line">            Thread.CurrentThread.Name = &quot;Main Thread&quot;;</span><br><span class="line">            Delegate_Three dt = new Delegate_Three();</span><br><span class="line">            AddDelegate ad = new AddDelegate(dt.Add);</span><br><span class="line">            int result=ad.Invoke(2, 5);</span><br><span class="line">            //int result =dt.Add(2, 5);</span><br><span class="line">            Console.WriteLine(&quot;Result: &#123;0&#125;\n&quot;, result);</span><br><span class="line">            // 做某些其它的事情，模拟需要执行3 秒钟</span><br><span class="line">            for (int i = 1; i &lt;= 3; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Thread.Sleep(TimeSpan.FromSeconds(i));</span><br><span class="line">                Console.WriteLine(&quot;&#123;0&#125;: Client executed &#123;1&#125; second(s).&quot;,</span><br><span class="line">                    Thread.CurrentThread.Name, i);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine(&quot;\nPress any key to exit...&quot;);</span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">        public int Add(int x, int y)</span><br><span class="line">        &#123;</span><br><span class="line">            if (Thread.CurrentThread.IsThreadPoolThread)</span><br><span class="line">            &#123;</span><br><span class="line">                Thread.CurrentThread.Name = &quot;Pool Thread&quot;;</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine(&quot;Method invoked!&quot;);</span><br><span class="line">            // 执行某些事情，模拟需要执行2 秒钟</span><br><span class="line">            for (int i = 1; i &lt;= 2; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Thread.Sleep(TimeSpan.FromSeconds(i));</span><br><span class="line">                Console.WriteLine(&quot;&#123;0&#125;: Add executed &#123;1&#125; second(s).&quot;, </span><br><span class="line">                    Thread.CurrentThread.Name, i);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine(&quot;Method complete!&quot;);</span><br><span class="line">            return x + y;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>运行结果</strong><br><img src="https://i.loli.net/2018/11/23/5bf75bf8d2bb6.png" alt=""><br><strong>API</strong></p>
+<ul>
+<li><p>Thread.Sleep()，它会让执行当前代码的线程暂停一段时间（如果你对线程的概念比较陌生，可以理解为使程序的执行暂停一段时间），以毫秒为单位，比如Thread.Sleep(1000)，将会使线程暂停1 秒钟。在上面我使用了它的重载方法，个人觉得使用TimeSpan.FromSeconds(1)，可读性更好一些。</p>
+</li>
+<li><p>Thread.CurrentThread.Name，通过这个属性可以设置、获取执行当前代码的线程的名称，值得注意的是这个属性只可以设置一次，如果设置两次，会抛出异常。</p>
+</li>
+<li><p>Thread.IsThreadPoolThread，可以判断执行当前代码的线程是否为线程池中的线程。</p>
+</li>
+</ul>
+<p>同步调用会阻塞线程，如果是要调用一项繁重的工作（如大量IO操作），可能会让程序停顿很长时间，造成糟糕的用户体验，这时候异步调用就很有必要了。</p>
+<h3 id="异步调用"><a href="#异步调用" class="headerlink" title="异步调用"></a>异步调用</h3><p><strong>运行描述</strong><br>通常情况下，如果需要异步执行一个耗时的操作，我们会新起一个线程，然后让这个线程去执行代码。但是对于每一个异步调用都通过创建线程来进行操作显然会对性能产生一定的影响，同时操作也相对繁琐一些。.NET 中可以通过委托进行方法的异步调用，就是说客户端在异步调用方法时，本身并不会因为方法的调用而中断，而是从线程池中抓取一个线程去执行该方法，自身线程（主线程）在完成抓取线程这一过程之后，继续执行下面的代码，这样就实现了代码的并行执行。使用线程池的好处就是避免了频繁进行异步调用时创建、销毁线程的开销。当我们在委托对象上调用BeginInvoke()时，便进行了一个异步的方法调用。<br><strong>运行代码</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">namespace SuanFa</span><br><span class="line">&#123;</span><br><span class="line">    public delegate int  AddDelegate(int i, int j);</span><br><span class="line">    class Delegate_Three</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;Client application started!\n&quot;);</span><br><span class="line">            Thread.CurrentThread.Name = &quot;Main Thread&quot;;</span><br><span class="line">            Delegate_Three dt = new Delegate_Three();</span><br><span class="line">            AddDelegate ad = new AddDelegate(dt.Add);</span><br><span class="line">            IAsyncResult asyncResult = ad.BeginInvoke(2, 5, null, null);</span><br><span class="line">            // 做某些其它的事情，模拟需要执行3 秒钟</span><br><span class="line">            for (int i = 1; i &lt;= 3; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Thread.Sleep(TimeSpan.FromSeconds(i));</span><br><span class="line">                Console.WriteLine(&quot;&#123;0&#125;: Client executed &#123;1&#125; second(s).&quot;,</span><br><span class="line">                    Thread.CurrentThread.Name, i);</span><br><span class="line">            &#125;</span><br><span class="line">            int result = ad.EndInvoke(asyncResult);</span><br><span class="line">            Console.WriteLine(&quot;Result: &#123;0&#125;\n&quot;, result);</span><br><span class="line">            Console.WriteLine(&quot;\nPress any key to exit...&quot;);</span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">        public int Add(int x, int y)</span><br><span class="line">        &#123;</span><br><span class="line">            if (Thread.CurrentThread.IsThreadPoolThread)</span><br><span class="line">            &#123;</span><br><span class="line">                Thread.CurrentThread.Name = &quot;Pool Thread&quot;;</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine(&quot;Method invoked!&quot;);</span><br><span class="line">            // 执行某些事情，模拟需要执行2 秒钟</span><br><span class="line">            for (int i = 1; i &lt;= 2; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Thread.Sleep(TimeSpan.FromSeconds(i));</span><br><span class="line">                Console.WriteLine(&quot;&#123;0&#125;: Add executed &#123;1&#125; second(s).&quot;, </span><br><span class="line">                    Thread.CurrentThread.Name, i);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine(&quot;Method complete!&quot;);</span><br><span class="line">            return x + y;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>运行结果</strong><br><img src="https://i.loli.net/2018/11/23/5bf75dd310155.png" alt=""></p>
+<p>可以看到，主线程并没有等待，而是直接向下运行了。但是问题依然存在，当主线程运行到EndInvoke时，如果这时调用没有结束（这种情况很可能出现），这时为了等待调用结果，线程依旧会被阻塞。<br>异步委托，也可以参考如下写法：<br>Action<object> action=(obj)=&gt;method(obj);<br>action.BeginInvoke(obj,ar=&gt;action.EndInvoke(ar),null);<br>简简单单两句话就可以完成一部操作。</object></p>
+<h3 id="异步回调"><a href="#异步回调" class="headerlink" title="异步回调"></a>异步回调</h3><p><strong>运行描述</strong><br>用回调函数，当调用结束时会自动调用回调函数，解决了为等待调用结果，而让线程依旧被阻塞的局面。<br><strong>运行代码</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Runtime.Remoting.Messaging;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">namespace SuanFa</span><br><span class="line">&#123;</span><br><span class="line">    public delegate int  AddDelegate(int i, int j);</span><br><span class="line">    class Delegate_Three</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;Client application started!\n&quot;);</span><br><span class="line">            Thread.CurrentThread.Name = &quot;Main Thread&quot;;</span><br><span class="line">            Delegate_Three dt = new Delegate_Three();</span><br><span class="line">            AddDelegate ad = new AddDelegate(dt.Add);</span><br><span class="line">            AsyncCallback asy = new AsyncCallback(dt.complete);</span><br><span class="line">            IAsyncResult asyncResult = ad.BeginInvoke(2, 5, asy, &quot;On Complete&quot;);</span><br><span class="line">            // 做某些其它的事情，模拟需要执行3 秒钟</span><br><span class="line">            for (int i = 1; i &lt;= 3; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Thread.Sleep(TimeSpan.FromSeconds(i));</span><br><span class="line">                Console.WriteLine(&quot;&#123;0&#125;: Client executed &#123;1&#125; second(s).&quot;,</span><br><span class="line">                    Thread.CurrentThread.Name, i);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine(&quot;\nPress any key to exit...&quot;);</span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">        public void complete(IAsyncResult asyncResult)</span><br><span class="line">        &#123;</span><br><span class="line">            //AsyncResult是IAsyncResult的子类</span><br><span class="line">            AsyncResult asy = (AsyncResult)asyncResult;</span><br><span class="line">            AddDelegate ad = (AddDelegate)asy.AsyncDelegate;</span><br><span class="line">            string data = (string)asy.AsyncState;</span><br><span class="line">            int result = ad.EndInvoke(asyncResult);</span><br><span class="line">            Console.WriteLine(&quot;&#123;0&#125;: Result, &#123;1&#125;; Data: &#123;2&#125;\n&quot;, Thread.CurrentThread.Name, result, data);</span><br><span class="line">        &#125;</span><br><span class="line">        public int Add(int x, int y)</span><br><span class="line">        &#123;</span><br><span class="line">            if (Thread.CurrentThread.IsThreadPoolThread)</span><br><span class="line">            &#123;</span><br><span class="line">                Thread.CurrentThread.Name = &quot;Pool Thread&quot;;</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine(&quot;Method invoked!&quot;);</span><br><span class="line">            // 执行某些事情，模拟需要执行2 秒钟</span><br><span class="line">            for (int i = 1; i &lt;= 2; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Thread.Sleep(TimeSpan.FromSeconds(i));</span><br><span class="line">                Console.WriteLine(&quot;&#123;0&#125;: Add executed &#123;1&#125; second(s).&quot;, </span><br><span class="line">                    Thread.CurrentThread.Name, i);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine(&quot;Method complete!&quot;);</span><br><span class="line">            return x + y;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>运行结果</strong><br><img src="https://i.loli.net/2018/11/23/5bf76195a0cfa.png" alt=""></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这里有几个值得注意的地方：</p>
+<ul>
+<li>我们在调用BeginInvoke()后不再需要保存IAysncResult 了，因为AysncCallback 委托将该对象定义在了回调方法的参数列表中；</li>
+<li>我们在OnAddComplete()方法中获得了调用BeginInvoke()时最后一个参数传递的值，字符串“Any data you want to pass”；</li>
+<li>执行回调方法的线程并非客户端线程Main Thread，而是来自线程池中的线程Pool Thread。另外如前面所说，在调用EndInvoke()时有可能会抛出异常，所以在应该将它放到try/catch 块中，这里就不再示范了。</li>
+</ul>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>问题：</p>
+<ul>
+<li><p>为什么Invoke的参数和返回值和AddDelegate委托是一样的呢？<br>答：Invoke方法的参数很简单，一个委托，一个参数表(可选)，而Invoke方法的主要功能就是帮助你在UI线程上调用委托所指定的方法。Invoke方法首先检查发出调用的线程(即当前线程)是不是UI线程，如果是，直接执行委托指向的方法，如果不是，它将切换到UI线程，然后执行委托指向的方法。不管当前线程是不是UI线程，Invoke都阻塞直到委托指向的方法执行完毕，然后切换回发出调用的线程(如果需要的话)，返回。<br>所以Invoke方法的参数和返回值和调用他的委托应该是一致的。</p>
+</li>
+<li><p>IAsyncResult result = ad.BeginInvoke(1,2,null,null);<br>BeginInvoke : 开始一个异步的请求,调用线程池中一个线程来执行，<br>返回IAsyncResult 对象(异步的核心). IAsyncResult 简单的说,他存储异步操作的状态信息的一个接口,也可以用他来结束当前异步。<br>注意:<strong> BeginInvoke和EndInvoke必须成对调用.即使不需要返回值，但EndInvoke还是必须调用，否则可能会造成内存泄漏。</strong></p>
+</li>
+<li><p>IAsyncResult.AsyncState 属性：<br>获取用户定义的对象，它限定或包含关于异步操作的信息。</p>
+<h3 id="委托解析代码"><a href="#委托解析代码" class="headerlink" title="委托解析代码"></a>委托解析代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">.class public auto ansi sealed SuanFa.AddDelegate</span><br><span class="line">	extends [mscorlib]System.MulticastDelegate</span><br><span class="line">&#123;</span><br><span class="line">	// Methods</span><br><span class="line">	.method public hidebysig specialname rtspecialname </span><br><span class="line">		instance void .ctor (</span><br><span class="line">			object &apos;object&apos;,</span><br><span class="line">			native int &apos;method&apos;</span><br><span class="line">		) runtime managed </span><br><span class="line">	&#123;</span><br><span class="line">	&#125; // end of method AddDelegate::.ctor</span><br><span class="line"></span><br><span class="line">	.method public hidebysig newslot virtual </span><br><span class="line">		instance int32 Invoke (</span><br><span class="line">			int32 i,</span><br><span class="line">			int32 j</span><br><span class="line">		) runtime managed </span><br><span class="line">	&#123;</span><br><span class="line">	&#125; // end of method AddDelegate::Invoke</span><br><span class="line"></span><br><span class="line">	.method public hidebysig newslot virtual </span><br><span class="line">		instance class [mscorlib]System.IAsyncResult BeginInvoke (</span><br><span class="line">			int32 i,</span><br><span class="line">			int32 j,</span><br><span class="line">			class [mscorlib]System.AsyncCallback callback,</span><br><span class="line">			object &apos;object&apos;</span><br><span class="line">		) runtime managed </span><br><span class="line">	&#123;</span><br><span class="line">	&#125; // end of method AddDelegate::BeginInvoke</span><br><span class="line"></span><br><span class="line">	.method public hidebysig newslot virtual </span><br><span class="line">		instance int32 EndInvoke (</span><br><span class="line">			class [mscorlib]System.IAsyncResult result</span><br><span class="line">		) runtime managed </span><br><span class="line">	&#123;</span><br><span class="line">	&#125; // end of method AddDelegate::EndInvoke</span><br><span class="line"></span><br><span class="line">&#125; // end of class SuanFa.AddDelegate</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>上面的代码用C#来写为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public delegate int  AddDelegate(int i, int j);</span><br></pre></td></tr></table></figure></p>
+<p>由此可以看出</p>
+<ul>
+<li>Invoke需要的参数列表与定义委托时的参数列表类型相同，返回值与委托的返回值类型相同。</li>
+<li>BeginInvoke参数前两个为定义委托时的参数。第三个为AsyncCallback类型，该类型也是一个委托类型，用来定义异步调用执行完毕后的方法。第四个为object 类型，用来存储相关的信息，可以是任何信息。返回值为IAsyncResult类型，可以作为EndInvoke的入口参数</li>
+<li>EndInvoke参数为IAsyncResult 类型，是一个接口类型。返回值就是委托的返回值。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/c/" rel="tag"># c#</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/22/观察者模式/" rel="next" title="观察者模式">
+                <i class="fa fa-chevron-left"></i> 观察者模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/head.jpg"
+                alt="Wangzhuanxu" />
+            
+              <p class="site-author-name" itemprop="name">Wangzhuanxu</p>
+              <p class="site-description motion-element" itemprop="description">经验+总结</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#同步调用"><span class="nav-number">1.</span> <span class="nav-text">同步调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步调用"><span class="nav-number">2.</span> <span class="nav-text">异步调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步回调"><span class="nav-number">3.</span> <span class="nav-text">异步回调</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">5.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#委托解析代码"><span class="nav-number">6.</span> <span class="nav-text">委托解析代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wangzhuanxu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2018/11/23/C-委托的三种调用示例/';
+          this.page.identifier = '2018/11/23/C-委托的三种调用示例/';
+          this.page.title = 'C#委托的三种调用示例';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'GTj5TU75m2FDiCuybEFbjRiU-gzGzoHsz',
+        appKey: 'aYs53tL3qxCcS3LniPH51d5P',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
