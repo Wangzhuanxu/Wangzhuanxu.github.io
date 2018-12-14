@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="我的独立博客">
 <meta property="og:description" content="点积和叉积的物理意义　　点积:点积结果是个标量，主要用来求两个向量之间的夹角和一个向量在另一个向量上的投影（对于单位向量来讲）。　　叉积:叉积结果是个标量，两个向量a，b相乘可以获得一个垂直于a，b的向量c。 Unity组件删除和添加12341. 添加GameObect.AddComponent&amp;lt;ScriptName&amp;gt;();2. 删除Destroy(GameObect.GetCompo">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-13T01:33:53.801Z">
+<meta property="og:updated_time" content="2018-12-14T09:28:22.159Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试之简答">
 <meta name="twitter:description" content="点积和叉积的物理意义　　点积:点积结果是个标量，主要用来求两个向量之间的夹角和一个向量在另一个向量上的投影（对于单位向量来讲）。　　叉积:叉积结果是个标量，两个向量a，b相乘可以获得一个垂直于a，b的向量c。 Unity组件删除和添加12341. 添加GameObect.AddComponent&amp;lt;ScriptName&amp;gt;();2. 删除Destroy(GameObect.GetCompo">
@@ -367,6 +367,13 @@
 <li>yield www:协程调用</li>
 <li>yield StartCoroutine:协程调用</li>
 <li>LateUpdate:所有Update函数调用完执行，通常用在第三人称更新摄像机位置。</li>
+<li>OnPreCull：在相机剔除场景前被调用。剔除取决于物体在相机中是否可见。OnPreCull仅在剔除执行之前被调用。</li>
+<li>OnBecameVisible/OnBecameInvisible：当物体在任何相机中可见/不可见时被调用。</li>
+<li>OnWillRenderObject：如果物体可见，它将为每个摄像机调用一次。</li>
+<li>OnPreRender： 在相机渲染场景之前被调用。</li>
+<li>OnRenderObject：在所有固定场景渲染之后被调用。此时你可以使用GL类或者Graphics.DrawMeshNow来画自定义的几何体。</li>
+<li>OnPostRender: 在相机完成场景的渲染后被调用。</li>
+<li>OnRenderImage(仅专业版)：在场景渲染完成后被调用，用来对屏幕的图像进行后处理。</li>
 <li>OnGUI：每帧执行多次来回应GUI事件。</li>
 <li>yield WaitForEndOfFrame:协程调用</li>
 <li>OnApplicationPause:若暂停被检测到，当前帧执行后就调用此函数，在正常的运行期间调用是有效的。在OnApplicationPause被调用后，额外的用一帧来显示图像表明暂停状态。</li>
