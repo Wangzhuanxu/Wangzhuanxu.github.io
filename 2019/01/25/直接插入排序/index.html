@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="shader," />
+  <meta name="keywords" content="Sequence," />
 
 
 
@@ -79,23 +79,20 @@
 
 
 
-<meta name="description" content="在涉及到深度纹理的时候，有时候需要将NDC坐标转换为World坐标，以下为推导过程。">
-<meta name="keywords" content="shader">
+<meta name="description" content="定义直接插入排序(Straight Insertion Sort)的基本思想是：把n个待排序的元素看成为一个有序表和一个无序表。开始时有序表中只包含1个元素，无序表中包含有n-1个元素，排序过程中每次从无序表中取出第一个元素，将它插入到有序表中的适当位置，使之成为新的有序表，重复n-1次可完成排序过程。 排序示例 时间复杂度直接插入排序的时间复杂度是O(N2)。假设被排序的数列中有N个数。遍历一趟">
+<meta name="keywords" content="Sequence">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NDC坐标转换为World坐标">
-<meta property="og:url" content="http://yoursite.com/2018/10/25/NDC坐标转换为World坐标/index.html">
+<meta property="og:title" content="直接插入排序">
+<meta property="og:url" content="http://yoursite.com/2019/01/25/直接插入排序/index.html">
 <meta property="og:site_name" content="我的独立博客">
-<meta property="og:description" content="在涉及到深度纹理的时候，有时候需要将NDC坐标转换为World坐标，以下为推导过程。">
+<meta property="og:description" content="定义直接插入排序(Straight Insertion Sort)的基本思想是：把n个待排序的元素看成为一个有序表和一个无序表。开始时有序表中只包含1个元素，无序表中包含有n-1个元素，排序过程中每次从无序表中取出第一个元素，将它插入到有序表中的适当位置，使之成为新的有序表，重复n-1次可完成排序过程。 排序示例 时间复杂度直接插入排序的时间复杂度是O(N2)。假设被排序的数列中有N个数。遍历一趟">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://i.loli.net/2018/10/25/5bd117de86167.png">
-<meta property="og:image" content="https://i.loli.net/2018/10/25/5bd117de6d321.png">
-<meta property="og:image" content="https://i.loli.net/2018/10/25/5bd117de8e3ee.png">
-<meta property="og:image" content="https://i.loli.net/2018/10/25/5bd117de97d9b.png">
-<meta property="og:updated_time" content="2018-10-25T01:10:19.411Z">
+<meta property="og:image" content="https://i.loli.net/2019/01/25/5c4b167585e0c.png">
+<meta property="og:updated_time" content="2019-01-25T14:43:41.351Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NDC坐标转换为World坐标">
-<meta name="twitter:description" content="在涉及到深度纹理的时候，有时候需要将NDC坐标转换为World坐标，以下为推导过程。">
-<meta name="twitter:image" content="https://i.loli.net/2018/10/25/5bd117de86167.png">
+<meta name="twitter:title" content="直接插入排序">
+<meta name="twitter:description" content="定义直接插入排序(Straight Insertion Sort)的基本思想是：把n个待排序的元素看成为一个有序表和一个无序表。开始时有序表中只包含1个元素，无序表中包含有n-1个元素，排序过程中每次从无序表中取出第一个元素，将它插入到有序表中的适当位置，使之成为新的有序表，重复n-1次可完成排序过程。 排序示例 时间复杂度直接插入排序的时间复杂度是O(N2)。假设被排序的数列中有N个数。遍历一趟">
+<meta name="twitter:image" content="https://i.loli.net/2019/01/25/5c4b167585e0c.png">
 
 
 
@@ -125,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/10/25/NDC坐标转换为World坐标/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/01/25/直接插入排序/"/>
 
 
 
 
 
-  <title>NDC坐标转换为World坐标 | 我的独立博客</title>
+  <title>直接插入排序 | 我的独立博客</title>
   
 
 
@@ -268,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/25/NDC坐标转换为World坐标/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/25/直接插入排序/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wangzhuanxu">
@@ -285,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">NDC坐标转换为World坐标</h1>
+          <h1 class="post-title" itemprop="name headline">直接插入排序</h1>
         
 
         <div class="post-meta">
@@ -297,8 +294,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-25T08:52:47+08:00">
-                2018-10-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-25T21:50:30+08:00">
+                2019-01-25
               </time>
             
 
@@ -316,9 +313,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/10/25/NDC坐标转换为World坐标/#comments" itemprop="discussionUrl">
+                <a href="/2019/01/25/直接插入排序/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/10/25/NDC坐标转换为World坐标/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2019/01/25/直接插入排序/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -351,8 +348,15 @@
       
 
       
-        <p>　　在涉及到深度纹理的时候，有时候需要将NDC坐标转换为World坐标，以下为推导过程。<br><img src="https://i.loli.net/2018/10/25/5bd117de86167.png" alt=""><br>  <img src="https://i.loli.net/2018/10/25/5bd117de6d321.png" alt=""><br>  <img src="https://i.loli.net/2018/10/25/5bd117de8e3ee.png" alt=""><br>  <img src="https://i.loli.net/2018/10/25/5bd117de97d9b.png" alt=""></p>
-<p>　　</p>
+        <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>直接插入排序(Straight Insertion Sort)的基本思想是：把n个待排序的元素看成为一个有序表和一个无序表。开始时有序表中只包含1个元素，无序表中包含有n-1个元素，排序过程中每次从无序表中取出第一个元素，将它插入到有序表中的适当位置，使之成为新的有序表，重复n-1次可完成排序过程。</p>
+<h2 id="排序示例"><a href="#排序示例" class="headerlink" title="排序示例"></a>排序示例</h2><p><img src="https://i.loli.net/2019/01/25/5c4b167585e0c.png" alt=""></p>
+<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>直接插入排序的时间复杂度是O(N2)。<br>假设被排序的数列中有N个数。遍历一趟的时间复杂度是O(N)，需要遍历多少次呢？N-1！因此，直接插入排序的时间复杂度是O(N2)。</p>
+<h2 id="稳定性分析"><a href="#稳定性分析" class="headerlink" title="稳定性分析"></a>稳定性分析</h2><p>直接插入排序是稳定的算法，它满足稳定算法的定义。<br>算法稳定性 – 假设在数列中存在a[i]=a[j]，若在排序之前，a[i]在a[j]前面；并且排序之后，a[i]仍然在a[j]前面。则这个排序算法是稳定的！</p>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">namespace SuanFa.Sequence</span><br><span class="line">&#123;</span><br><span class="line">    class InsertSort</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main()</span><br><span class="line">        &#123;</span><br><span class="line">            //define InsertSort object</span><br><span class="line">            InsertSort ins = new InsertSort();</span><br><span class="line">            DateTime dt1 = new DateTime();</span><br><span class="line">            DateTime dt2 = new DateTime();</span><br><span class="line">            TimeSpan ts = new TimeSpan();</span><br><span class="line">            dt1 = DateTime.Now;</span><br><span class="line">            ins.insertSort();</span><br><span class="line">            dt2 = DateTime.Now;</span><br><span class="line">            ts = dt2 - dt1;</span><br><span class="line">            //print run time</span><br><span class="line">            Console.WriteLine(&quot;================================&quot; + ts.TotalMilliseconds);</span><br><span class="line">        &#125;</span><br><span class="line">        public void insertSort()</span><br><span class="line">        &#123;</span><br><span class="line">            //define order sequence</span><br><span class="line">            int[] nums = &#123; 1, 2, 4, 34, 5345, 34, 43, 342 &#125;;</span><br><span class="line">            int t, k;</span><br><span class="line">            //traversal sequence</span><br><span class="line">            for(int i=1;i&lt;nums.Length;i++)</span><br><span class="line">            &#123;</span><br><span class="line">                t = nums[i];</span><br><span class="line">                k = i - 1;</span><br><span class="line">                while(t&lt;nums[k])</span><br><span class="line">                &#123;</span><br><span class="line">                    //move small data to the back</span><br><span class="line">                    nums[k + 1] = nums[k];</span><br><span class="line">                    k--;</span><br><span class="line">                &#125;</span><br><span class="line">                //sava number</span><br><span class="line">                nums[k+1] = t;</span><br><span class="line">            &#125;</span><br><span class="line">            //print sequence</span><br><span class="line">            print(nums);</span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// print ordered sequence</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;nums&quot;&gt;ordered sequence&lt;/param&gt;</span><br><span class="line">        public void print(int[] nums)</span><br><span class="line">        &#123;</span><br><span class="line">            for (int i = 0; i &lt; nums.Length; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.Write(&quot;i=&quot; + nums[i]+&quot;  &quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="http://www.cnblogs.com/skywang12345/p/3596881.html" target="_blank" rel="noopener">http://www.cnblogs.com/skywang12345/p/3596881.html</a></li>
+<li><a href="https://www.cnblogs.com/kkun/archive/2011/11/23/insertion_sort.html" target="_blank" rel="noopener">https://www.cnblogs.com/kkun/archive/2011/11/23/insertion_sort.html</a></li>
+</ul>
 
       
     </div>
@@ -370,7 +374,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/shader/" rel="tag"># shader</a>
+            <a href="/tags/Sequence/" rel="tag"># Sequence</a>
           
         </div>
       
@@ -383,8 +387,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/22/项目展示/" rel="next" title="项目展示">
-                <i class="fa fa-chevron-left"></i> 项目展示
+              <a href="/2018/12/13/迪杰特斯拉/" rel="next" title="迪杰特斯拉">
+                <i class="fa fa-chevron-left"></i> 迪杰特斯拉
               </a>
             
           </div>
@@ -393,8 +397,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/10/28/万向节死锁原因/" rel="prev" title="万向节死锁原因">
-                万向节死锁原因 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/01/25/桶排序/" rel="prev" title="桶排序">
+                桶排序 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -457,8 +461,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -522,6 +535,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排序示例"><span class="nav-number">2.</span> <span class="nav-text">排序示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间复杂度"><span class="nav-number">3.</span> <span class="nav-text">时间复杂度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#稳定性分析"><span class="nav-number">4.</span> <span class="nav-text">稳定性分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现代码"><span class="nav-number">5.</span> <span class="nav-text">实现代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">6.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -709,9 +738,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2018/10/25/NDC坐标转换为World坐标/';
-          this.page.identifier = '2018/10/25/NDC坐标转换为World坐标/';
-          this.page.title = 'NDC坐标转换为World坐标';
+          this.page.url = 'http://yoursite.com/2019/01/25/直接插入排序/';
+          this.page.identifier = '2019/01/25/直接插入排序/';
+          this.page.title = '直接插入排序';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
