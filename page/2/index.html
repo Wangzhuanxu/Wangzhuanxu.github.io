@@ -263,6 +263,396 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/13/哈希表/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wangzhuanxu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的独立博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/13/哈希表/" itemprop="url">哈希表</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-13T09:21:20+08:00">
+                2018-12-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/13/哈希表/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/12/13/哈希表/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line">namespace SuanFa.Search</span><br><span class="line">&#123;</span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 拉链法----哈希表</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    class HashCode</span><br><span class="line">    &#123;</span><br><span class="line">        const int max = 10;//哈希表的长度</span><br><span class="line">        HashList[] hl = new HashList[max];//哈希表</span><br><span class="line">        static void Main()</span><br><span class="line">        &#123;</span><br><span class="line">            HashCode hc = new HashCode();</span><br><span class="line"></span><br><span class="line">            for (int i = 0; i &lt; max; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                hc.hl[i] = new HashList();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            int[] array = &#123; 1, 4, 54, 64, 7, 78, 32 &#125;;</span><br><span class="line"></span><br><span class="line">            for (int i = 0; i &lt; array.Length; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                hc.put(array[i], array[i]);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            for (int i = 0; i &lt; array.Length; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(hc.get(array[i]) + &quot;   &quot; + array[i]);</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine();</span><br><span class="line">            hc.delete(64);</span><br><span class="line"></span><br><span class="line">            for (int i = 0; i &lt; array.Length; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(hc.get(array[i]) + &quot;   &quot; + array[i]);</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        public void put(int k,int v)</span><br><span class="line">        &#123;</span><br><span class="line">            hl[getHashCode(k)].put(k,v);</span><br><span class="line">        &#125;</span><br><span class="line">        public int get(int k)</span><br><span class="line">        &#123;</span><br><span class="line">            return hl[getHashCode(k)].get(k);</span><br><span class="line">        &#125;</span><br><span class="line">        public void delete(int k)</span><br><span class="line">        &#123;</span><br><span class="line">            hl[getHashCode(k)].delete(k);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public int getHashCode(int key)</span><br><span class="line">        &#123;</span><br><span class="line">            return key % 10;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //int array = &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 哈希所用的链表</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    class HashList</span><br><span class="line">    &#123;</span><br><span class="line">        HashNode first;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 添加</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;key&quot;&gt;key&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;value&quot;&gt;值&lt;/param&gt;</span><br><span class="line">        public void put(int key,int value)</span><br><span class="line">        &#123;</span><br><span class="line">            HashNode temp = first;</span><br><span class="line">            bool hasKey = false;</span><br><span class="line">            while(temp!=null)</span><br><span class="line">            &#123;</span><br><span class="line">                if(temp.key==key)</span><br><span class="line">                &#123;</span><br><span class="line">                    temp.value = value;</span><br><span class="line">                    hasKey = true;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    temp = temp.next;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            if(!hasKey)</span><br><span class="line">            &#123;</span><br><span class="line">                HashNode node = new HashNode(key, value);</span><br><span class="line">                node.next = first;</span><br><span class="line">                first = node;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 获取</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;key&quot;&gt;&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">        public int get(int key)</span><br><span class="line">        &#123;</span><br><span class="line">            HashNode temp = first;</span><br><span class="line">            while(temp!=null)</span><br><span class="line">            &#123;</span><br><span class="line">                if(temp.key==key)</span><br><span class="line">                &#123;</span><br><span class="line">                    return temp.value;</span><br><span class="line">                &#125;</span><br><span class="line">                temp = temp.next;</span><br><span class="line">            &#125;</span><br><span class="line">            return -1;//没找到</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 删除</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;key&quot;&gt;键值&lt;/param&gt;</span><br><span class="line">        public void delete(int key)</span><br><span class="line">        &#123;</span><br><span class="line">            if(key==first.key)</span><br><span class="line">            &#123;</span><br><span class="line">                first = first.next;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                HashNode temp = first;</span><br><span class="line">                HashNode father = first;</span><br><span class="line">                while (temp.value != key)</span><br><span class="line">                &#123;</span><br><span class="line">                    father = temp;</span><br><span class="line">                    temp = temp.next;</span><br><span class="line">                    if(temp==null)</span><br><span class="line">                    &#123;</span><br><span class="line">                        Console.WriteLine(&quot;不包含该键值&quot;);</span><br><span class="line">                        return;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                father.next = temp.next;</span><br><span class="line">                if(temp==null)</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(&quot;不包含该键值&quot;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class HashNode</span><br><span class="line">    &#123;</span><br><span class="line">        HashList first;//头结点</span><br><span class="line">        public int key;//键值</span><br><span class="line">        public int value;//value</span><br><span class="line">        public HashNode next;//指向下一个链表节点</span><br><span class="line"></span><br><span class="line">        public HashNode(int key, int value)</span><br><span class="line">        &#123;</span><br><span class="line">            this.key = key;</span><br><span class="line">            this.value = value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/13/斐波那契/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wangzhuanxu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的独立博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/13/斐波那契/" itemprop="url">斐波那契</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-13T09:20:33+08:00">
+                2018-12-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/13/斐波那契/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/12/13/斐波那契/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line">namespace SuanFa.Search</span><br><span class="line">&#123;</span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 斐波那契查找---有序查找</span><br><span class="line">    /// (1)数据必须采用顺序存储结构；(2)数据必须有序。</span><br><span class="line">    /// (2)最接近查找长度的斐波那契值来确定拆分点;(2)黄金分割</span><br><span class="line">    /// (3)最坏情况下，时间复杂度为O(log2n)，且其期望复杂度也为O(log2n)。</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    class FbonacciSearch</span><br><span class="line">    &#123;</span><br><span class="line">        //static void Main()</span><br><span class="line">        //&#123;</span><br><span class="line">        //    int[] nums = &#123; 1, 2, 4, 5, 6, 7, 8, 9 &#125;;</span><br><span class="line">        //    FbonacciSearch fbs = new FbonacciSearch();</span><br><span class="line">        //    int[] fb = fbs.makeFBArray(20);//制作斐波那契数组</span><br><span class="line">        //    int k = 0;</span><br><span class="line">        //    while(fb[k]&lt;nums.Length)//寻找k</span><br><span class="line">        //    &#123;</span><br><span class="line">                </span><br><span class="line">        //        k++;</span><br><span class="line">        //    &#125;</span><br><span class="line">        //    int[] temp = new int[fb[k]];</span><br><span class="line">        //    for(int i=0;i&lt;temp.Length;i++)//创建fb[k]长度的数组,多余长度用nums数组中最后一个元素填充</span><br><span class="line">        //    &#123;</span><br><span class="line">        //        if(i&gt;=nums.Length)</span><br><span class="line">        //        &#123;</span><br><span class="line">        //            temp[i] = nums[nums.Length - 1];</span><br><span class="line">        //        &#125;</span><br><span class="line">        //        else</span><br><span class="line">        //        &#123;</span><br><span class="line">        //            temp[i] = nums[i];</span><br><span class="line">        //        &#125;</span><br><span class="line">        //    &#125;</span><br><span class="line">        //    for (int i = nums.Length - 1; i &gt;= 0; i--)</span><br><span class="line">        //    &#123;</span><br><span class="line">        //        Console.WriteLine(&quot;i=&quot; + fbs.fbonacciSearch(temp, 0, temp.Length - 1, fb,nums[i]-5, k, nums.Length) + &quot;  num[i]=&quot; + nums[i]);</span><br><span class="line">        //    &#125;</span><br><span class="line">        //    Console.WriteLine();</span><br><span class="line">        //    for (int i = nums.Length - 1; i &gt;= 0; i--)</span><br><span class="line">        //    &#123;</span><br><span class="line">        //        Console.WriteLine(&quot;i=&quot; + fbs.fbonacciSearch2(temp, 0, temp.Length - 1, fb, nums[i] - 5, k, nums.Length) + &quot;  num[i]=&quot; + nums[i]);</span><br><span class="line">        //    &#125;</span><br><span class="line">        //&#125;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 斐波那契查找</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;array&quot;&gt;临时数组&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;left&quot;&gt;最左边的数的索引&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;right&quot;&gt;最右边数的索引&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;fb&quot;&gt;斐波那契数组&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;key&quot;&gt;查找的值&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;k&quot;&gt;斐波那契数组中刚好大于数组长度数的索引&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;length&quot;&gt;所要查找的数组长度&lt;/param&gt;</span><br><span class="line">        /// 斐波那契公式f(b)=f(b-1)+f(b-2);</span><br><span class="line">        /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">        public int fbonacciSearch2(int[] array, int left, int right, int[] fb, int key, int k, int length)</span><br><span class="line">        &#123;</span><br><span class="line">            while(left&lt;=right)</span><br><span class="line">            &#123;</span><br><span class="line">                int mid = left + fb[k - 1] - 1;</span><br><span class="line">                if (array[mid]&gt;key)</span><br><span class="line">                &#123;</span><br><span class="line">                    right = mid - 1;</span><br><span class="line">                    k -=1;</span><br><span class="line">                &#125;</span><br><span class="line">                else if(array[mid]&lt;key)</span><br><span class="line">                &#123;</span><br><span class="line">                    left = mid + 1;</span><br><span class="line">                    k -= 2;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    if(mid&lt;length)</span><br><span class="line">                    &#123;</span><br><span class="line">                        return mid;</span><br><span class="line">                    &#125;</span><br><span class="line">                    else</span><br><span class="line">                    &#123;</span><br><span class="line">                        return length - 1;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return -1;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 斐波那契查找</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;array&quot;&gt;临时数组&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;left&quot;&gt;最左边的数的索引&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;right&quot;&gt;最右边数的索引&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;fb&quot;&gt;斐波那契数组&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;key&quot;&gt;查找的值&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;k&quot;&gt;斐波那契数组中刚好大于数组长度数的索引&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;length&quot;&gt;所要查找的数组长度&lt;/param&gt;</span><br><span class="line">        /// 斐波那契公式f(b)=f(b-1)+f(b-2);</span><br><span class="line">        /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">        public int fbonacciSearch(int []array,int left,int right,int []fb,int key,int k,int length)</span><br><span class="line">        &#123;</span><br><span class="line">            //Console.WriteLine(left+&quot; &quot;+right+&quot;  &quot; + array[left]+&quot; &quot;+ array[right]);</span><br><span class="line">            if (left &gt; right || key &lt; array[left] || key &gt; array[right] || array.Length == 0)</span><br><span class="line">            &#123;</span><br><span class="line">                return -1;</span><br><span class="line">            &#125; </span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                int mid = left + fb[k - 1] - 1;//拆分点</span><br><span class="line">                if (array[mid] &gt; key)</span><br><span class="line">                &#123;</span><br><span class="line">                    return fbonacciSearch(array, left, mid - 1, fb, key, k - 1,length);</span><br><span class="line">                &#125;</span><br><span class="line">                else if (array[mid] &lt; key)</span><br><span class="line">                &#123;</span><br><span class="line">                    return fbonacciSearch(array, mid + 1, right, fb, key, k - 2,length);</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    if(mid&lt;length)</span><br><span class="line">                    &#123;</span><br><span class="line">                        return mid;</span><br><span class="line">                    &#125;</span><br><span class="line">                    else</span><br><span class="line">                    &#123;</span><br><span class="line">                        return length - 1;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 制作斐波那契数组</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;num&quot;&gt;数组长度,大于2&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">        public int[] makeFBArray(int num)</span><br><span class="line">        &#123;</span><br><span class="line">            int[] array = new int[num];</span><br><span class="line">            array[0] = array[1] = 1;</span><br><span class="line">            for(int i=2;i&lt;num;i++)</span><br><span class="line">            &#123; </span><br><span class="line">                array[i] = array[i - 1] + array[i - 2];</span><br><span class="line">            &#125;</span><br><span class="line">            return array;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/13/平衡二叉树/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wangzhuanxu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的独立博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/13/平衡二叉树/" itemprop="url">平衡二叉树</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-13T09:18:49+08:00">
+                2018-12-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/13/平衡二叉树/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/12/13/平衡二叉树/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line">namespace SuanFa.Search</span><br><span class="line">&#123;</span><br><span class="line">    class AVLTreeNode</span><br><span class="line">    &#123;</span><br><span class="line">        public AVLTreeNode left;//左子树</span><br><span class="line">        public AVLTreeNode right;//右子树</span><br><span class="line">        public int data;//数据</span><br><span class="line">        public int height;//高度</span><br><span class="line"></span><br><span class="line">        public AVLTreeNode(int data)</span><br><span class="line">        &#123;</span><br><span class="line">            this.data = data;</span><br><span class="line">            this.height = 0;</span><br><span class="line">            this.left = null;</span><br><span class="line">            this.right = null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 平衡二叉树</span><br><span class="line">    /// 最坏情况也是lgn</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    class AVLTree</span><br><span class="line">    &#123;</span><br><span class="line">        public AVLTreeNode root;</span><br><span class="line">        public AVLTree()</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        //static void Main()</span><br><span class="line">        //&#123;</span><br><span class="line">        //    AVLTree t1 = new AVLTree();</span><br><span class="line">        //    int[] array = &#123;2, 4, 3 &#125;;</span><br><span class="line">        //    for (int i = 0; i &lt; array.Length; i++)</span><br><span class="line">        //    &#123;</span><br><span class="line">        //        t1.root = t1.insert(t1.root, array[i]);</span><br><span class="line">        //    &#125;</span><br><span class="line">        //    t1.printTree(t1.root);</span><br><span class="line">        //    Console.WriteLine();</span><br><span class="line">        //    t1.inOrder2(t1.root);</span><br><span class="line"></span><br><span class="line">        //    Console.WriteLine();</span><br><span class="line"></span><br><span class="line">        //    //root = t1.delete(root, 2343);</span><br><span class="line">        //    //t1.inOrder2(root);</span><br><span class="line">        //    //Console.WriteLine();</span><br><span class="line">        //    //Console.WriteLine();</span><br><span class="line">        //    //t1.printTree(root);</span><br><span class="line">        //&#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 获取节点高度</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;node&quot;&gt;&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">        public int getHeight(AVLTreeNode node)</span><br><span class="line">        &#123;</span><br><span class="line">            if (node == null)</span><br><span class="line">            &#123;</span><br><span class="line">                return 0;</span><br><span class="line">            &#125;</span><br><span class="line">            return node.height;</span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 获取左右子树最大高度</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;left&quot;&gt;&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;right&quot;&gt;&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">        public int getMaxHeight(AVLTreeNode left, AVLTreeNode right)</span><br><span class="line">        &#123;</span><br><span class="line">            if (left != null &amp;&amp; right != null)</span><br><span class="line">            &#123;</span><br><span class="line">                return (getHeight(left) &gt;= getHeight(right)) ? getHeight(left) : getHeight(right);</span><br><span class="line">            &#125;</span><br><span class="line">            else if (left == null &amp;&amp; right != null)</span><br><span class="line">            &#123;</span><br><span class="line">                return getHeight(right);</span><br><span class="line">            &#125;</span><br><span class="line">            else if (right == null &amp;&amp; left != null)</span><br><span class="line">            &#123;</span><br><span class="line">                return getHeight(left);</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                return 0;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 向右旋转一次</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        public AVLTreeNode turnRight(AVLTreeNode node)</span><br><span class="line">        &#123;</span><br><span class="line">            AVLTreeNode temp = node.left;</span><br><span class="line">            node.left = temp.right;</span><br><span class="line">            temp.right = node;</span><br><span class="line"></span><br><span class="line">            //获取新的高度</span><br><span class="line">            node.height = getMaxHeight(node.left, node.right) + 1;</span><br><span class="line">            temp.height = getMaxHeight(temp.left, temp.right) + 1;</span><br><span class="line">            return temp;</span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 左旋一次</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;node&quot;&gt;&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">        public AVLTreeNode turnLeft(AVLTreeNode node)</span><br><span class="line">        &#123;</span><br><span class="line">            AVLTreeNode temp = node.right;</span><br><span class="line">            node.right = temp.left;</span><br><span class="line">            temp.left = node;</span><br><span class="line"></span><br><span class="line">            //获取新的高度</span><br><span class="line">            node.height = getMaxHeight(node.left, node.right) + 1;</span><br><span class="line">            temp.height = getMaxHeight(temp.left, temp.right) + 1;</span><br><span class="line">            return temp;</span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 先右旋一次在左旋一次</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;node&quot;&gt;&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">        public AVLTreeNode turnRightLeft(AVLTreeNode node)</span><br><span class="line">        &#123;</span><br><span class="line">            node.right = turnRight(node.right);</span><br><span class="line">            return turnLeft(node);</span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 左旋一次，再右旋一次</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;node&quot;&gt;&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">        public AVLTreeNode turnLeftRight(AVLTreeNode node)</span><br><span class="line">        &#123;</span><br><span class="line">            node.left = turnLeft(node.left);</span><br><span class="line">            return turnRight(node);</span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 插入</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;root&quot;&gt;&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;data&quot;&gt;&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">        public AVLTreeNode insert(AVLTreeNode root,int data)</span><br><span class="line">        &#123;</span><br><span class="line">            if(root==null)</span><br><span class="line">            &#123;</span><br><span class="line">                root = new AVLTreeNode(data);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if(data&lt;root.data)</span><br><span class="line">            &#123;</span><br><span class="line">                </span><br><span class="line">                root.left = insert(root.left, data);</span><br><span class="line">                if( getHeight (root.left) - getHeight(root.right) ==2 )</span><br><span class="line">                &#123;</span><br><span class="line">                    if(data&lt;root.left.data)</span><br><span class="line">                    &#123;</span><br><span class="line">                        //Console.WriteLine(&quot;left=&quot; + data);</span><br><span class="line">                        root=turnRight(root);</span><br><span class="line">                    &#125;</span><br><span class="line">                    else</span><br><span class="line">                    &#123;</span><br><span class="line">                        root=turnLeftRight(root);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line">            else if(data&gt;root.data)</span><br><span class="line">            &#123;</span><br><span class="line">                root.right = insert(root.right, data);</span><br><span class="line">                if(getHeight(root.right)-getHeight(root.left)==2)</span><br><span class="line">                &#123;</span><br><span class="line">                    if(data&gt;root.right.data)</span><br><span class="line">                    &#123;</span><br><span class="line">                        root=turnLeft(root);</span><br><span class="line">                    &#125;</span><br><span class="line">                    else</span><br><span class="line">                    &#123;</span><br><span class="line">                        root=turnRightLeft(root);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            root.height = getMaxHeight(root.left, root.right) + 1;</span><br><span class="line">            return root;</span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 删除</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;root&quot;&gt;&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;data&quot;&gt;&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">        public AVLTreeNode delete(AVLTreeNode root, int data)</span><br><span class="line">        &#123;</span><br><span class="line">            if(root==null)</span><br><span class="line">            &#123;</span><br><span class="line">                return null;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if (data &lt; root.data)</span><br><span class="line">            &#123;</span><br><span class="line"></span><br><span class="line">                root.left = delete(root.left, data);</span><br><span class="line">                if (getHeight(root.left) - getHeight(root.right) == 2)</span><br><span class="line">                &#123;</span><br><span class="line">                    if (data &lt; root.left.data)</span><br><span class="line">                    &#123;</span><br><span class="line">                        Console.WriteLine(&quot;left=&quot; + data);</span><br><span class="line">                        root = turnRight(root);</span><br><span class="line">                    &#125;</span><br><span class="line">                    else</span><br><span class="line">                    &#123;</span><br><span class="line">                        root = turnLeftRight(root);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            else if (data &gt; root.data)</span><br><span class="line">            &#123;</span><br><span class="line">                root.right = delete(root.right, data);</span><br><span class="line">                if (getHeight(root.right) - getHeight(root.left) == 2)</span><br><span class="line">                &#123;</span><br><span class="line">                    if (data &gt; root.right.data)</span><br><span class="line">                    &#123;</span><br><span class="line">                        root = turnLeft(root);</span><br><span class="line">                    &#125;</span><br><span class="line">                    else</span><br><span class="line">                    &#123;</span><br><span class="line">                        root = turnRightLeft(root);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(data==root.data)//等于</span><br><span class="line">            &#123;</span><br><span class="line">                if(root.left!=null&amp;&amp;root.right!=null)</span><br><span class="line">                &#123;</span><br><span class="line">                    //寻找后继者，为右子树中最小的点</span><br><span class="line">                    root.data = getSon(root.right).data;</span><br><span class="line">                    //删除那个后继者</span><br><span class="line">                    root.right=delete(root.right, root.data);</span><br><span class="line">           </span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    if(root.left!=null)</span><br><span class="line">                    &#123;</span><br><span class="line">                        root = root.left;</span><br><span class="line">                    &#125;</span><br><span class="line">                    else if(root.right!=null)</span><br><span class="line">                    &#123;</span><br><span class="line">                        root = root.right;</span><br><span class="line">                    &#125;</span><br><span class="line">                    else</span><br><span class="line">                    &#123;</span><br><span class="line">                        return null;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            //更新高度</span><br><span class="line">            root.height = getMaxHeight(root.left, root.right);</span><br><span class="line">            return root;</span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 寻找其右子树中最小节点</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;node&quot;&gt;&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">        public AVLTreeNode getSon(AVLTreeNode node)</span><br><span class="line">        &#123;</span><br><span class="line">            AVLTreeNode parent = node;</span><br><span class="line">            AVLTreeNode current = node;</span><br><span class="line">            AVLTreeNode son = current.left;</span><br><span class="line">            while(son!=null)</span><br><span class="line">            &#123;</span><br><span class="line">                parent = current;</span><br><span class="line">                current = son;</span><br><span class="line">                son = son.left;</span><br><span class="line">            &#125;</span><br><span class="line">            return current;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 打印</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;root&quot;&gt;跟节点&lt;/param&gt;</span><br><span class="line">        public void printTree(AVLTreeNode root)</span><br><span class="line">        &#123;</span><br><span class="line">            if (root == null)</span><br><span class="line">            &#123;</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line">            Queue&lt;AVLTreeNode&gt; q = new Queue&lt;AVLTreeNode&gt;();</span><br><span class="line">            AVLTreeNode t = root;</span><br><span class="line">            q.Enqueue(t);</span><br><span class="line">            while (q.Count &gt; 0)</span><br><span class="line">            &#123;</span><br><span class="line">                t = q.Dequeue();</span><br><span class="line">                Console.WriteLine(t.data + &quot; &quot; );</span><br><span class="line">                if (t.left != null)</span><br><span class="line">                &#123;</span><br><span class="line">                    q.Enqueue(t.left);</span><br><span class="line">                &#125;</span><br><span class="line">                if (t.right != null)</span><br><span class="line">                &#123;</span><br><span class="line">                    q.Enqueue(t.right);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 中序遍历，非递归</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;root&quot;&gt;根节点&lt;/param&gt;</span><br><span class="line">        public void inOrder2(AVLTreeNode root)</span><br><span class="line">        &#123;</span><br><span class="line">            Stack&lt;AVLTreeNode&gt; s = new Stack&lt;AVLTreeNode&gt;();</span><br><span class="line">            AVLTreeNode t = root;</span><br><span class="line">            while (t != null || s.Count &gt; 0)</span><br><span class="line">            &#123;</span><br><span class="line">                if (t != null)</span><br><span class="line">                &#123;</span><br><span class="line">                    s.Push(t);</span><br><span class="line">                    t = t.left;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    t = s.Pop();</span><br><span class="line">                    Console.Write(t.data + &quot; &quot;);</span><br><span class="line">                    t = t.right;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/13/二叉平衡树/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1281,449 +1671,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/23/C-委托的三种调用示例/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wangzhuanxu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的独立博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/23/C-委托的三种调用示例/" itemprop="url">C#委托的三种调用示例</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-23T09:45:02+08:00">
-                2018-11-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/11/23/C-委托的三种调用示例/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/11/23/C-委托的三种调用示例/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="同步调用"><a href="#同步调用" class="headerlink" title="同步调用"></a>同步调用</h3><p><strong>运行描述</strong><br>委托的Invoke方法用来进行同步调用。同步调用也可以叫阻塞调用，它将阻塞当前线程，然后执行调用，调用完毕后再继续向下进行。<br><strong>运行代码</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">namespace SuanFa</span><br><span class="line">&#123;</span><br><span class="line">    public delegate int  AddDelegate(int i, int j);</span><br><span class="line">    class Delegate_Three</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;Client application started!\n&quot;);</span><br><span class="line">            Thread.CurrentThread.Name = &quot;Main Thread&quot;;</span><br><span class="line">            Delegate_Three dt = new Delegate_Three();</span><br><span class="line">            AddDelegate ad = new AddDelegate(dt.Add);</span><br><span class="line">            int result=ad.Invoke(2, 5);</span><br><span class="line">            //int result =dt.Add(2, 5);</span><br><span class="line">            Console.WriteLine(&quot;Result: &#123;0&#125;\n&quot;, result);</span><br><span class="line">            // 做某些其它的事情，模拟需要执行3 秒钟</span><br><span class="line">            for (int i = 1; i &lt;= 3; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Thread.Sleep(TimeSpan.FromSeconds(i));</span><br><span class="line">                Console.WriteLine(&quot;&#123;0&#125;: Client executed &#123;1&#125; second(s).&quot;,</span><br><span class="line">                    Thread.CurrentThread.Name, i);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine(&quot;\nPress any key to exit...&quot;);</span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">        public int Add(int x, int y)</span><br><span class="line">        &#123;</span><br><span class="line">            if (Thread.CurrentThread.IsThreadPoolThread)</span><br><span class="line">            &#123;</span><br><span class="line">                Thread.CurrentThread.Name = &quot;Pool Thread&quot;;</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine(&quot;Method invoked!&quot;);</span><br><span class="line">            // 执行某些事情，模拟需要执行2 秒钟</span><br><span class="line">            for (int i = 1; i &lt;= 2; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Thread.Sleep(TimeSpan.FromSeconds(i));</span><br><span class="line">                Console.WriteLine(&quot;&#123;0&#125;: Add executed &#123;1&#125; second(s).&quot;, </span><br><span class="line">                    Thread.CurrentThread.Name, i);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine(&quot;Method complete!&quot;);</span><br><span class="line">            return x + y;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>运行结果</strong><br><img src="https://i.loli.net/2018/11/23/5bf75bf8d2bb6.png" alt=""><br><strong>API</strong></p>
-<ul>
-<li><p>Thread.Sleep()，它会让执行当前代码的线程暂停一段时间（如果你对线程的概念比较陌生，可以理解为使程序的执行暂停一段时间），以毫秒为单位，比如Thread.Sleep(1000)，将会使线程暂停1 秒钟。在上面我使用了它的重载方法，个人觉得使用TimeSpan.FromSeconds(1)，可读性更好一些。</p>
-</li>
-<li><p>Thread.CurrentThread.Name，通过这个属性可以设置、获取执行当前代码的线程的名称，值得注意的是这个属性只可以设置一次，如果设置两次，会抛出异常。</p>
-</li>
-<li><p>Thread.IsThreadPoolThread，可以判断执行当前代码的线程是否为线程池中的线程。</p>
-</li>
-</ul>
-<p>同步调用会阻塞线程，如果是要调用一项繁重的工作（如大量IO操作），可能会让程序停顿很长时间，造成糟糕的用户体验，这时候异步调用就很有必要了。</p>
-<h3 id="异步调用"><a href="#异步调用" class="headerlink" title="异步调用"></a>异步调用</h3><p><strong>运行描述</strong><br>通常情况下，如果需要异步执行一个耗时的操作，我们会新起一个线程，然后让这个线程去执行代码。但是对于每一个异步调用都通过创建线程来进行操作显然会对性能产生一定的影响，同时操作也相对繁琐一些。.NET 中可以通过委托进行方法的异步调用，就是说客户端在异步调用方法时，本身并不会因为方法的调用而中断，而是从线程池中抓取一个线程去执行该方法，自身线程（主线程）在完成抓取线程这一过程之后，继续执行下面的代码，这样就实现了代码的并行执行。使用线程池的好处就是避免了频繁进行异步调用时创建、销毁线程的开销。当我们在委托对象上调用BeginInvoke()时，便进行了一个异步的方法调用。<br><strong>运行代码</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">namespace SuanFa</span><br><span class="line">&#123;</span><br><span class="line">    public delegate int  AddDelegate(int i, int j);</span><br><span class="line">    class Delegate_Three</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;Client application started!\n&quot;);</span><br><span class="line">            Thread.CurrentThread.Name = &quot;Main Thread&quot;;</span><br><span class="line">            Delegate_Three dt = new Delegate_Three();</span><br><span class="line">            AddDelegate ad = new AddDelegate(dt.Add);</span><br><span class="line">            IAsyncResult asyncResult = ad.BeginInvoke(2, 5, null, null);</span><br><span class="line">            // 做某些其它的事情，模拟需要执行3 秒钟</span><br><span class="line">            for (int i = 1; i &lt;= 3; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Thread.Sleep(TimeSpan.FromSeconds(i));</span><br><span class="line">                Console.WriteLine(&quot;&#123;0&#125;: Client executed &#123;1&#125; second(s).&quot;,</span><br><span class="line">                    Thread.CurrentThread.Name, i);</span><br><span class="line">            &#125;</span><br><span class="line">            int result = ad.EndInvoke(asyncResult);</span><br><span class="line">            Console.WriteLine(&quot;Result: &#123;0&#125;\n&quot;, result);</span><br><span class="line">            Console.WriteLine(&quot;\nPress any key to exit...&quot;);</span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">        public int Add(int x, int y)</span><br><span class="line">        &#123;</span><br><span class="line">            if (Thread.CurrentThread.IsThreadPoolThread)</span><br><span class="line">            &#123;</span><br><span class="line">                Thread.CurrentThread.Name = &quot;Pool Thread&quot;;</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine(&quot;Method invoked!&quot;);</span><br><span class="line">            // 执行某些事情，模拟需要执行2 秒钟</span><br><span class="line">            for (int i = 1; i &lt;= 2; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Thread.Sleep(TimeSpan.FromSeconds(i));</span><br><span class="line">                Console.WriteLine(&quot;&#123;0&#125;: Add executed &#123;1&#125; second(s).&quot;, </span><br><span class="line">                    Thread.CurrentThread.Name, i);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine(&quot;Method complete!&quot;);</span><br><span class="line">            return x + y;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>运行结果</strong><br><img src="https://i.loli.net/2018/11/23/5bf75dd310155.png" alt=""></p>
-<p>可以看到，主线程并没有等待，而是直接向下运行了。但是问题依然存在，当主线程运行到EndInvoke时，如果这时调用没有结束（这种情况很可能出现），这时为了等待调用结果，线程依旧会被阻塞。<br>异步委托，也可以参考如下写法：<br>Action<object> action=(obj)=&gt;method(obj);<br>action.BeginInvoke(obj,ar=&gt;action.EndInvoke(ar),null);<br>简简单单两句话就可以完成一部操作。</object></p>
-<h3 id="异步回调"><a href="#异步回调" class="headerlink" title="异步回调"></a>异步回调</h3><p><strong>运行描述</strong><br>用回调函数，当调用结束时会自动调用回调函数，解决了为等待调用结果，而让线程依旧被阻塞的局面。<br><strong>运行代码</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Runtime.Remoting.Messaging;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">namespace SuanFa</span><br><span class="line">&#123;</span><br><span class="line">    public delegate int  AddDelegate(int i, int j);</span><br><span class="line">    class Delegate_Three</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;Client application started!\n&quot;);</span><br><span class="line">            Thread.CurrentThread.Name = &quot;Main Thread&quot;;</span><br><span class="line">            Delegate_Three dt = new Delegate_Three();</span><br><span class="line">            AddDelegate ad = new AddDelegate(dt.Add);</span><br><span class="line">            AsyncCallback asy = new AsyncCallback(dt.complete);</span><br><span class="line">            IAsyncResult asyncResult = ad.BeginInvoke(2, 5, asy, &quot;On Complete&quot;);</span><br><span class="line">            // 做某些其它的事情，模拟需要执行3 秒钟</span><br><span class="line">            for (int i = 1; i &lt;= 3; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Thread.Sleep(TimeSpan.FromSeconds(i));</span><br><span class="line">                Console.WriteLine(&quot;&#123;0&#125;: Client executed &#123;1&#125; second(s).&quot;,</span><br><span class="line">                    Thread.CurrentThread.Name, i);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine(&quot;\nPress any key to exit...&quot;);</span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">        public void complete(IAsyncResult asyncResult)</span><br><span class="line">        &#123;</span><br><span class="line">            //AsyncResult是IAsyncResult的子类</span><br><span class="line">            AsyncResult asy = (AsyncResult)asyncResult;</span><br><span class="line">            AddDelegate ad = (AddDelegate)asy.AsyncDelegate;</span><br><span class="line">            string data = (string)asy.AsyncState;</span><br><span class="line">            int result = ad.EndInvoke(asyncResult);</span><br><span class="line">            Console.WriteLine(&quot;&#123;0&#125;: Result, &#123;1&#125;; Data: &#123;2&#125;\n&quot;, Thread.CurrentThread.Name, result, data);</span><br><span class="line">        &#125;</span><br><span class="line">        public int Add(int x, int y)</span><br><span class="line">        &#123;</span><br><span class="line">            if (Thread.CurrentThread.IsThreadPoolThread)</span><br><span class="line">            &#123;</span><br><span class="line">                Thread.CurrentThread.Name = &quot;Pool Thread&quot;;</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine(&quot;Method invoked!&quot;);</span><br><span class="line">            // 执行某些事情，模拟需要执行2 秒钟</span><br><span class="line">            for (int i = 1; i &lt;= 2; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Thread.Sleep(TimeSpan.FromSeconds(i));</span><br><span class="line">                Console.WriteLine(&quot;&#123;0&#125;: Add executed &#123;1&#125; second(s).&quot;, </span><br><span class="line">                    Thread.CurrentThread.Name, i);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine(&quot;Method complete!&quot;);</span><br><span class="line">            return x + y;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>运行结果</strong><br><img src="https://i.loli.net/2018/11/23/5bf76195a0cfa.png" alt=""></p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这里有几个值得注意的地方：</p>
-<ul>
-<li>我们在调用BeginInvoke()后不再需要保存IAysncResult 了，因为AysncCallback 委托将该对象定义在了回调方法的参数列表中；</li>
-<li>我们在OnAddComplete()方法中获得了调用BeginInvoke()时最后一个参数传递的值，字符串“Any data you want to pass”；</li>
-<li>执行回调方法的线程并非客户端线程Main Thread，而是来自线程池中的线程Pool Thread。另外如前面所说，在调用EndInvoke()时有可能会抛出异常，所以在应该将它放到try/catch 块中，这里就不再示范了。</li>
-</ul>
-<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>问题：</p>
-<ul>
-<li><p>为什么Invoke的参数和返回值和AddDelegate委托是一样的呢？<br>答：Invoke方法的参数很简单，一个委托，一个参数表(可选)，而Invoke方法的主要功能就是帮助你在UI线程上调用委托所指定的方法。Invoke方法首先检查发出调用的线程(即当前线程)是不是UI线程，如果是，直接执行委托指向的方法，如果不是，它将切换到UI线程，然后执行委托指向的方法。不管当前线程是不是UI线程，Invoke都阻塞直到委托指向的方法执行完毕，然后切换回发出调用的线程(如果需要的话)，返回。<br>所以Invoke方法的参数和返回值和调用他的委托应该是一致的。</p>
-</li>
-<li><p>IAsyncResult result = ad.BeginInvoke(1,2,null,null);<br>BeginInvoke : 开始一个异步的请求,调用线程池中一个线程来执行，<br>返回IAsyncResult 对象(异步的核心). IAsyncResult 简单的说,他存储异步操作的状态信息的一个接口,也可以用他来结束当前异步。<br>注意:<strong> BeginInvoke和EndInvoke必须成对调用.即使不需要返回值，但EndInvoke还是必须调用，否则可能会造成内存泄漏。</strong></p>
-</li>
-<li><p>IAsyncResult.AsyncState 属性：<br>获取用户定义的对象，它限定或包含关于异步操作的信息。</p>
-<h3 id="委托解析代码"><a href="#委托解析代码" class="headerlink" title="委托解析代码"></a>委托解析代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">.class public auto ansi sealed SuanFa.AddDelegate</span><br><span class="line">	extends [mscorlib]System.MulticastDelegate</span><br><span class="line">&#123;</span><br><span class="line">	// Methods</span><br><span class="line">	.method public hidebysig specialname rtspecialname </span><br><span class="line">		instance void .ctor (</span><br><span class="line">			object &apos;object&apos;,</span><br><span class="line">			native int &apos;method&apos;</span><br><span class="line">		) runtime managed </span><br><span class="line">	&#123;</span><br><span class="line">	&#125; // end of method AddDelegate::.ctor</span><br><span class="line"></span><br><span class="line">	.method public hidebysig newslot virtual </span><br><span class="line">		instance int32 Invoke (</span><br><span class="line">			int32 i,</span><br><span class="line">			int32 j</span><br><span class="line">		) runtime managed </span><br><span class="line">	&#123;</span><br><span class="line">	&#125; // end of method AddDelegate::Invoke</span><br><span class="line"></span><br><span class="line">	.method public hidebysig newslot virtual </span><br><span class="line">		instance class [mscorlib]System.IAsyncResult BeginInvoke (</span><br><span class="line">			int32 i,</span><br><span class="line">			int32 j,</span><br><span class="line">			class [mscorlib]System.AsyncCallback callback,</span><br><span class="line">			object &apos;object&apos;</span><br><span class="line">		) runtime managed </span><br><span class="line">	&#123;</span><br><span class="line">	&#125; // end of method AddDelegate::BeginInvoke</span><br><span class="line"></span><br><span class="line">	.method public hidebysig newslot virtual </span><br><span class="line">		instance int32 EndInvoke (</span><br><span class="line">			class [mscorlib]System.IAsyncResult result</span><br><span class="line">		) runtime managed </span><br><span class="line">	&#123;</span><br><span class="line">	&#125; // end of method AddDelegate::EndInvoke</span><br><span class="line"></span><br><span class="line">&#125; // end of class SuanFa.AddDelegate</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>上面的代码用C#来写为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public delegate int  AddDelegate(int i, int j);</span><br></pre></td></tr></table></figure></p>
-<p>由此可以看出</p>
-<ul>
-<li>Invoke需要的参数列表与定义委托时的参数列表类型相同，返回值与委托的返回值类型相同。</li>
-<li>BeginInvoke参数前两个为定义委托时的参数。第三个为AsyncCallback类型，该类型也是一个委托类型，用来定义异步调用执行完毕后的方法。第四个为object 类型，用来存储相关的信息，可以是任何信息。返回值为IAsyncResult类型，可以作为EndInvoke的入口参数</li>
-<li>EndInvoke参数为IAsyncResult 类型，是一个接口类型。返回值就是委托的返回值。</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/22/观察者模式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wangzhuanxu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的独立博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/22/观察者模式/" itemprop="url">观察者模式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-22T22:03:43+08:00">
-                2018-11-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/11/22/观察者模式/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/11/22/观察者模式/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="使用情况"><a href="#使用情况" class="headerlink" title="使用情况"></a>使用情况</h4><p>当对象间存在一对多关系时，则使用观察者模式（Observer Pattern）。比如，当一个对象被修改时，则会自动通知它的依赖对象。观察者模式属于行为型模式。</p>
-<h4 id="意图"><a href="#意图" class="headerlink" title="意图"></a>意图</h4><p>定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新。</p>
-<h4 id="主要解决"><a href="#主要解决" class="headerlink" title="主要解决"></a>主要解决</h4><p>一个对象状态改变给其他对象通知的问题，而且要考虑到易用和低耦合，保证高度的协作。</p>
-<h4 id="何时使用"><a href="#何时使用" class="headerlink" title="何时使用"></a>何时使用</h4><p>一个对象（目标对象）的状态发生改变，所有的依赖对象（观察者对象）都将得到通知，进行广播通知。</p>
-<h4 id="如何解决"><a href="#如何解决" class="headerlink" title="如何解决"></a>如何解决</h4><p>使用面向对象技术，可以将这种依赖关系弱化。<strong>C#中可以使用委托来表现该种模式。</strong></p>
-<h4 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">namespace SuanFa</span><br><span class="line">&#123;</span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 观察者模式</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    /// &lt;param name=&quot;eb&quot;&gt;&lt;/param&gt;</span><br><span class="line">    public delegate void EventHandler(EventBase eb);</span><br><span class="line">    public class Delegate_Observe</span><br><span class="line">    &#123;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 已被注册事件，这里面的一些事件在某帧中将会被执行</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        public Dictionary&lt;string, List&lt;EventHandler&gt;&gt; registedCallbacks </span><br><span class="line">            = new Dictionary&lt;string, List&lt;EventHandler&gt;&gt;();</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 在派发信息时新注册的事件，在下次派发时将被添加到registedCallbacks中。</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        public Dictionary&lt;string, List&lt;EventHandler&gt;&gt; registedCallbacksPending </span><br><span class="line">            = new Dictionary&lt;string, List&lt;EventHandler&gt;&gt;();</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 是否正在执行registedCallbacks中的事件，为true时表示正在派发信息</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        public bool isEnuming=false;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 派发过程中有收到新的需要派发的信息，下次派发前，将被添加到lEvents中</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        public  List&lt;EventBase&gt; lPendingEvents = new List&lt;EventBase&gt;();//待处理事件</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 需要被派发的信息</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        public  List&lt;EventBase&gt; lEvents = new List&lt;EventBase&gt;();//要处理事件</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 单例</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        static Delegate_Observe deob = new Delegate_Observe();</span><br><span class="line">        public static Delegate_Observe Deob</span><br><span class="line">        &#123;</span><br><span class="line">            get</span><br><span class="line">            &#123;</span><br><span class="line">                return deob;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 注册事件</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;eventName&quot;&gt;键值&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;eh&quot;&gt;事件列表&lt;/param&gt;</span><br><span class="line">        public void registedEvent(string eventName,EventHandler eh)</span><br><span class="line">        &#123;</span><br><span class="line">            lock(this)</span><br><span class="line">            &#123;</span><br><span class="line">                if (!registedCallbacks.ContainsKey(eventName))</span><br><span class="line">                &#123;</span><br><span class="line">                    registedCallbacks.Add(eventName, new List&lt;EventHandler&gt;());</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(&quot;已注册该事件&quot;+eventName);</span><br><span class="line">                &#125;</span><br><span class="line">                if (isEnuming)</span><br><span class="line">                &#123;</span><br><span class="line">                    if (!registedCallbacksPending.ContainsKey(eventName))</span><br><span class="line">                    &#123;</span><br><span class="line">                        registedCallbacksPending.Add(eventName, new List&lt;EventHandler&gt;());</span><br><span class="line">                    &#125;</span><br><span class="line">                    registedCallbacksPending[eventName].Add(eh);</span><br><span class="line">                    return;</span><br><span class="line">                &#125;</span><br><span class="line">                registedCallbacks[eventName].Add(eh);</span><br><span class="line">            &#125;</span><br><span class="line">           </span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 添加需要派发的信息</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;typeparam name=&quot;T&quot;&gt;信息的类型&lt;/typeparam&gt;</span><br><span class="line">        /// &lt;param name=&quot;value&quot;&gt;信息&lt;/param&gt;</span><br><span class="line">        public void Dispather&lt;T&gt;(T value) </span><br><span class="line">            where T:EventBase</span><br><span class="line">        &#123;</span><br><span class="line">            lock(this)</span><br><span class="line">            &#123;</span><br><span class="line">                if (!registedCallbacks.ContainsKey(value.eventName))</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(&quot;未注册该事件&quot;);</span><br><span class="line">                    return;</span><br><span class="line">                &#125;</span><br><span class="line">                if (isEnuming)</span><br><span class="line">                &#123;</span><br><span class="line">                    lPendingEvents.Add(value);</span><br><span class="line">                    Console.WriteLine(&quot;添加为要事件&quot;);</span><br><span class="line">                    return;</span><br><span class="line">                &#125;</span><br><span class="line">                foreach (EventBase eb in lPendingEvents)</span><br><span class="line">                &#123;</span><br><span class="line">                    lEvents.Add(eb);</span><br><span class="line">                &#125;</span><br><span class="line">                lPendingEvents.Clear();</span><br><span class="line">                lEvents.Add(value);</span><br><span class="line">            &#125;</span><br><span class="line">           </span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 每帧执行，派发信息</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        public void onTick()</span><br><span class="line">        &#123;</span><br><span class="line">            lock(this)</span><br><span class="line">            &#123;</span><br><span class="line">                if (lEvents.Count == 0)//没有需要处理的事件，查看是否有将要注册的事件,为派发做准备</span><br><span class="line">                &#123;</span><br><span class="line">                    foreach (string str in registedCallbacksPending.Keys)</span><br><span class="line">                    &#123;</span><br><span class="line">                        registedCallbacks.Add(str, registedCallbacksPending[str]);</span><br><span class="line">                    &#125;</span><br><span class="line">                    registedCallbacksPending.Clear();</span><br><span class="line">                    foreach (EventBase eb in lPendingEvents)</span><br><span class="line">                    &#123;</span><br><span class="line">                        lEvents.Add(eb);</span><br><span class="line">                    &#125;</span><br><span class="line">                    lPendingEvents.Clear();</span><br><span class="line">                    return;</span><br><span class="line">                &#125;</span><br><span class="line">                isEnuming = true;</span><br><span class="line">                foreach (EventBase eb in lEvents)</span><br><span class="line">                &#123;</span><br><span class="line">                    for (int i = 0; i &lt; registedCallbacks[eb.eventName].Count; i++)</span><br><span class="line">                    &#123;</span><br><span class="line">                        if (registedCallbacks[eb.eventName][i] != null)</span><br><span class="line">                        &#123;</span><br><span class="line">                            registedCallbacks[eb.eventName][i](eb);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                lEvents.Clear();</span><br><span class="line">            &#125;</span><br><span class="line">            isEnuming = false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 信息基类</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    public class EventBase</span><br><span class="line">    &#123;</span><br><span class="line">        public string eventName;</span><br><span class="line">        public object value;</span><br><span class="line">        public EventBase(string eventName,object value)</span><br><span class="line">        &#123;</span><br><span class="line">            this.eventName = eventName;</span><br><span class="line">            this.value = value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 信息子类</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    public class EventWithValue:EventBase</span><br><span class="line">    &#123;</span><br><span class="line">        public object value1;</span><br><span class="line">        public EventWithValue(string eventName,object value1)</span><br><span class="line">            :base(eventName,value1)</span><br><span class="line">        &#123;</span><br><span class="line">            this.eventName = eventName;</span><br><span class="line">            this.value1 = value1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public class Test</span><br><span class="line">    &#123;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 键值，每个键值对应一个事件列表</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        static string[] name = &#123; &quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;, &quot;E&quot;, &quot;F&quot;, &quot;G&quot;, &quot;H&quot;, &quot;I&quot;, &quot;K&quot; &#125;;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 注册线程执行方法，每隔一段事件就会注册新的事件，</span><br><span class="line">        /// 这些事件的目的是处理得到的信息</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        static void zhuce()</span><br><span class="line">        &#123;</span><br><span class="line">            int index = 0;</span><br><span class="line">            while(true)</span><br><span class="line">            &#123;</span><br><span class="line">                if(index&gt;=name.Length)</span><br><span class="line">                &#123;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                Delegate_Observe.Deob.registedEvent(name[index], getSome);</span><br><span class="line">                Console.WriteLine(&quot;添加注册事件&quot;+ name[index]);</span><br><span class="line">                try</span><br><span class="line">                &#123;</span><br><span class="line">                    Thread.Sleep(1000);</span><br><span class="line">                &#125;</span><br><span class="line">                catch(Exception e)</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(e.Data);</span><br><span class="line">                &#125;</span><br><span class="line">                index++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 事件所对应的方法</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;eb&quot;&gt;&lt;/param&gt;</span><br><span class="line">        static void getSome(EventBase eb)</span><br><span class="line">        &#123;</span><br><span class="line">            EventWithValue ev = eb as EventWithValue;</span><br><span class="line">            int i = (int)ev.value1;</span><br><span class="line">            Console.WriteLine(ev.eventName + &quot; &quot;+i);</span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        ///添加需要派发的信息的线程执行方法</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        static void yunxing()</span><br><span class="line">        &#123;</span><br><span class="line">            int index = 0;</span><br><span class="line">            while (true)</span><br><span class="line">            &#123;</span><br><span class="line">                try</span><br><span class="line">                &#123;</span><br><span class="line">                    Thread.Sleep(1000);</span><br><span class="line">                &#125;</span><br><span class="line">                catch (Exception e)</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(e.Data);</span><br><span class="line">                &#125;</span><br><span class="line">                if (index &gt;= name.Length)</span><br><span class="line">                &#123;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                EventWithValue ev = new EventWithValue(name[index], index);</span><br><span class="line">                Delegate_Observe.Deob.Dispather&lt;EventWithValue&gt;(ev);</span><br><span class="line">               </span><br><span class="line">                index++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 派发信息的执行线程</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        static void diaoyong()</span><br><span class="line">        &#123;</span><br><span class="line">            while (true)</span><br><span class="line">            &#123;</span><br><span class="line">                try</span><br><span class="line">                &#123;</span><br><span class="line">                    Thread.Sleep(500);</span><br><span class="line">                &#125;</span><br><span class="line">                catch (Exception e)</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(e.Data);</span><br><span class="line">                &#125;</span><br><span class="line">                Delegate_Observe.Deob.onTick();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        static void Main()</span><br><span class="line">        &#123;</span><br><span class="line">            Thread s1 = new Thread(new ThreadStart(zhuce));</span><br><span class="line">            Thread s2 = new Thread(new ThreadStart(yunxing));</span><br><span class="line">            Thread s3 = new Thread(new ThreadStart(diaoyong));</span><br><span class="line">            s1.Start();</span><br><span class="line">            s2.Start();</span><br><span class="line">            s3.Start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="案例介绍"><a href="#案例介绍" class="headerlink" title="案例介绍"></a>案例介绍</h4><ul>
-<li>线程s1：将某些方法注册到某个事件，当该事件触发时，其所注册的方法将按顺序全部执行</li>
-<li>线程s2:添加需要派发的信息</li>
-<li>线程s3：遍历需要派发的信息，并获得该信息中的键值，根据该键值获取相应的委托事件，并执行该事件，即调用处理信息的方法。</li>
-<li>这三个线程主要是模拟观察者模式。</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/14/UI穿透问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wangzhuanxu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的独立博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/14/UI穿透问题/" itemprop="url">UI穿透问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-14T19:31:11+08:00">
-                2018-11-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/11/14/UI穿透问题/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/11/14/UI穿透问题/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>　　在做unity的时候，有时候会受到UI穿透的影响，也就是两个UI图片重合了，本来是下方的UI图片是不能够被点击的，但是Unity默认下方UI图片可以被点击，这就需要编写相应方法来抵制这一现象。<br>    脚本如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">using UnityEngine;</span><br><span class="line">using System.Collections;</span><br><span class="line">public class DUIRayIgnore : MonoBehaviour, ICanvasRaycastFilter</span><br><span class="line">&#123;</span><br><span class="line">    public bool IsRaycastLocationValid(Vector2 screenPoint, Camera eventCamera)</span><br><span class="line">    &#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>该脚本主要是需要实现ICanvasRaycastFilter接口，并重写里面的IsRaycastLocationValid方法。将该脚本挂载在上一层方UI图片即可</strong></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1778,7 +1725,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

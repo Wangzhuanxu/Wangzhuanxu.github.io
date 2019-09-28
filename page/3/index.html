@@ -263,6 +263,449 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/23/C-委托的三种调用示例/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wangzhuanxu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的独立博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/23/C-委托的三种调用示例/" itemprop="url">C#委托的三种调用示例</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-23T09:45:02+08:00">
+                2018-11-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/11/23/C-委托的三种调用示例/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/11/23/C-委托的三种调用示例/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="同步调用"><a href="#同步调用" class="headerlink" title="同步调用"></a>同步调用</h3><p><strong>运行描述</strong><br>委托的Invoke方法用来进行同步调用。同步调用也可以叫阻塞调用，它将阻塞当前线程，然后执行调用，调用完毕后再继续向下进行。<br><strong>运行代码</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">namespace SuanFa</span><br><span class="line">&#123;</span><br><span class="line">    public delegate int  AddDelegate(int i, int j);</span><br><span class="line">    class Delegate_Three</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;Client application started!\n&quot;);</span><br><span class="line">            Thread.CurrentThread.Name = &quot;Main Thread&quot;;</span><br><span class="line">            Delegate_Three dt = new Delegate_Three();</span><br><span class="line">            AddDelegate ad = new AddDelegate(dt.Add);</span><br><span class="line">            int result=ad.Invoke(2, 5);</span><br><span class="line">            //int result =dt.Add(2, 5);</span><br><span class="line">            Console.WriteLine(&quot;Result: &#123;0&#125;\n&quot;, result);</span><br><span class="line">            // 做某些其它的事情，模拟需要执行3 秒钟</span><br><span class="line">            for (int i = 1; i &lt;= 3; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Thread.Sleep(TimeSpan.FromSeconds(i));</span><br><span class="line">                Console.WriteLine(&quot;&#123;0&#125;: Client executed &#123;1&#125; second(s).&quot;,</span><br><span class="line">                    Thread.CurrentThread.Name, i);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine(&quot;\nPress any key to exit...&quot;);</span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">        public int Add(int x, int y)</span><br><span class="line">        &#123;</span><br><span class="line">            if (Thread.CurrentThread.IsThreadPoolThread)</span><br><span class="line">            &#123;</span><br><span class="line">                Thread.CurrentThread.Name = &quot;Pool Thread&quot;;</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine(&quot;Method invoked!&quot;);</span><br><span class="line">            // 执行某些事情，模拟需要执行2 秒钟</span><br><span class="line">            for (int i = 1; i &lt;= 2; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Thread.Sleep(TimeSpan.FromSeconds(i));</span><br><span class="line">                Console.WriteLine(&quot;&#123;0&#125;: Add executed &#123;1&#125; second(s).&quot;, </span><br><span class="line">                    Thread.CurrentThread.Name, i);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine(&quot;Method complete!&quot;);</span><br><span class="line">            return x + y;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>运行结果</strong><br><img src="https://i.loli.net/2018/11/23/5bf75bf8d2bb6.png" alt=""><br><strong>API</strong></p>
+<ul>
+<li><p>Thread.Sleep()，它会让执行当前代码的线程暂停一段时间（如果你对线程的概念比较陌生，可以理解为使程序的执行暂停一段时间），以毫秒为单位，比如Thread.Sleep(1000)，将会使线程暂停1 秒钟。在上面我使用了它的重载方法，个人觉得使用TimeSpan.FromSeconds(1)，可读性更好一些。</p>
+</li>
+<li><p>Thread.CurrentThread.Name，通过这个属性可以设置、获取执行当前代码的线程的名称，值得注意的是这个属性只可以设置一次，如果设置两次，会抛出异常。</p>
+</li>
+<li><p>Thread.IsThreadPoolThread，可以判断执行当前代码的线程是否为线程池中的线程。</p>
+</li>
+</ul>
+<p>同步调用会阻塞线程，如果是要调用一项繁重的工作（如大量IO操作），可能会让程序停顿很长时间，造成糟糕的用户体验，这时候异步调用就很有必要了。</p>
+<h3 id="异步调用"><a href="#异步调用" class="headerlink" title="异步调用"></a>异步调用</h3><p><strong>运行描述</strong><br>通常情况下，如果需要异步执行一个耗时的操作，我们会新起一个线程，然后让这个线程去执行代码。但是对于每一个异步调用都通过创建线程来进行操作显然会对性能产生一定的影响，同时操作也相对繁琐一些。.NET 中可以通过委托进行方法的异步调用，就是说客户端在异步调用方法时，本身并不会因为方法的调用而中断，而是从线程池中抓取一个线程去执行该方法，自身线程（主线程）在完成抓取线程这一过程之后，继续执行下面的代码，这样就实现了代码的并行执行。使用线程池的好处就是避免了频繁进行异步调用时创建、销毁线程的开销。当我们在委托对象上调用BeginInvoke()时，便进行了一个异步的方法调用。<br><strong>运行代码</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">namespace SuanFa</span><br><span class="line">&#123;</span><br><span class="line">    public delegate int  AddDelegate(int i, int j);</span><br><span class="line">    class Delegate_Three</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;Client application started!\n&quot;);</span><br><span class="line">            Thread.CurrentThread.Name = &quot;Main Thread&quot;;</span><br><span class="line">            Delegate_Three dt = new Delegate_Three();</span><br><span class="line">            AddDelegate ad = new AddDelegate(dt.Add);</span><br><span class="line">            IAsyncResult asyncResult = ad.BeginInvoke(2, 5, null, null);</span><br><span class="line">            // 做某些其它的事情，模拟需要执行3 秒钟</span><br><span class="line">            for (int i = 1; i &lt;= 3; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Thread.Sleep(TimeSpan.FromSeconds(i));</span><br><span class="line">                Console.WriteLine(&quot;&#123;0&#125;: Client executed &#123;1&#125; second(s).&quot;,</span><br><span class="line">                    Thread.CurrentThread.Name, i);</span><br><span class="line">            &#125;</span><br><span class="line">            int result = ad.EndInvoke(asyncResult);</span><br><span class="line">            Console.WriteLine(&quot;Result: &#123;0&#125;\n&quot;, result);</span><br><span class="line">            Console.WriteLine(&quot;\nPress any key to exit...&quot;);</span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">        public int Add(int x, int y)</span><br><span class="line">        &#123;</span><br><span class="line">            if (Thread.CurrentThread.IsThreadPoolThread)</span><br><span class="line">            &#123;</span><br><span class="line">                Thread.CurrentThread.Name = &quot;Pool Thread&quot;;</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine(&quot;Method invoked!&quot;);</span><br><span class="line">            // 执行某些事情，模拟需要执行2 秒钟</span><br><span class="line">            for (int i = 1; i &lt;= 2; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Thread.Sleep(TimeSpan.FromSeconds(i));</span><br><span class="line">                Console.WriteLine(&quot;&#123;0&#125;: Add executed &#123;1&#125; second(s).&quot;, </span><br><span class="line">                    Thread.CurrentThread.Name, i);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine(&quot;Method complete!&quot;);</span><br><span class="line">            return x + y;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>运行结果</strong><br><img src="https://i.loli.net/2018/11/23/5bf75dd310155.png" alt=""></p>
+<p>可以看到，主线程并没有等待，而是直接向下运行了。但是问题依然存在，当主线程运行到EndInvoke时，如果这时调用没有结束（这种情况很可能出现），这时为了等待调用结果，线程依旧会被阻塞。<br>异步委托，也可以参考如下写法：<br>Action<object> action=(obj)=&gt;method(obj);<br>action.BeginInvoke(obj,ar=&gt;action.EndInvoke(ar),null);<br>简简单单两句话就可以完成一部操作。</object></p>
+<h3 id="异步回调"><a href="#异步回调" class="headerlink" title="异步回调"></a>异步回调</h3><p><strong>运行描述</strong><br>用回调函数，当调用结束时会自动调用回调函数，解决了为等待调用结果，而让线程依旧被阻塞的局面。<br><strong>运行代码</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Runtime.Remoting.Messaging;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">namespace SuanFa</span><br><span class="line">&#123;</span><br><span class="line">    public delegate int  AddDelegate(int i, int j);</span><br><span class="line">    class Delegate_Three</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;Client application started!\n&quot;);</span><br><span class="line">            Thread.CurrentThread.Name = &quot;Main Thread&quot;;</span><br><span class="line">            Delegate_Three dt = new Delegate_Three();</span><br><span class="line">            AddDelegate ad = new AddDelegate(dt.Add);</span><br><span class="line">            AsyncCallback asy = new AsyncCallback(dt.complete);</span><br><span class="line">            IAsyncResult asyncResult = ad.BeginInvoke(2, 5, asy, &quot;On Complete&quot;);</span><br><span class="line">            // 做某些其它的事情，模拟需要执行3 秒钟</span><br><span class="line">            for (int i = 1; i &lt;= 3; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Thread.Sleep(TimeSpan.FromSeconds(i));</span><br><span class="line">                Console.WriteLine(&quot;&#123;0&#125;: Client executed &#123;1&#125; second(s).&quot;,</span><br><span class="line">                    Thread.CurrentThread.Name, i);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine(&quot;\nPress any key to exit...&quot;);</span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">        public void complete(IAsyncResult asyncResult)</span><br><span class="line">        &#123;</span><br><span class="line">            //AsyncResult是IAsyncResult的子类</span><br><span class="line">            AsyncResult asy = (AsyncResult)asyncResult;</span><br><span class="line">            AddDelegate ad = (AddDelegate)asy.AsyncDelegate;</span><br><span class="line">            string data = (string)asy.AsyncState;</span><br><span class="line">            int result = ad.EndInvoke(asyncResult);</span><br><span class="line">            Console.WriteLine(&quot;&#123;0&#125;: Result, &#123;1&#125;; Data: &#123;2&#125;\n&quot;, Thread.CurrentThread.Name, result, data);</span><br><span class="line">        &#125;</span><br><span class="line">        public int Add(int x, int y)</span><br><span class="line">        &#123;</span><br><span class="line">            if (Thread.CurrentThread.IsThreadPoolThread)</span><br><span class="line">            &#123;</span><br><span class="line">                Thread.CurrentThread.Name = &quot;Pool Thread&quot;;</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine(&quot;Method invoked!&quot;);</span><br><span class="line">            // 执行某些事情，模拟需要执行2 秒钟</span><br><span class="line">            for (int i = 1; i &lt;= 2; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Thread.Sleep(TimeSpan.FromSeconds(i));</span><br><span class="line">                Console.WriteLine(&quot;&#123;0&#125;: Add executed &#123;1&#125; second(s).&quot;, </span><br><span class="line">                    Thread.CurrentThread.Name, i);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine(&quot;Method complete!&quot;);</span><br><span class="line">            return x + y;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>运行结果</strong><br><img src="https://i.loli.net/2018/11/23/5bf76195a0cfa.png" alt=""></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这里有几个值得注意的地方：</p>
+<ul>
+<li>我们在调用BeginInvoke()后不再需要保存IAysncResult 了，因为AysncCallback 委托将该对象定义在了回调方法的参数列表中；</li>
+<li>我们在OnAddComplete()方法中获得了调用BeginInvoke()时最后一个参数传递的值，字符串“Any data you want to pass”；</li>
+<li>执行回调方法的线程并非客户端线程Main Thread，而是来自线程池中的线程Pool Thread。另外如前面所说，在调用EndInvoke()时有可能会抛出异常，所以在应该将它放到try/catch 块中，这里就不再示范了。</li>
+</ul>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>问题：</p>
+<ul>
+<li><p>为什么Invoke的参数和返回值和AddDelegate委托是一样的呢？<br>答：Invoke方法的参数很简单，一个委托，一个参数表(可选)，而Invoke方法的主要功能就是帮助你在UI线程上调用委托所指定的方法。Invoke方法首先检查发出调用的线程(即当前线程)是不是UI线程，如果是，直接执行委托指向的方法，如果不是，它将切换到UI线程，然后执行委托指向的方法。不管当前线程是不是UI线程，Invoke都阻塞直到委托指向的方法执行完毕，然后切换回发出调用的线程(如果需要的话)，返回。<br>所以Invoke方法的参数和返回值和调用他的委托应该是一致的。</p>
+</li>
+<li><p>IAsyncResult result = ad.BeginInvoke(1,2,null,null);<br>BeginInvoke : 开始一个异步的请求,调用线程池中一个线程来执行，<br>返回IAsyncResult 对象(异步的核心). IAsyncResult 简单的说,他存储异步操作的状态信息的一个接口,也可以用他来结束当前异步。<br>注意:<strong> BeginInvoke和EndInvoke必须成对调用.即使不需要返回值，但EndInvoke还是必须调用，否则可能会造成内存泄漏。</strong></p>
+</li>
+<li><p>IAsyncResult.AsyncState 属性：<br>获取用户定义的对象，它限定或包含关于异步操作的信息。</p>
+<h3 id="委托解析代码"><a href="#委托解析代码" class="headerlink" title="委托解析代码"></a>委托解析代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">.class public auto ansi sealed SuanFa.AddDelegate</span><br><span class="line">	extends [mscorlib]System.MulticastDelegate</span><br><span class="line">&#123;</span><br><span class="line">	// Methods</span><br><span class="line">	.method public hidebysig specialname rtspecialname </span><br><span class="line">		instance void .ctor (</span><br><span class="line">			object &apos;object&apos;,</span><br><span class="line">			native int &apos;method&apos;</span><br><span class="line">		) runtime managed </span><br><span class="line">	&#123;</span><br><span class="line">	&#125; // end of method AddDelegate::.ctor</span><br><span class="line"></span><br><span class="line">	.method public hidebysig newslot virtual </span><br><span class="line">		instance int32 Invoke (</span><br><span class="line">			int32 i,</span><br><span class="line">			int32 j</span><br><span class="line">		) runtime managed </span><br><span class="line">	&#123;</span><br><span class="line">	&#125; // end of method AddDelegate::Invoke</span><br><span class="line"></span><br><span class="line">	.method public hidebysig newslot virtual </span><br><span class="line">		instance class [mscorlib]System.IAsyncResult BeginInvoke (</span><br><span class="line">			int32 i,</span><br><span class="line">			int32 j,</span><br><span class="line">			class [mscorlib]System.AsyncCallback callback,</span><br><span class="line">			object &apos;object&apos;</span><br><span class="line">		) runtime managed </span><br><span class="line">	&#123;</span><br><span class="line">	&#125; // end of method AddDelegate::BeginInvoke</span><br><span class="line"></span><br><span class="line">	.method public hidebysig newslot virtual </span><br><span class="line">		instance int32 EndInvoke (</span><br><span class="line">			class [mscorlib]System.IAsyncResult result</span><br><span class="line">		) runtime managed </span><br><span class="line">	&#123;</span><br><span class="line">	&#125; // end of method AddDelegate::EndInvoke</span><br><span class="line"></span><br><span class="line">&#125; // end of class SuanFa.AddDelegate</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>上面的代码用C#来写为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public delegate int  AddDelegate(int i, int j);</span><br></pre></td></tr></table></figure></p>
+<p>由此可以看出</p>
+<ul>
+<li>Invoke需要的参数列表与定义委托时的参数列表类型相同，返回值与委托的返回值类型相同。</li>
+<li>BeginInvoke参数前两个为定义委托时的参数。第三个为AsyncCallback类型，该类型也是一个委托类型，用来定义异步调用执行完毕后的方法。第四个为object 类型，用来存储相关的信息，可以是任何信息。返回值为IAsyncResult类型，可以作为EndInvoke的入口参数</li>
+<li>EndInvoke参数为IAsyncResult 类型，是一个接口类型。返回值就是委托的返回值。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/22/观察者模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wangzhuanxu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的独立博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/22/观察者模式/" itemprop="url">观察者模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-22T22:03:43+08:00">
+                2018-11-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/11/22/观察者模式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/11/22/观察者模式/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="使用情况"><a href="#使用情况" class="headerlink" title="使用情况"></a>使用情况</h4><p>当对象间存在一对多关系时，则使用观察者模式（Observer Pattern）。比如，当一个对象被修改时，则会自动通知它的依赖对象。观察者模式属于行为型模式。</p>
+<h4 id="意图"><a href="#意图" class="headerlink" title="意图"></a>意图</h4><p>定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新。</p>
+<h4 id="主要解决"><a href="#主要解决" class="headerlink" title="主要解决"></a>主要解决</h4><p>一个对象状态改变给其他对象通知的问题，而且要考虑到易用和低耦合，保证高度的协作。</p>
+<h4 id="何时使用"><a href="#何时使用" class="headerlink" title="何时使用"></a>何时使用</h4><p>一个对象（目标对象）的状态发生改变，所有的依赖对象（观察者对象）都将得到通知，进行广播通知。</p>
+<h4 id="如何解决"><a href="#如何解决" class="headerlink" title="如何解决"></a>如何解决</h4><p>使用面向对象技术，可以将这种依赖关系弱化。<strong>C#中可以使用委托来表现该种模式。</strong></p>
+<h4 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">namespace SuanFa</span><br><span class="line">&#123;</span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 观察者模式</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    /// &lt;param name=&quot;eb&quot;&gt;&lt;/param&gt;</span><br><span class="line">    public delegate void EventHandler(EventBase eb);</span><br><span class="line">    public class Delegate_Observe</span><br><span class="line">    &#123;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 已被注册事件，这里面的一些事件在某帧中将会被执行</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        public Dictionary&lt;string, List&lt;EventHandler&gt;&gt; registedCallbacks </span><br><span class="line">            = new Dictionary&lt;string, List&lt;EventHandler&gt;&gt;();</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 在派发信息时新注册的事件，在下次派发时将被添加到registedCallbacks中。</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        public Dictionary&lt;string, List&lt;EventHandler&gt;&gt; registedCallbacksPending </span><br><span class="line">            = new Dictionary&lt;string, List&lt;EventHandler&gt;&gt;();</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 是否正在执行registedCallbacks中的事件，为true时表示正在派发信息</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        public bool isEnuming=false;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 派发过程中有收到新的需要派发的信息，下次派发前，将被添加到lEvents中</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        public  List&lt;EventBase&gt; lPendingEvents = new List&lt;EventBase&gt;();//待处理事件</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 需要被派发的信息</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        public  List&lt;EventBase&gt; lEvents = new List&lt;EventBase&gt;();//要处理事件</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 单例</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        static Delegate_Observe deob = new Delegate_Observe();</span><br><span class="line">        public static Delegate_Observe Deob</span><br><span class="line">        &#123;</span><br><span class="line">            get</span><br><span class="line">            &#123;</span><br><span class="line">                return deob;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 注册事件</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;eventName&quot;&gt;键值&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;eh&quot;&gt;事件列表&lt;/param&gt;</span><br><span class="line">        public void registedEvent(string eventName,EventHandler eh)</span><br><span class="line">        &#123;</span><br><span class="line">            lock(this)</span><br><span class="line">            &#123;</span><br><span class="line">                if (!registedCallbacks.ContainsKey(eventName))</span><br><span class="line">                &#123;</span><br><span class="line">                    registedCallbacks.Add(eventName, new List&lt;EventHandler&gt;());</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(&quot;已注册该事件&quot;+eventName);</span><br><span class="line">                &#125;</span><br><span class="line">                if (isEnuming)</span><br><span class="line">                &#123;</span><br><span class="line">                    if (!registedCallbacksPending.ContainsKey(eventName))</span><br><span class="line">                    &#123;</span><br><span class="line">                        registedCallbacksPending.Add(eventName, new List&lt;EventHandler&gt;());</span><br><span class="line">                    &#125;</span><br><span class="line">                    registedCallbacksPending[eventName].Add(eh);</span><br><span class="line">                    return;</span><br><span class="line">                &#125;</span><br><span class="line">                registedCallbacks[eventName].Add(eh);</span><br><span class="line">            &#125;</span><br><span class="line">           </span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 添加需要派发的信息</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;typeparam name=&quot;T&quot;&gt;信息的类型&lt;/typeparam&gt;</span><br><span class="line">        /// &lt;param name=&quot;value&quot;&gt;信息&lt;/param&gt;</span><br><span class="line">        public void Dispather&lt;T&gt;(T value) </span><br><span class="line">            where T:EventBase</span><br><span class="line">        &#123;</span><br><span class="line">            lock(this)</span><br><span class="line">            &#123;</span><br><span class="line">                if (!registedCallbacks.ContainsKey(value.eventName))</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(&quot;未注册该事件&quot;);</span><br><span class="line">                    return;</span><br><span class="line">                &#125;</span><br><span class="line">                if (isEnuming)</span><br><span class="line">                &#123;</span><br><span class="line">                    lPendingEvents.Add(value);</span><br><span class="line">                    Console.WriteLine(&quot;添加为要事件&quot;);</span><br><span class="line">                    return;</span><br><span class="line">                &#125;</span><br><span class="line">                foreach (EventBase eb in lPendingEvents)</span><br><span class="line">                &#123;</span><br><span class="line">                    lEvents.Add(eb);</span><br><span class="line">                &#125;</span><br><span class="line">                lPendingEvents.Clear();</span><br><span class="line">                lEvents.Add(value);</span><br><span class="line">            &#125;</span><br><span class="line">           </span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 每帧执行，派发信息</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        public void onTick()</span><br><span class="line">        &#123;</span><br><span class="line">            lock(this)</span><br><span class="line">            &#123;</span><br><span class="line">                if (lEvents.Count == 0)//没有需要处理的事件，查看是否有将要注册的事件,为派发做准备</span><br><span class="line">                &#123;</span><br><span class="line">                    foreach (string str in registedCallbacksPending.Keys)</span><br><span class="line">                    &#123;</span><br><span class="line">                        registedCallbacks.Add(str, registedCallbacksPending[str]);</span><br><span class="line">                    &#125;</span><br><span class="line">                    registedCallbacksPending.Clear();</span><br><span class="line">                    foreach (EventBase eb in lPendingEvents)</span><br><span class="line">                    &#123;</span><br><span class="line">                        lEvents.Add(eb);</span><br><span class="line">                    &#125;</span><br><span class="line">                    lPendingEvents.Clear();</span><br><span class="line">                    return;</span><br><span class="line">                &#125;</span><br><span class="line">                isEnuming = true;</span><br><span class="line">                foreach (EventBase eb in lEvents)</span><br><span class="line">                &#123;</span><br><span class="line">                    for (int i = 0; i &lt; registedCallbacks[eb.eventName].Count; i++)</span><br><span class="line">                    &#123;</span><br><span class="line">                        if (registedCallbacks[eb.eventName][i] != null)</span><br><span class="line">                        &#123;</span><br><span class="line">                            registedCallbacks[eb.eventName][i](eb);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                lEvents.Clear();</span><br><span class="line">            &#125;</span><br><span class="line">            isEnuming = false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 信息基类</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    public class EventBase</span><br><span class="line">    &#123;</span><br><span class="line">        public string eventName;</span><br><span class="line">        public object value;</span><br><span class="line">        public EventBase(string eventName,object value)</span><br><span class="line">        &#123;</span><br><span class="line">            this.eventName = eventName;</span><br><span class="line">            this.value = value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 信息子类</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    public class EventWithValue:EventBase</span><br><span class="line">    &#123;</span><br><span class="line">        public object value1;</span><br><span class="line">        public EventWithValue(string eventName,object value1)</span><br><span class="line">            :base(eventName,value1)</span><br><span class="line">        &#123;</span><br><span class="line">            this.eventName = eventName;</span><br><span class="line">            this.value1 = value1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public class Test</span><br><span class="line">    &#123;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 键值，每个键值对应一个事件列表</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        static string[] name = &#123; &quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;, &quot;E&quot;, &quot;F&quot;, &quot;G&quot;, &quot;H&quot;, &quot;I&quot;, &quot;K&quot; &#125;;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 注册线程执行方法，每隔一段事件就会注册新的事件，</span><br><span class="line">        /// 这些事件的目的是处理得到的信息</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        static void zhuce()</span><br><span class="line">        &#123;</span><br><span class="line">            int index = 0;</span><br><span class="line">            while(true)</span><br><span class="line">            &#123;</span><br><span class="line">                if(index&gt;=name.Length)</span><br><span class="line">                &#123;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                Delegate_Observe.Deob.registedEvent(name[index], getSome);</span><br><span class="line">                Console.WriteLine(&quot;添加注册事件&quot;+ name[index]);</span><br><span class="line">                try</span><br><span class="line">                &#123;</span><br><span class="line">                    Thread.Sleep(1000);</span><br><span class="line">                &#125;</span><br><span class="line">                catch(Exception e)</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(e.Data);</span><br><span class="line">                &#125;</span><br><span class="line">                index++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 事件所对应的方法</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;eb&quot;&gt;&lt;/param&gt;</span><br><span class="line">        static void getSome(EventBase eb)</span><br><span class="line">        &#123;</span><br><span class="line">            EventWithValue ev = eb as EventWithValue;</span><br><span class="line">            int i = (int)ev.value1;</span><br><span class="line">            Console.WriteLine(ev.eventName + &quot; &quot;+i);</span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        ///添加需要派发的信息的线程执行方法</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        static void yunxing()</span><br><span class="line">        &#123;</span><br><span class="line">            int index = 0;</span><br><span class="line">            while (true)</span><br><span class="line">            &#123;</span><br><span class="line">                try</span><br><span class="line">                &#123;</span><br><span class="line">                    Thread.Sleep(1000);</span><br><span class="line">                &#125;</span><br><span class="line">                catch (Exception e)</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(e.Data);</span><br><span class="line">                &#125;</span><br><span class="line">                if (index &gt;= name.Length)</span><br><span class="line">                &#123;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                EventWithValue ev = new EventWithValue(name[index], index);</span><br><span class="line">                Delegate_Observe.Deob.Dispather&lt;EventWithValue&gt;(ev);</span><br><span class="line">               </span><br><span class="line">                index++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 派发信息的执行线程</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        static void diaoyong()</span><br><span class="line">        &#123;</span><br><span class="line">            while (true)</span><br><span class="line">            &#123;</span><br><span class="line">                try</span><br><span class="line">                &#123;</span><br><span class="line">                    Thread.Sleep(500);</span><br><span class="line">                &#125;</span><br><span class="line">                catch (Exception e)</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(e.Data);</span><br><span class="line">                &#125;</span><br><span class="line">                Delegate_Observe.Deob.onTick();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        static void Main()</span><br><span class="line">        &#123;</span><br><span class="line">            Thread s1 = new Thread(new ThreadStart(zhuce));</span><br><span class="line">            Thread s2 = new Thread(new ThreadStart(yunxing));</span><br><span class="line">            Thread s3 = new Thread(new ThreadStart(diaoyong));</span><br><span class="line">            s1.Start();</span><br><span class="line">            s2.Start();</span><br><span class="line">            s3.Start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="案例介绍"><a href="#案例介绍" class="headerlink" title="案例介绍"></a>案例介绍</h4><ul>
+<li>线程s1：将某些方法注册到某个事件，当该事件触发时，其所注册的方法将按顺序全部执行</li>
+<li>线程s2:添加需要派发的信息</li>
+<li>线程s3：遍历需要派发的信息，并获得该信息中的键值，根据该键值获取相应的委托事件，并执行该事件，即调用处理信息的方法。</li>
+<li>这三个线程主要是模拟观察者模式。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/14/UI穿透问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wangzhuanxu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的独立博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/14/UI穿透问题/" itemprop="url">UI穿透问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-14T19:31:11+08:00">
+                2018-11-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/11/14/UI穿透问题/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/11/14/UI穿透问题/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>　　在做unity的时候，有时候会受到UI穿透的影响，也就是两个UI图片重合了，本来是下方的UI图片是不能够被点击的，但是Unity默认下方UI图片可以被点击，这就需要编写相应方法来抵制这一现象。<br>    脚本如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">using UnityEngine;</span><br><span class="line">using System.Collections;</span><br><span class="line">public class DUIRayIgnore : MonoBehaviour, ICanvasRaycastFilter</span><br><span class="line">&#123;</span><br><span class="line">    public bool IsRaycastLocationValid(Vector2 screenPoint, Camera eventCamera)</span><br><span class="line">    &#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>该脚本主要是需要实现ICanvasRaycastFilter接口，并重写里面的IsRaycastLocationValid方法。将该脚本挂载在上一层方UI图片即可</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/12/Unity3d-UGUI-的多分辨率适配/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1394,431 +1837,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/22/项目展示/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wangzhuanxu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的独立博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/22/项目展示/" itemprop="url">项目展示</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-22T17:24:19+08:00">
-                2018-10-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/10/22/项目展示/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/10/22/项目展示/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="项目展示"><a href="#项目展示" class="headerlink" title="项目展示"></a>项目展示</h3><ul>
-<li><a href="http://t.cn/Eho0yXh" target="_blank" rel="noopener">王者争霸视频链接</a>, 密码：1033428951</li>
-<li><a href="http://t.cn/EhoOyhQ" target="_blank" rel="noopener">小小炸弹人视频链接</a>,密码：1033428951</li>
-<li><a href="https://pan.baidu.com/s/1FGhh9id4gGKp1CreJtvyqg" target="_blank" rel="noopener">悦瘦视频链接</a>, 密码：sq2v</li>
-<li><a href="http://t.cn/Eh6X2Wc" target="_blank" rel="noopener">论文链接</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/03/虚拟数电实验平台论文/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wangzhuanxu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的独立博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/03/虚拟数电实验平台论文/" itemprop="url">虚拟数电实验平台论文</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-03T16:25:39+08:00">
-                2018-10-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/10/03/虚拟数电实验平台论文/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/10/03/虚拟数电实验平台论文/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="论文内容"><a href="#论文内容" class="headerlink" title="论文内容"></a>论文内容</h2><p><img src="https://i.loli.net/2018/10/03/5bb47d5518946.png" alt="alt" title="封面"><br><img src="https://i.loli.net/2018/10/03/5bb47d90f3268.png" alt="alt" title="目录"><br><img src="https://i.loli.net/2018/10/03/5bb47d9f44691.png" alt="alt" title="内容1"><br><img src="https://i.loli.net/2018/10/03/5bb47dad291d8.png" alt="alt" title="内容2"><br><img src="https://i.loli.net/2018/10/03/5bb47db7e48bd.png" alt="alt" title="内容3"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/01/Lua与C-交互问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wangzhuanxu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的独立博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/01/Lua与C-交互问题/" itemprop="url">Lua与C#交互问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-01T15:05:21+08:00">
-                2018-10-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Lua/" itemprop="url" rel="index">
-                    <span itemprop="name">Lua</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/10/01/Lua与C-交互问题/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/10/01/Lua与C-交互问题/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>　　在学习Lua热更新的时候，遇到了一个很小的问题，但出错原因却很容易被忽略，从而浪费许多不必要的时间。</p>
-<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>　　在开始学习Lua的时候，我先是建立了一个项目，名称为<strong>LuaInterface(这个名称就是出错的罪魁祸首，因为VS会自动创建一个名称为LuaInterface的命名空间)</strong>，  然后我再里面写了如下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using LuaInterface;</span><br><span class="line">namespace LuaInterface</span><br><span class="line">&#123;</span><br><span class="line">    public class Program</span><br><span class="line">    &#123;</span><br><span class="line">        public Program()</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            Lua luaw = new Lua();</span><br><span class="line">            //执行lua脚本</span><br><span class="line">            luaw.DoFile(&quot;Script.lua&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        public static void staticMethod(int i, double d)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;静态方法&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        public void CLRMethod()</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;非静态方法&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public class MyClass</span><br><span class="line">    &#123;</span><br><span class="line">        public MyClass()</span><br><span class="line">        &#123; </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>　　然后我又写了Script.lua脚本<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--require "luanet"</span></span><br><span class="line"><span class="comment">--加载CLR的类型</span></span><br><span class="line">luanet.load_assembly(<span class="string">"LuaInterface"</span>)</span><br><span class="line">Program = luanet.import_type(<span class="string">"LuaInterface.Program"</span>)</span><br><span class="line"><span class="comment">--实例化CLR对象</span></span><br><span class="line">program = Program()</span><br><span class="line">program:CLRMethod()</span><br></pre></td></tr></table></figure></p>
-<p>　　然后ctrl+f5运行程序，却报如下错误。<br>  <img src="https://i.loli.net/2018/10/01/5bb1cd7ea53da.png" alt="alt" title="错误信息"></p>
-<p>　　<strong>经过查找发现是命名空间冲突导致，Lua与C#交互需要用到LuaInterface.dll,而此处又定义了LuaInterface命名空间，造成冲突。</strong></p>
-<h3 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h3><p>　　这里需要将LuaInterface命名空间间换为其他名称，然后右键点击项目，选择属性<br>  <img src="https://i.loli.net/2018/10/01/5bb1cf09868fc.png" alt=""><br>　　然后将程序集名称和默认命名空间换为新的命名空间名称后保存即可。<br> <img src="https://i.loli.net/2018/10/01/5bb1cfac4829f.png" alt=""><br>　　<strong>若lua想要访问其他的自定义命名空间，都需要将此处的程序集名称和默认命名空间换为lua想要访问的命名空间的名称，否则坏事会出现上述错误。</strong></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1873,7 +1891,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
