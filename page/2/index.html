@@ -263,6 +263,526 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/13/深度优先/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wangzhuanxu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的独立博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/13/深度优先/" itemprop="url">深度优先</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-13T09:25:22+08:00">
+                2018-12-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/13/深度优先/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/12/13/深度优先/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line">namespace SuanFa.Graphics</span><br><span class="line">&#123;</span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 深度优先</span><br><span class="line">    /// 难以寻找最优解，仅仅只能寻找有解。其优点就是内存消耗小，</span><br><span class="line">    /// 克服了刚刚说的广度优先搜索的缺点。</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    class DFS</span><br><span class="line">    &#123;</span><br><span class="line">        //四个方向</span><br><span class="line">        int[,] dir =</span><br><span class="line">        &#123;</span><br><span class="line">            &#123;1,0 &#125;,</span><br><span class="line">            &#123;-1,0 &#125;,</span><br><span class="line">            &#123;0,1 &#125;,</span><br><span class="line">            &#123;0,-1 &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        </span><br><span class="line">        //static void Main()</span><br><span class="line">        //&#123;</span><br><span class="line">        //    //迷宫</span><br><span class="line">        //    int[,] maze = &#123;</span><br><span class="line">        //       &#123; 0, 1, 0, 0, 0 &#125;,</span><br><span class="line">        //       &#123; 0, 1, 0, 1, 0 &#125;,</span><br><span class="line">        //       &#123; 0, 0, 0, 0, 0 &#125;,</span><br><span class="line">        //       &#123; 0, 1, 1, 1, 0 &#125;,</span><br><span class="line">        //       &#123; 0, 0, 0, 1, 0 &#125;,</span><br><span class="line">        //    &#125;;</span><br><span class="line">        //    DFS b = new DFS();</span><br><span class="line">        //    int[,] visit = new int[maze.GetLength(0), maze.GetLength(1)];//是否访问过</span><br><span class="line">        //    DFSNode r = b.dfs(new DFSNode(0, 0), new DFSNode(4, 4), maze,visit);</span><br><span class="line">        //    if (r == null)</span><br><span class="line">        //        Console.WriteLine(&quot;null&quot;);</span><br><span class="line"></span><br><span class="line">        //    while (r != null)</span><br><span class="line">        //    &#123;</span><br><span class="line">        //        Console.WriteLine(r.x + &quot;__&quot; + r.y);</span><br><span class="line">        //        r = r.parent;</span><br><span class="line">        //    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        //&#125;</span><br><span class="line">        public DFSNode dfs(DFSNode start, DFSNode end, int[,] maze,int [,]visit)</span><br><span class="line">        &#123;</span><br><span class="line">            visit[start.x, start.y] = 1;//设置为访问</span><br><span class="line">            Console.WriteLine(start.x + &quot; &quot; + start.y);</span><br><span class="line">            //Console.WriteLine(start.x + &quot; &quot; + start.y);</span><br><span class="line">            if (start==null)</span><br><span class="line">            &#123;</span><br><span class="line">                return null;</span><br><span class="line">            &#125;</span><br><span class="line">            for (int i = 0; i &lt; 4; i++)//当前节点的四个方位</span><br><span class="line">            &#123;</span><br><span class="line">                DFSNode next = new DFSNode(start.x + dir[i, 0], start.y + dir[i, 1]);//下一个方向节点</span><br><span class="line">                if (next.x &gt;= 0 &amp;&amp; next.x &lt; maze.GetLength(0) &amp;&amp; next.y &gt;= 0 &amp;&amp; next.y &lt; maze.GetLength(1) &amp;&amp; maze[next.x, next.y] != 1)//该值是否存在</span><br><span class="line">                &#123;  </span><br><span class="line">                    next.parent = start;</span><br><span class="line">                    next.len = start.len + 1;//路径加一</span><br><span class="line">                    if (next.x == end.x &amp;&amp; next.y == end.y)</span><br><span class="line">                    &#123;</span><br><span class="line">                        return next;//返回终点</span><br><span class="line">                    &#125;</span><br><span class="line">                    if (visit[next.x, next.y] == 0)//判断该点是否访问过</span><br><span class="line">                    &#123;</span><br><span class="line">                        DFSNode node = dfs(next, end, maze,visit);</span><br><span class="line">                        if (node!=null&amp;&amp;node.x == end.x &amp;&amp; node.y == end.y)//查看是否查找到相应的点</span><br><span class="line">                        &#123;</span><br><span class="line">                            return node;//返回查找到的点</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine();</span><br><span class="line">               </span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class DFSNode</span><br><span class="line">    &#123;</span><br><span class="line">        public int x;//xy坐标</span><br><span class="line">        public int y;</span><br><span class="line">        public DFSNode parent;//父节点</span><br><span class="line">        public int len;//长度</span><br><span class="line">        public DFSNode(int x, int y)</span><br><span class="line">        &#123;</span><br><span class="line">            this.x = x;</span><br><span class="line">            this.y = y;</span><br><span class="line">            this.parent = null;</span><br><span class="line">            len = 1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/13/广度优先/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wangzhuanxu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的独立博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/13/广度优先/" itemprop="url">广度优先</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-13T09:24:45+08:00">
+                2018-12-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/13/广度优先/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/12/13/广度优先/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line">namespace SuanFa.Graphics</span><br><span class="line">&#123;</span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 广度优先---最短路径</span><br><span class="line">    /// 在树的层次较深&amp;子节点数较多的情况下，消耗内存十分严重。</span><br><span class="line">    /// 广度优先搜索适用于节点的子节点数量不多，并且树的层次不会太深的情况。</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    class BFS</span><br><span class="line">    &#123;</span><br><span class="line">        //四个方向</span><br><span class="line">        int[,] dir =</span><br><span class="line">        &#123;</span><br><span class="line">            &#123;1,0 &#125;,</span><br><span class="line">            &#123;-1,0 &#125;,</span><br><span class="line">            &#123;0,1 &#125;,</span><br><span class="line">            &#123;0,-1 &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        //static void Main()</span><br><span class="line">        //&#123;</span><br><span class="line">        //    //迷宫</span><br><span class="line">        //    int[,] maze = &#123;</span><br><span class="line">        //       &#123; 0, 1, 0, 0, 0 &#125;,</span><br><span class="line">        //       &#123; 0, 1, 0, 1, 0 &#125;,</span><br><span class="line">        //       &#123; 0, 0, 0, 0, 0 &#125;,</span><br><span class="line">        //       &#123; 0, 1, 1, 1, 0 &#125;,</span><br><span class="line">        //       &#123; 0, 0, 0, 1, 0 &#125;,</span><br><span class="line">        //    &#125;;</span><br><span class="line">        //    BFS b = new BFS();</span><br><span class="line">        //    BFSNode r = b.bfs(new BFSNode(0, 0), new BFSNode(4, 4),maze);</span><br><span class="line">        //    //if(r==null)</span><br><span class="line">        //    Console.WriteLine(r.x+&quot; &quot;+r.y+&quot; &quot;+r.len);</span><br><span class="line"></span><br><span class="line">        //   while(r!=null)</span><br><span class="line">        //    &#123;</span><br><span class="line">        //        Console.WriteLine(r.x + &quot;__&quot;+r.y);</span><br><span class="line">        //        r = r.parent;</span><br><span class="line">        //    &#125;</span><br><span class="line"></span><br><span class="line">        //&#125;</span><br><span class="line">        public BFSNode bfs(BFSNode start,BFSNode end,int [,]maze)</span><br><span class="line">        &#123;</span><br><span class="line">            Queue&lt;BFSNode&gt; q = new Queue&lt;BFSNode&gt;();</span><br><span class="line">            int[,] visit = new int[maze.GetLength(0), maze.GetLength(1)];//是否访问过</span><br><span class="line">            q.Enqueue(start);//加入起点</span><br><span class="line">            visit[start.x, start.y] = 1;//设置访问过</span><br><span class="line">            Console.WriteLine(start.x + &quot; &quot; + start.y);</span><br><span class="line">            while(q.Count&gt;0)</span><br><span class="line">            &#123;</span><br><span class="line">                BFSNode now = q.Dequeue();//当前节点</span><br><span class="line">                for(int i=0;i&lt;4;i++)//当前节点的四个方位</span><br><span class="line">                &#123;</span><br><span class="line">                    BFSNode next = new BFSNode(now.x + dir[i, 0], now.y + dir[i, 1]);//下一个方向节点</span><br><span class="line">                   </span><br><span class="line">                    if (next.x&gt;=0&amp;&amp; next.x&lt;maze.GetLength(0)&amp;&amp;next.y&gt;=0&amp;&amp;next.y&lt;maze.GetLength(1)&amp;&amp;maze[next.x, next.y]!=1)//该值是否存在</span><br><span class="line">                    &#123;</span><br><span class="line">                        next.parent = now;</span><br><span class="line">                        next.len = now.len + 1;//路径加一</span><br><span class="line">                        if (next.x==end.x&amp;&amp;next.y==end.y)</span><br><span class="line">                        &#123;        </span><br><span class="line">                            return next;//返回终点</span><br><span class="line">                        &#125;</span><br><span class="line">                        if (visit[next.x, next.y] == 0)</span><br><span class="line">                        &#123;</span><br><span class="line">                            </span><br><span class="line">                            visit[next.x, next.y] = 1;//设置为访问</span><br><span class="line">                            q.Enqueue(next);//加入队列</span><br><span class="line">                        &#125;</span><br><span class="line">                        </span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                Console.WriteLine();</span><br><span class="line">            &#125;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class BFSNode</span><br><span class="line">    &#123;</span><br><span class="line">        public int x;//xy坐标</span><br><span class="line">        public int y;</span><br><span class="line">        public BFSNode parent;//父节点</span><br><span class="line">        public int len;//长度</span><br><span class="line">        public BFSNode(int x,int y)</span><br><span class="line">        &#123;</span><br><span class="line">            this.x = x;</span><br><span class="line">            this.y = y;</span><br><span class="line">            this.parent = null;</span><br><span class="line">            len = 1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/13/动态规划-背包问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wangzhuanxu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的独立博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/13/动态规划-背包问题/" itemprop="url">动态规划--背包问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-13T09:23:37+08:00">
+                2018-12-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/13/动态规划-背包问题/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/12/13/动态规划-背包问题/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line">namespace SuanFa.Graphics</span><br><span class="line">&#123;</span><br><span class="line">    class BackPack</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main()</span><br><span class="line">        &#123;</span><br><span class="line">            Monster[] monsters = &#123;</span><br><span class="line">                new Monster(12, 24),</span><br><span class="line">                new Monster(18, 20),</span><br><span class="line">                new Monster(19, 20),</span><br><span class="line"></span><br><span class="line">                new Monster(25, 30),</span><br><span class="line"></span><br><span class="line">                new Monster(10, 23),</span><br><span class="line"></span><br><span class="line">                new Monster(10, 23)</span><br><span class="line">                &#125;;</span><br><span class="line">            BackPack b = new BackPack();</span><br><span class="line">            Console.WriteLine(&quot;最大价=&quot; + b.getMaxValue(monsters, 40));;</span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 动态规划求最大价值</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;monsters&quot;&gt;怪物数组&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;allTime&quot;&gt;最大刷怪时间&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;最大金币数&lt;/returns&gt;</span><br><span class="line">        public int getMaxValue(Monster []monsters, int allTime)</span><br><span class="line">        &#123;</span><br><span class="line">            int num = monsters.GetLength(0);//怪物种类</span><br><span class="line">            int[,] dp = new int[num+1,allTime+1];//怪物个数</span><br><span class="line">            for(int i=1;i&lt;num+1;i++)//怪物种类数</span><br><span class="line">            &#123;</span><br><span class="line">                for(int j=1;j&lt;allTime+1;j++)//最大刷怪时间</span><br><span class="line">                &#123;</span><br><span class="line">                    if(monsters[i-1].costTime&lt;j)//打败该怪所需时间小于剩余规定时间</span><br><span class="line">                    &#123;</span><br><span class="line">                        //打死第i个怪物的价值大，还是不打死第i个怪物价值大</span><br><span class="line">                        if(dp[i-1,j]&lt;(dp[i-1,j-monsters[i-1].costTime]+monsters[i-1].coin))</span><br><span class="line">                        &#123;</span><br><span class="line">                            dp[i,j] = dp[i - 1, j - monsters[i - 1].costTime] + monsters[i - 1].coin;</span><br><span class="line">                        &#125;</span><br><span class="line">                        else</span><br><span class="line">                        &#123;</span><br><span class="line">                            dp[i, j] = dp[i - 1, j];</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    else</span><br><span class="line">                    &#123;</span><br><span class="line">                        dp[i, j] = dp[i - 1, j];</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return dp[num,allTime];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    class Monster</span><br><span class="line">    &#123;</span><br><span class="line">        public int costTime;</span><br><span class="line">        public int coin;</span><br><span class="line">        public Monster()</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        public Monster(int costTime,int coin)</span><br><span class="line">        &#123;</span><br><span class="line">            this.coin = coin;</span><br><span class="line">            this.costTime = costTime;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/13/A星/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wangzhuanxu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的独立博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/13/A星/" itemprop="url">A星</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-13T09:23:01+08:00">
+                2018-12-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/13/A星/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/12/13/A星/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line">namespace SuanFa.Graphics</span><br><span class="line">&#123;</span><br><span class="line">    class Grid:IComparable</span><br><span class="line">    &#123;</span><br><span class="line">        //位置</span><br><span class="line">        public int x;</span><br><span class="line">        public int y;</span><br><span class="line">        //f，g，h</span><br><span class="line">        public int g;</span><br><span class="line">        public int f;</span><br><span class="line">        public int h;</span><br><span class="line">        //parent</span><br><span class="line">        public Grid parent;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 比较方法</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;obj&quot;&gt;&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">        public int CompareTo(object obj)</span><br><span class="line">        &#123;</span><br><span class="line">            Grid gd = (Grid)obj;</span><br><span class="line">            if(this.f&gt;gd.f)</span><br><span class="line">            &#123;</span><br><span class="line">                return 1;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(this.f&lt;gd.f)</span><br><span class="line">            &#123;</span><br><span class="line">                return -1;</span><br><span class="line">            &#125;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Grid(int x,int y)</span><br><span class="line">        &#123;</span><br><span class="line">            this.x = x;</span><br><span class="line">            this.y = y;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public override int GetHashCode()</span><br><span class="line">        &#123;</span><br><span class="line">            return base.GetHashCode();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public override bool Equals(object obj)</span><br><span class="line">        &#123;</span><br><span class="line">            Grid node=(Grid)obj;</span><br><span class="line">            if(node.x==this.x&amp;&amp;node.y==this.y)</span><br><span class="line">            &#123;</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 保存地图信息</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    class MapInfo</span><br><span class="line">    &#123;</span><br><span class="line">        public int width;//地图宽</span><br><span class="line">        public int height;//地图高</span><br><span class="line">        public Grid start;//起点</span><br><span class="line">        public Grid end;//终点</span><br><span class="line">        public int[,] map;//地图数据</span><br><span class="line">        public MapInfo(int width,int height,Grid start,Grid end,int[,] map)</span><br><span class="line">        &#123;</span><br><span class="line">            this.width = width;</span><br><span class="line">            this.height = height;</span><br><span class="line">            this.start = start;</span><br><span class="line">            this.end = end;</span><br><span class="line">            this.map = map;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class Astar</span><br><span class="line">    &#123;</span><br><span class="line">        public List&lt;Grid&gt; openList = new List&lt;Grid&gt;();//开放列表</span><br><span class="line">        public List&lt;Grid&gt; closeList = new List&lt;Grid&gt;();//关闭列表</span><br><span class="line">        const int HYPOTENUSE = 14;//斜边</span><br><span class="line">        const int STRAIGHT = 10;//直边</span><br><span class="line">        MapInfo mapInfo;</span><br><span class="line">        //static void Main()</span><br><span class="line">        //&#123;</span><br><span class="line">        //    int[,] maze = &#123;</span><br><span class="line">        //        &#123; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 &#125;,</span><br><span class="line">        //        &#123; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 &#125;,</span><br><span class="line">        //        &#123; 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0 &#125;,</span><br><span class="line">        //        &#123; 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0 &#125;,</span><br><span class="line">        //        &#123; 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0 &#125;,</span><br><span class="line">        //        &#123; 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 &#125;,</span><br><span class="line">        //        &#123; 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 &#125;</span><br><span class="line">        //    &#125;;</span><br><span class="line">        //    Grid start = new Grid(0, 0);</span><br><span class="line">        //    Grid end = new Grid(maze.GetLength(0)-1, maze.GetLength(1)-6);</span><br><span class="line">        //    MapInfo mi = new MapInfo(maze.GetLength(0), maze.GetLength(1), start, end, maze);</span><br><span class="line">        //    Astar a = new Astar(mi);</span><br><span class="line">        //    Grid node=a.Start();</span><br><span class="line">        //    while(node!=null)</span><br><span class="line">        //    &#123;</span><br><span class="line">        //        maze[node.x, node.y] = 2;</span><br><span class="line">        //        node = node.parent;</span><br><span class="line">        //    &#125;</span><br><span class="line"></span><br><span class="line">        //    for(int i=0;i&lt;maze.GetLength(0);i++)</span><br><span class="line">        //    &#123;</span><br><span class="line">        //        for(int j=0;j&lt;maze.GetLength(1);j++)</span><br><span class="line">        //        &#123;</span><br><span class="line">        //            Console.Write(maze[i, j] + &quot;,&quot;);</span><br><span class="line">        //        &#125;</span><br><span class="line">        //        Console.WriteLine();</span><br><span class="line">        //    &#125;</span><br><span class="line">        //&#125;</span><br><span class="line"></span><br><span class="line">        public Astar(MapInfo mapInfo)</span><br><span class="line">        &#123;</span><br><span class="line">            this.mapInfo = mapInfo;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Grid Start()</span><br><span class="line">        &#123;</span><br><span class="line">            openList.Add(mapInfo.start);//放入起点</span><br><span class="line">            </span><br><span class="line">            while(openList.Count&gt;0)//开放列表中大于0</span><br><span class="line">            &#123;</span><br><span class="line">                Grid current = openList[0];//取出第一个</span><br><span class="line">                if(current.Equals(mapInfo.end))</span><br><span class="line">                &#123;</span><br><span class="line">                    return current;</span><br><span class="line">                &#125;</span><br><span class="line">                addNodeToOpenList(current);//添加顶点</span><br><span class="line">                closeList.Add(current);</span><br><span class="line">                openList.Remove(current);</span><br><span class="line">                openList.Sort();</span><br><span class="line">                Console.WriteLine(openList.Count);</span><br><span class="line">            &#125;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public void addNodeToOpenList(Grid current)</span><br><span class="line">        &#123;</span><br><span class="line">            int x = current.x;</span><br><span class="line">            int y = current.y;</span><br><span class="line">            addNodeToOpenList(current, x, y-1, STRAIGHT);//上</span><br><span class="line">            addNodeToOpenList(current, x-1, y, STRAIGHT);//左</span><br><span class="line">            addNodeToOpenList(current, x, y+1, STRAIGHT);//下</span><br><span class="line">            addNodeToOpenList(current, x + 1, y, STRAIGHT);//右</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public void addNodeToOpenList(Grid current,int x,int y,int value)</span><br><span class="line">        &#123;</span><br><span class="line">            if (gridIsOK(x,y)&amp;&amp;!isInCloseList(x,y))//格子存在,并且不包含在关闭列表中</span><br><span class="line">            &#123;</span><br><span class="line">                int g = current.g + value;//计算新的g值</span><br><span class="line">                Grid node = getNodeInOpenList(x, y);//查看是否在开放列表中</span><br><span class="line">                if(node==null)//不包含在开放列表中</span><br><span class="line">                &#123;</span><br><span class="line">                    node = new Grid(x, y);</span><br><span class="line">                    node.h = calH(node, mapInfo.end);//计算h</span><br><span class="line">                    node.g = g;//计算g</span><br><span class="line">                    node.f = node.f + node.g;//计算f</span><br><span class="line">                    node.parent = current;</span><br><span class="line">                    openList.Add(node);</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    if(node.g&gt;g)//更新g值</span><br><span class="line">                    &#123;</span><br><span class="line">                        node.g = g;</span><br><span class="line">                        node.f = node.g + node.h;</span><br><span class="line">                        node.parent = current;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 是否包含在开放列表中</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;x&quot;&gt;&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;y&quot;&gt;&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">        public Grid getNodeInOpenList(int x,int y)</span><br><span class="line">        &#123;</span><br><span class="line">            foreach (Grid ol in openList)</span><br><span class="line">            &#123;</span><br><span class="line">                if (ol.x == x &amp;&amp; ol.y == y)</span><br><span class="line">                &#123;</span><br><span class="line">                    return ol;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">           </span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 关闭列表是否包含</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;x&quot;&gt;&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;y&quot;&gt;&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;false :不包含</span><br><span class="line">        /// true：包含</span><br><span class="line">        /// &lt;/returns&gt;</span><br><span class="line">        public bool isInCloseList(int x,int y)</span><br><span class="line">        &#123;</span><br><span class="line">            foreach (Grid cl in closeList)</span><br><span class="line">            &#123;</span><br><span class="line">                if(cl.x==x&amp;&amp;cl.y==y)</span><br><span class="line">                &#123;</span><br><span class="line">                    return true;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 计算H</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;current&quot;&gt;当前节点&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;end&quot;&gt;终点&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">        public int calH(Grid current,Grid end)</span><br><span class="line">        &#123;</span><br><span class="line">            return (Math.Abs(current.x - end.x) + Math.Abs(current.y - end.y)) * STRAIGHT;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 格子是否存在</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">        public bool gridIsOK(int x,int y)</span><br><span class="line">        &#123;</span><br><span class="line">            //if (x &gt;=0 &amp;&amp; x &lt; mapInfo.width &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; mapInfo.height)</span><br><span class="line">               //Console.WriteLine(&quot;gridIsOK=&quot; + x + &quot; y=&quot; + y+ &quot; mapInfo.width=&quot;+ mapInfo.width+ &quot; mapInfo.height=&quot;+ mapInfo.height+ &quot; mapInfo.map[x,y]=&quot;+ mapInfo.map[x, y]);</span><br><span class="line">            if (x&gt;=0&amp;&amp;x&lt;mapInfo.width&amp;&amp;y&gt;=0&amp;&amp;y&lt;mapInfo.height&amp;&amp;mapInfo.map[x,y]!=1)//该格子合法</span><br><span class="line">            &#123;</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/13/哈希表/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1030,647 +1550,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/10/C-常用关键字总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wangzhuanxu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的独立博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/10/C-常用关键字总结/" itemprop="url">C#常用关键字总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-10T19:20:59+08:00">
-                2018-12-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/12/10/C-常用关键字总结/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/12/10/C-常用关键字总结/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="abstract"><a href="#abstract" class="headerlink" title="abstract"></a>abstract</h3><p>　　修饰类名为抽象类，如果一个类为抽象类，则这个类只能是其他某个类的基类，换句话说这个类不可以被实例化，只能用其子类实例化，当一个非抽象类继承该基类时，需要实现该基类中所有的抽象方法，抽象类继承则不必须。同时抽象类中可以存在其他非抽象方法。<br>　　修饰方法为抽象方法，抽象方法是隐式的虚方法，只能声明在抽象类中，且没有函数体。也不能使用static或者virtual修饰符。当然也不能用private修饰，因为私有的抽象方法不能被重写，毫无存在意义。</p>
-<h4 id="代码案例"><a href="#代码案例" class="headerlink" title="代码案例"></a>代码案例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">namespace SuanFa.KeyWord</span><br><span class="line">&#123;</span><br><span class="line">    abstract class _Abstract</span><br><span class="line">    &#123;</span><br><span class="line">        void _A() &#123; &#125;//非抽象方法</span><br><span class="line">        protected abstract void _AA();</span><br><span class="line">    &#125;</span><br><span class="line">    abstract class _AbstractSon1:_Abstract</span><br><span class="line">    &#123;//抽象类继承抽象类不需要做任何事，当然也可以</span><br><span class="line">     //实现父类的抽象方法</span><br><span class="line">        protected override void _AA()//此方法可写也可不写</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    class _AbstractSon2 :_AbstractSon1</span><br><span class="line">    &#123;</span><br><span class="line">       //若前面类实现了抽象方法，则其子类可不必须再次重写抽象方法</span><br><span class="line">       //当然也可以重写</span><br><span class="line">        protected override void _AA()//该方法不必须存在</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    class _AbstractSon3:_Abstract</span><br><span class="line">    &#123;</span><br><span class="line">        protected override void _AA()//该方法必须村子</span><br><span class="line">        &#123;</span><br><span class="line">            throw new NotImplementedException();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="virtual"><a href="#virtual" class="headerlink" title="virtual"></a>virtual</h3><p>　　virtual 关键字用于修饰<strong>方法、属性、索引器或事件</strong>声明，并使它们可以在派生类中被重写。默认情况下，方法是非虚拟的。不能重写非虚方法。virtual 修饰符不能与 static、abstract, private 或 override 修饰符一起使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">namespace SuanFa.KeyWord</span><br><span class="line">&#123;</span><br><span class="line">    class AProgram</span><br><span class="line">    &#123;</span><br><span class="line">        public virtual void AFun()//方法</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;父类的虚方法&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        public virtual event Action&lt;int&gt; a;//定义带一个参数的事件</span><br><span class="line">        public virtual string Current//属性</span><br><span class="line">        &#123;</span><br><span class="line">            get;set;</span><br><span class="line">        &#125;</span><br><span class="line">        int this[int index]//索引器</span><br><span class="line">        &#123;</span><br><span class="line">            get</span><br><span class="line">            &#123;</span><br><span class="line">                return 1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    class Program : AProgram</span><br><span class="line">    &#123;</span><br><span class="line">        public override void AFun()//c重写</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;子类的虚方法&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        public override event Action&lt;int&gt; a;//重写</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    class ProgramSon:Program</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            AProgram ap = new AProgram();</span><br><span class="line">            AProgram p = new Program();</span><br><span class="line">            AProgram pr = new Program();</span><br><span class="line">            AProgram ps = new ProgramSon();</span><br><span class="line">            ap.AFun();</span><br><span class="line">            p.AFun();</span><br><span class="line">            pr.AFun();</span><br><span class="line">            ps.AFun();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h4><p><img src="https://i.loli.net/2018/12/10/5c0e588e74ae6.png" alt=""></p>
-<h4 id="结果分析"><a href="#结果分析" class="headerlink" title="结果分析"></a>结果分析</h4><p>　　在Main方法中创建了四个AProgram对象，用这四个对象调用相同的AFun方法却不相同。下面来分析一下运行流程。</p>
-<ul>
-<li>ap.AFun()：先检查类AProgram中的AFun方法—检查到是虚拟方法—-转去检查实例类ap，就为本身–执行实例类ap中的方法—-输出结果：父类的虚方法  </li>
-<li>p.AFun()和pr.AFun()：先检查类AProgram中的AFun方法—检查到是虚拟方法—转去检查实例类Program中是否有重写的—-执行实例类Program中的方法—-输出结果： 子类的虚方法  </li>
-<li>ps.AFun()：先检查类AProgram中的AFun方法—检查到是虚拟方法—转去检查实例类ProgramSon是否有重写的—-没有重写的，去检查其父类Program中是否有重写的—执行实例类Program中的方法—-输出结果： 子类的虚方法  </li>
-</ul>
-<h4 id="分析来源"><a href="#分析来源" class="headerlink" title="分析来源"></a>分析来源</h4><p>　　虚拟函数从C#的程序编译的角度来看，它和其它一般的函数有什么区别呢？一般函数在编译时就静态地编译到了执行文件中，其相对地址在程序运行期间是不发生变化的，也就是写死了的！而虚函数在编译期间是不被静态编译的，它的相对地址是不确定的，它会根据运行时期对象实例来动态判断要调用的函数，其中那个申明时定义的类叫申明类，那个执行时实例化的类叫实例类。<br>如：飞禽 bird = new 麻雀();<br>那么飞禽就是申明类，麻雀是实例类。<br>具体的检查的流程如下</p>
-<ul>
-<li>当调用一个对象的函数时，系统会直接去检查这个对象申明定义的类，即申明类，看所调用的函数是否为虚函数；</li>
-<li>如果不是虚函数，那么它就直接执行该函数。而如果有virtual关键字，也就是一个虚函数，那么这个时候它就不会立刻执行该函数了，而是转去检查对象的实例类。</li>
-<li>在这个实例类里，他会检查这个实例类的定义中是否有重新实现该虚函数（通过override关键字），如果是有，那么OK，它就不会再找了，而马上执行该实例类中的这个重新实现的函数。而如果没有的话，系统就会不停地往上找实例类的父类，并对父类重复刚才在实例类里的检查，直到找到第一个重载了该虚函数的父类为止，然后执行该父类里重载后的函数。</li>
-</ul>
-<p>　　在上面的规则中，可以看到，如果子类没有override的修饰，那么就算父类是virtual的方法，子类的方法也无法被调用，而会去它的父类中找override的方法，直到找到祖先类。所以在面向对象的开发过程中，如果要实现Dependency Injection、IoC等设计模式，就必须非常留意类设计中继承方法的声明，否则很可能导致实际的程序运行与预期不符。</p>
-<h3 id="override"><a href="#override" class="headerlink" title="override"></a>override</h3><p>　　override 方法提供从基类继承的成员的新实现。</p>
-<ul>
-<li>由 override 声明重写的方法称为重写方法。重写的方法必须与 override 方法具有相同的签名。</li>
-<li>重写的基方法必须是vitural,override,abstract类型的 ，不能重写非虚方法或是静态方法。所以override不能与vitural,new,static同时使用。</li>
-<li>override 属性，声明必须指定与继承属性完全相同的访问修饰符、类型和名称，并且被重写的属性必须是 virtual、abstract 或 override 的。（注意：这里是属性，不是字段，字段是不能被重写的）。</li>
-</ul>
-<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line">namespace SuanFa.KeyWord</span><br><span class="line">&#123;</span><br><span class="line">    abstract class _Override</span><br><span class="line">    &#123;</span><br><span class="line">        public abstract int i;//错误，i是字段</span><br><span class="line">        public abstract int Current//抽象属性</span><br><span class="line">        &#123;</span><br><span class="line">            get;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        public abstract void oi();//方法</span><br><span class="line">        public virtual int Next//抽象字段</span><br><span class="line">        &#123;</span><br><span class="line">            get;</span><br><span class="line">            set;</span><br><span class="line">        &#125;</span><br><span class="line">        public abstract event Action&lt;int&gt; e;//抽象事件</span><br><span class="line">        public abstract int this[int index]//抽象索引器</span><br><span class="line">        &#123;</span><br><span class="line">            get;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    class _OverrideSon:_Override</span><br><span class="line">    &#123;</span><br><span class="line">        public override int Current &#123;</span><br><span class="line">            get =&gt; throw new NotImplementedException();</span><br><span class="line">        &#125;</span><br><span class="line">        public override event Action&lt;int&gt; e;</span><br><span class="line">        public override void oi()</span><br><span class="line">        &#123;</span><br><span class="line">            throw new NotImplementedException();</span><br><span class="line">        &#125;</span><br><span class="line">        public override int Next &#123;</span><br><span class="line">            get =&gt; base.Next;</span><br><span class="line">            set =&gt; base.Next = value;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public override int this[int index] =&gt; </span><br><span class="line">            throw new NotImplementedException();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="new"><a href="#new" class="headerlink" title="new"></a>new</h3><ul>
-<li>创建一个对象，过于简单，这里不再叙述。</li>
-<li>修饰方法，由于隐藏基类方法。</li>
-<li>用在泛型中，表示该泛型参数T必须存在默认构造器，及无参数构造器。</li>
-</ul>
-<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line">namespace SuanFa.KeyWord</span><br><span class="line">&#123;</span><br><span class="line">    class _New</span><br><span class="line">    &#123;</span><br><span class="line">        public void father()</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;我是父亲&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    class _NewSon:_New</span><br><span class="line">    &#123;</span><br><span class="line">        public new void father()</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;我是儿子&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    class _NewSon2:_New</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main()</span><br><span class="line">        &#123;</span><br><span class="line">            _New s = new _NewSon2();</span><br><span class="line">            _New s1 = new _NewSon();</span><br><span class="line">            _New s2 = new _New();</span><br><span class="line">            _NewSon s4 = new _NewSon();</span><br><span class="line">            s.father();</span><br><span class="line">            s1.father();</span><br><span class="line">            s2.father();</span><br><span class="line">            s4.father();</span><br><span class="line">            _NewSon3&lt;_NewSon2&gt; n = new _NewSon3&lt;_NewSon2&gt;(2);//初始化成功，_NewSon3具有无参构造器</span><br><span class="line">            _NewSon3&lt;_NewSon4&gt; n2 = new _NewSon3&lt;_NewSon4&gt;(2);//初始化失败，_NewSon4不具有无参构造器</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    class _NewSon3&lt;T&gt; where T:new()//检查参数T类是否具有无参构造器</span><br><span class="line">    &#123;</span><br><span class="line">        public _NewSon3(int T)</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    class _NewSon4</span><br><span class="line">    &#123;</span><br><span class="line">        public _NewSon4(int i)</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="结果分析-1"><a href="#结果分析-1" class="headerlink" title="结果分析"></a>结果分析</h4><ul>
-<li>s.father(); s1.father();s2.father();输出结果都为:我是父亲。多态下调用父类智能调用其自身所定义的方法和在其子类中重写的方法</li>
-<li>n初始化成功，n2失败，因为_NewSon4不具有无参构造器。</li>
-</ul>
-<h3 id="sealed"><a href="#sealed" class="headerlink" title="sealed"></a>sealed</h3><ul>
-<li>当对一个类应用sealed修饰符时，此修饰符会阻止其他类从该类继承。</li>
-<li>sealed方法必须与override连用，密封方法重写基类中的方法，但其派生出的子类不能在进一步重写该方法。</li>
-<li>sealed中不能定义新的虚成员（包括方法、属性、索引器、事件）</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">namespace SuanFa.KeyWord</span><br><span class="line">&#123;</span><br><span class="line">    class _Sealed</span><br><span class="line">    &#123;</span><br><span class="line">        public virtual void _A()</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    sealed class _SealedSon:_Sealed</span><br><span class="line">    &#123;</span><br><span class="line">        public sealed override void _A()</span><br><span class="line">        &#123;</span><br><span class="line">            base._A();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    class _SealedSon1:_SealedSon//错误，不可以继承密封类</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    class _SealedSon2 : _Sealed//重写_A方法</span><br><span class="line">    &#123;</span><br><span class="line">        public override void _A()</span><br><span class="line">        &#123;</span><br><span class="line">            base._A();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    class _SealedSon3:_Sealed</span><br><span class="line">    &#123;</span><br><span class="line">        public sealed override void _A()//重写时使用sealed关键字</span><br><span class="line">        &#123;</span><br><span class="line">            base._A();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    class _SealedSon4:_SealedSon3</span><br><span class="line">    &#123;</span><br><span class="line">        public sealed override void _A()//因为_SealedSon3对_A重写时使用了sealed</span><br><span class="line">                                        //所以其_SealedSon4无法再次对_A重写</span><br><span class="line">        &#123;</span><br><span class="line">            base._A();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    class _SealedSon5:_SealedSon2</span><br><span class="line">    &#123;</span><br><span class="line">        public sealed override void _A()//普通就可以重写</span><br><span class="line">        &#123;</span><br><span class="line">            base._A();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h3><p>用来获取一个类的类型，和GetType()方法的功能类似，但二者又有一些不同点：</p>
-<ul>
-<li>Typeof不是运算符而是方法</li>
-<li>GetType()是基类System.Object的方法，因此只有建立一个实例之后才能够被调用（初始化以后）</li>
-<li>Typeof的参数只能是int,string,String,自定义类型，且不能是实例</li>
-<li>GetType()和typeof都返回System.Type的引用.</li>
-</ul>
-<h4 id="代码实例"><a href="#代码实例" class="headerlink" title="代码实例"></a>代码实例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">namespace SuanFa.KeyWord</span><br><span class="line">&#123;</span><br><span class="line">    class _Typeof</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main()</span><br><span class="line">        &#123;</span><br><span class="line">             int i = 0;</span><br><span class="line">            Type type = typeof(int);//System.Int32;</span><br><span class="line">            // Type type1 = typeof(i);//错误</span><br><span class="line">            Type type2 = i.GetType();//</span><br><span class="line">            Console.WriteLine(type + &quot;  &quot; + type2);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    class _TypeofSon</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="params"><a href="#params" class="headerlink" title="params"></a>params</h3><p>　　params表示参数是可变个数的。在不加params修饰时，只能往里传入一个数组。调用方式1。在加了params后，不仅可以传入数组，还可以传入多个参数，这多个参数等价为数组。如调用方式2。<br>　　注意事项：</p>
-<ul>
-<li>params只能用在一维数组上，且必须是最后一个参数。</li>
-<li>不能使用params来重载方法。因为重载是通过参数个数不同或者相同位置参数类型不同来区分的，这两种函数，函数的参数个数和参数类型都相同，所以不能区分。</li>
-<li>不允许ref和out  与 params同时使用，加上之后程序编译时报错。因为数组的传递的本来就是引用（只限于用数组的方式进行调用）。</li>
-<li>一个没有params的方法的优先级高于带有params的方法</li>
-</ul>
-<h4 id="代码实例-1"><a href="#代码实例-1" class="headerlink" title="代码实例"></a>代码实例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line">namespace SuanFa.KeyWord</span><br><span class="line">&#123;</span><br><span class="line">    class _Params</span><br><span class="line">    &#123;</span><br><span class="line">        public static void add(params int[] i)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;可变参数加法&quot;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public static void add(int i,int j)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;不可变参数加法&quot;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public static void mix(int i,params int[] j)</span><br><span class="line">        &#123;//j必须放在i后边</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        static void Main()</span><br><span class="line">        &#123;</span><br><span class="line">            _Params.add(new int[] &#123; &#125;);//方式一</span><br><span class="line">            _Params.add(2, 3);</span><br><span class="line">            _Params.add(1, 3, 4, 35, 35, 56);//方式二</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="运行结果-1"><a href="#运行结果-1" class="headerlink" title="运行结果"></a>运行结果</h4><p><img src="https://i.loli.net/2018/12/11/5c0f196225ed2.png" alt=""></p>
-<h3 id="is"><a href="#is" class="headerlink" title="is"></a>is</h3><p>　　用于强制类型转换，检查一个对象是否兼容于其指定的类型,并返回一个Bool值,永远不会抛出异常。一般使用方式如下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">namespace SuanFa.KeyWord</span><br><span class="line">&#123;</span><br><span class="line">    class _Is</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    class _IsSon:_Is</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main()</span><br><span class="line">        &#123;</span><br><span class="line">            _IsSon i = new _IsSon();</span><br><span class="line">            if(i is _Is)</span><br><span class="line">            &#123;</span><br><span class="line">                _Is i1 = (_Is)i;</span><br><span class="line">                Console.WriteLine(&quot;转换成功&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在上面的代码中，CLR实际上会检查两次对象的类型,is操作符先核实一次,如果i兼容于_Is,那么在(_Is)i时会再次核实一次,效率比较低,同时说明了is只是单纯的检查是否能够实现类型兼容，而不能转换。若要既检查又要实现转换可以用as。</p>
-<h3 id="as"><a href="#as" class="headerlink" title="as"></a>as</h3><p>用于强制类型转换，既会检查又可以实现转换,而且永远不会抛出异常,即如果转换不成功,会返回null。用法如下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line">namespace SuanFa.KeyWord</span><br><span class="line">&#123;</span><br><span class="line">    class _As</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    class _AsSon:_As</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main()</span><br><span class="line">        &#123;</span><br><span class="line">            _As i = new _AsSon();</span><br><span class="line">            _AsSon a = i as _AsSon;</span><br><span class="line">            if(a!=null)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(&quot;转换成功&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在上面的代码中，CLR只需要检查一次是否兼容，而且检查完毕后会执行相应的转换，比is效率高。</p>
-<h3 id="partical"><a href="#partical" class="headerlink" title="partical"></a>partical</h3><p><a href="https://blog.csdn.net/yiyelanxin/article/details/70670074" target="_blank" rel="noopener">点这里</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/04/yield为什么可以实现迭代器功能/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wangzhuanxu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的独立博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/04/yield为什么可以实现迭代器功能/" itemprop="url">yield为什么可以实现迭代器功能</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-04T09:55:25+08:00">
-                2018-12-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/12/04/yield为什么可以实现迭代器功能/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/12/04/yield为什么可以实现迭代器功能/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="实现foreach遍历的两种方式"><a href="#实现foreach遍历的两种方式" class="headerlink" title="实现foreach遍历的两种方式"></a>实现foreach遍历的两种方式</h2><h3 id="使用IEnumerable-与-IEnumerator接口"><a href="#使用IEnumerable-与-IEnumerator接口" class="headerlink" title="使用IEnumerable 与 IEnumerator接口"></a>使用IEnumerable 与 IEnumerator接口</h3><p>　　首先先来了解一下这两个接口的含义，从名字常来看，IEnumerator是枚举器的意思，IEnumerable是可枚举的意思。接着看源码：</p>
-<h4 id="IEnumerable"><a href="#IEnumerable" class="headerlink" title="IEnumerable"></a>IEnumerable</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public interface IEnumerable</span><br><span class="line">&#123;</span><br><span class="line">    // Interfaces are not serializable</span><br><span class="line">    // Returns an IEnumerator for this enumerable Object.  The enumerator provides</span><br><span class="line">    // a simple way to access all the contents of a collection.</span><br><span class="line">    [Pure]</span><br><span class="line">    [DispId(-4)]</span><br><span class="line">    IEnumerator GetEnumerator();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="IEnumerator"><a href="#IEnumerator" class="headerlink" title="IEnumerator"></a>IEnumerator</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public interface IEnumerator</span><br><span class="line">&#123;</span><br><span class="line">    // Interfaces are not serializable</span><br><span class="line">    // Advances the enumerator to the next element of the enumeration and</span><br><span class="line">    // returns a boolean indicating whether an element is available. Upon</span><br><span class="line">    // creation, an enumerator is conceptually positioned before the first</span><br><span class="line">    // element of the enumeration, and the first call to MoveNext </span><br><span class="line">    // brings the first element of the enumeration into view.</span><br><span class="line">    // </span><br><span class="line">    bool MoveNext();</span><br><span class="line"></span><br><span class="line">    // Returns the current element of the enumeration. The returned value is</span><br><span class="line">    // undefined before the first call to MoveNext and following a</span><br><span class="line">    // call to MoveNext that returned false. Multiple calls to</span><br><span class="line">    // GetCurrent with no intervening calls to MoveNext </span><br><span class="line">    // will return the same object.</span><br><span class="line">    // </span><br><span class="line">    Object Current &#123;</span><br><span class="line">        get; </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // Resets the enumerator to the beginning of the enumeration, starting over.</span><br><span class="line">    // The preferred behavior for Reset is to return the exact same enumeration.</span><br><span class="line">    // This means if you modify the underlying collection then call Reset, your</span><br><span class="line">    // IEnumerator will be invalid, just as it would have been if you had called</span><br><span class="line">    // MoveNext or Current.</span><br><span class="line">    //</span><br><span class="line">    void Reset();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>　　IEnumerable中只有一个GetEnumerator函数，返回值是IEnumerator类型，所以实现了IEnumerable接口的类可以通过此方法获取一个IEnumerator枚举器，并通过此枚举器遍历这个类中包含的集合中的元素的功能（比如List<t>,ArrayList,Dictionary等继承了IEnumeratble接口的类）。</t></p>
-<h4 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">namespace SuanFa.IEnumerableInterface</span><br><span class="line">&#123;</span><br><span class="line">    class InheritIEnumerable : IEnumerable</span><br><span class="line">    &#123;</span><br><span class="line">        public int[] array = new int[] &#123; 1, 3, 4 &#125;;  </span><br><span class="line">        static void Main()</span><br><span class="line">        &#123;</span><br><span class="line">            InheritIEnumerable ii = new InheritIEnumerable();</span><br><span class="line">            Console.WriteLine(&quot;foreach执行结果：&quot;);</span><br><span class="line">            foreach (int i in ii)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(&quot;i=&quot; + i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 返回IEnumerator类型的对象</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">        public IEnumerator GetEnumerator()</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;获取枚举器&quot;);</span><br><span class="line">            return new InheritIEnumerator(array);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public class InheritIEnumerator : IEnumerator</span><br><span class="line">    &#123;</span><br><span class="line">        int[] array;</span><br><span class="line">        int pos = -1;</span><br><span class="line">        public InheritIEnumerator(int []array)</span><br><span class="line">        &#123;</span><br><span class="line">            this.array = array;</span><br><span class="line">        &#125;</span><br><span class="line">        public object Current</span><br><span class="line">        &#123;</span><br><span class="line">            get</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(&quot;获取Current&quot;);</span><br><span class="line">                if (pos&lt;array.Length)</span><br><span class="line">                &#123;</span><br><span class="line">                    return array[pos];</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    throw new InvalidOperationException();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        public bool MoveNext()</span><br><span class="line">        &#123;</span><br><span class="line">            </span><br><span class="line">            if (pos&lt;array.Length-1)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(&quot;MoveNext true&quot;);</span><br><span class="line">                pos++;</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(&quot;MoveNext false&quot;);</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        public void Reset()</span><br><span class="line">        &#123;</span><br><span class="line">            pos = -1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h4><p><img src="https://i.loli.net/2018/12/04/5c05e990b7536.png" alt="">
-　　</p>
-<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>  通过输出结果，可以发现，foreach在运行时会先调用InheritIEnumerable的GetIEnumerator函数获取一个InheritIEnumerator实例（枚举器实例），之后通过循环调用InheritIEnumerator的MoveNext函数，pos后移，更新Current属性，然后返回Current属性，直到MoveNext返回false。<br>  总结一下：</p>
-<ul>
-<li>GetIEnumerator()负责获取枚举器。</li>
-<li>MoveNext()负责让Current获取下一个值，并判断遍历是否结束。</li>
-<li>Current负责返回当前指向的值。</li>
-<li>Rest()负责重置枚举器的状态（在foreach中没有用到）</li>
-</ul>
-<p>这些就是IEnumerable，IEnumerator的基本工作原理。<br>　　所以foreach就相当于一下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">IEnumerable ieable = new InheritIEnumerable();</span><br><span class="line">            IEnumerator ie = ieable.GetEnumerator();</span><br><span class="line">while (ie.MoveNext())</span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(ie.Current);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="使用yield"><a href="#使用yield" class="headerlink" title="使用yield"></a>使用yield</h3><h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> class YieldFunctions</span><br><span class="line">&#123;</span><br><span class="line">    public static IEnumerable&lt;int&gt; getNums()</span><br><span class="line">    &#123;</span><br><span class="line">        yield return 1;</span><br><span class="line">        yield return 0;</span><br><span class="line">        yield return 3;</span><br><span class="line">        yield break;</span><br><span class="line">        yield return 5;</span><br><span class="line">    &#125;</span><br><span class="line">    public static void Main()</span><br><span class="line">    &#123;</span><br><span class="line">        foreach (int i in getNums())</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>yield return :返回迭代器的内容</li>
-<li>yield break  ：终止迭代</li>
-<li>yield只能使用在返回类型必须为 IEnumerable、IEnumerable”T”、IEnumerator 或 IEnumerator”T”的方法、运算符、get访问器中</li>
-</ul>
-<h4 id="运行结果-1"><a href="#运行结果-1" class="headerlink" title="运行结果"></a>运行结果</h4><p><img src="https://i.loli.net/2018/12/04/5c05ec1433927.png" alt=""></p>
-<h2 id="关键问题–使用yield迭代的时候我们虽然没有实现GetEnumerator-方法，也没有实现对应的IEnumerator的MoveNext-，和Current属性，但是我们仍然能正常使用foreach，换句话说也就是yield关键字在编译过程中会发生了什么？"><a href="#关键问题–使用yield迭代的时候我们虽然没有实现GetEnumerator-方法，也没有实现对应的IEnumerator的MoveNext-，和Current属性，但是我们仍然能正常使用foreach，换句话说也就是yield关键字在编译过程中会发生了什么？" class="headerlink" title="关键问题–使用yield迭代的时候我们虽然没有实现GetEnumerator()方法，也没有实现对应的IEnumerator的MoveNext()，和Current属性，但是我们仍然能正常使用foreach，换句话说也就是yield关键字在编译过程中会发生了什么？"></a>关键问题–使用yield迭代的时候我们虽然没有实现GetEnumerator()方法，也没有实现对应的IEnumerator的MoveNext()，和Current属性，但是我们仍然能正常使用foreach，换句话说也就是yield关键字在编译过程中会发生了什么？</h2><h3 id="YieldFunctions的IL代码"><a href="#YieldFunctions的IL代码" class="headerlink" title="YieldFunctions的IL代码"></a>YieldFunctions的IL代码</h3><p>先看一下YieldFunctions类的IL代码的整体框架，主要有三部分：getNums生成的IL代码，新生成的getNums类的IL代码，Main方法的IL代码。<br><img src="https://i.loli.net/2018/12/04/5c05ee246b56b.png" alt=""><br>接下来查看一下getNums方法生成的IL代码，可以返现在该方法中，创建了一个getNums类的对象，并将其作为返回值。<br><img src="https://i.loli.net/2018/12/04/5c05ef5dbbdad.png" alt=""><br>然后看一下生成的新的类getNums的代码：<br><img src="https://i.loli.net/2018/12/04/5c05f36ecfa54.png" alt=""><br><img src="https://i.loli.net/2018/12/04/5c05f371a2182.png" alt=""></p>
-<p>再然后可以看一下MoveNext代码：<br><img src="https://i.loli.net/2018/12/04/5c05f4e0af73c.png" alt=""><br><img src="https://i.loli.net/2018/12/04/5c05f54817d0d.png" alt=""></p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>用yield来进行迭代的真实流程就是：<br>1.运行getNums()函数，获取代码自动生成的类的实例（IL代码中getNums类的实例）。<br>2.接着调用IL代码中GetEnumberator()函数，将获取的类自己作为迭代器开始迭代。<br>3.每次运行MoveNext()，state增加1，通过switch语句可以让每次调用MoveNext()的时候执行不同部分的代码。<br>4。MoveNext()返回false，结束。</p>
-<h2 id="个人总结"><a href="#个人总结" class="headerlink" title="个人总结"></a>个人总结</h2><ul>
-<li>yield关键字其实是一种语法糖，最终还是通过实现IEnumberable”T”、IEnumberable、IEnumberator”T”和IEnumberator接口实现的迭代功能。</li>
-<li>综上两种对foreach的实现原理，不管哪种方式，其最终原理还是一样的，只是体现了C#的封装性更好，对程序员更加友好，但为了更好的编程，还是需要了解这些原理。</li>
-<li>可以说，如何可以使用foreach进行遍历的类，都需要直接或间接地实现IEnumerable接口，并返回IEnumerator枚举器对象进行遍历。</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/30/C-、Java接口/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wangzhuanxu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的独立博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/30/C-、Java接口/" itemprop="url">C#、Java接口小知识</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-30T17:06:16+08:00">
-                2018-11-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/11/30/C-、Java接口/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/11/30/C-、Java接口/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="C-接口"><a href="#C-接口" class="headerlink" title="C#接口"></a>C#接口</h2><h3 id="成员定义"><a href="#成员定义" class="headerlink" title="成员定义"></a>成员定义</h3><ul>
-<li>接口内只可定义<strong>方法、属性、事件、索引器</strong>、不可以定义常量、字段、运算符、实例构造函数、析构函数或类型、不能包含静态成员。</li>
-<li>接口成员是自动公开的，且不能包含任何访问修饰符，否则会报错<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">interface IProgramA</span><br><span class="line">&#123;</span><br><span class="line">    //属性</span><br><span class="line">    string Name</span><br><span class="line">    &#123;</span><br><span class="line">        get;set;</span><br><span class="line">    &#125;</span><br><span class="line">    //方法</span><br><span class="line">    void addFunc(int i, int j);</span><br><span class="line">    //索引器</span><br><span class="line">    int this[int i]</span><br><span class="line">    &#123;</span><br><span class="line">        get;</span><br><span class="line">    &#125;</span><br><span class="line">    //事件</span><br><span class="line">    event AddFunc af;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="成员实现"><a href="#成员实现" class="headerlink" title="成员实现"></a>成员实现</h3><ul>
-<li>接口中的方法都是抽象方法，实现接口的任何非抽象类型都必须实现接口的所有成员：</li>
-<li>当显式实现该接口的成员时，实现的成员不能通过类实例访问，只能通过接口实例访问。</li>
-<li>当隐式实现该接口的成员时，实现的成员可以通过类实例访问，也可以通过接口实例访问，但是实现的成员必须是公有的。</li>
-<li>一个类可以实现多个接口<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">class Indexer : IProgramA, IProgramB//实现多个接口</span><br><span class="line">&#123;</span><br><span class="line">    //实现属性,隐式实现</span><br><span class="line">    public string name;</span><br><span class="line">    public string Name</span><br><span class="line">    &#123;</span><br><span class="line">        get</span><br><span class="line">        &#123;</span><br><span class="line">            return name;</span><br><span class="line">        &#125;</span><br><span class="line">        set</span><br><span class="line">        &#123;</span><br><span class="line">            name = value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //实现方法，隐式实现</span><br><span class="line">    public void addFunc(int i, int j)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(&quot;i+j=&quot; + (i + j));</span><br><span class="line">    &#125;</span><br><span class="line">    //实现索引器，隐式实现</span><br><span class="line">    int[] array = &#123; 2, 4, 53, 4, 5, 324 &#125;;</span><br><span class="line">    public int this[int i]</span><br><span class="line">    &#123;</span><br><span class="line">        get</span><br><span class="line">        &#123;</span><br><span class="line">            if (i &lt; array.Length)</span><br><span class="line">            &#123;</span><br><span class="line">                return array[i];</span><br><span class="line">            &#125;</span><br><span class="line">            return -1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //实现事件，隐式实现</span><br><span class="line">    public event AddFunc af;</span><br><span class="line">    //实现另一个接口中的方法，显式实现</span><br><span class="line">    void IProgramB.funcB()</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(&quot;显式实现的接口方法&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    static void Main()</span><br><span class="line">    &#123;</span><br><span class="line">        //类的实例方法接口方法</span><br><span class="line">        Indexer id = new Indexer();</span><br><span class="line">        id.af += id.addFunc;</span><br><span class="line">        id.af(1, 2);</span><br><span class="line"></span><br><span class="line">        //接口的实例方法接口方法</span><br><span class="line">        IProgramA ia = new Indexer();</span><br><span class="line">        ia.addFunc(23, 23);</span><br><span class="line"></span><br><span class="line">        //funcB只可有IProgramB的实例调用</span><br><span class="line">        IProgramB ib = new Indexer();</span><br><span class="line">        ib.funcB();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public delegate void AddFunc(int i, int j);</span><br><span class="line">interface IProgramA</span><br><span class="line">&#123;</span><br><span class="line">    //属性</span><br><span class="line">    string Name</span><br><span class="line">    &#123;</span><br><span class="line">        get;set;</span><br><span class="line">    &#125;</span><br><span class="line">    //方法</span><br><span class="line">    void addFunc(int i, int j);</span><br><span class="line">    //索引器</span><br><span class="line">    int this[int i]</span><br><span class="line">    &#123;</span><br><span class="line">        get;</span><br><span class="line">    &#125;</span><br><span class="line">    //事件</span><br><span class="line">    event AddFunc af;</span><br><span class="line">&#125;</span><br><span class="line">interface IProgramB</span><br><span class="line">&#123;</span><br><span class="line">    void funcB();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="更多资料"><a href="#更多资料" class="headerlink" title="更多资料"></a>更多资料</h3><p><a href="https://www.cnblogs.com/jiajiayuan/archive/2011/09/16/2178462.html" target="_blank" rel="noopener">C#接口和C#抽象类联合使用</a></p>
-<h2 id="Java接口"><a href="#Java接口" class="headerlink" title="Java接口"></a>Java接口</h2><h3 id="成员定义-1"><a href="#成员定义-1" class="headerlink" title="成员定义"></a>成员定义</h3><ul>
-<li>接口中的所有属性 默认的修饰符是  public static final。</li>
-<li>接口中的所有方法 默认的修饰符是  public abstract。</li>
-</ul>
-<h3 id="成员实现-1"><a href="#成员实现-1" class="headerlink" title="成员实现"></a>成员实现</h3><ul>
-<li>和C#的类似</li>
-</ul>
-<h3 id="为什么是List-list-new-ArrayList，而不直接用ArrayList？"><a href="#为什么是List-list-new-ArrayList，而不直接用ArrayList？" class="headerlink" title="为什么是List list = new ArrayList，而不直接用ArrayList？"></a>为什么是List list = new ArrayList，而不直接用ArrayList？</h3><p><strong>主要考察面向对象的三大特征之一—-多态。同时也说明设计模型非常重要。解释如下：</strong><br>首先List有三个子类：ArrayList、LinkedList、Vector。当有如下声明时：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List list = <span class="keyword">new</span>  ArrayList();</span><br></pre></td></tr></table></figure></p>
-<p>此时的list是一个List对象，有些ArrayList有但是 List没有的属性和方法，它就不能再用了。但若是想要用LinkedList的实现来替代ArrayList的话，只需改动一行即可，其余代码基本不用管：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List   list   =   <span class="keyword">new</span>   LinkedList()；</span><br></pre></td></tr></table></figure></p>
-<p>若声明：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ArrayList list=new  ArrayList();</span><br></pre></td></tr></table></figure></p>
-<p>此时list是一个ArrayList对象，它可以使用所有ArrayList的方法和属性，但若是想要使用LinkedList的实现来替代ArrayList的话就比较费事了，因为代码中可能使用了ArrayList独有的属性和方法。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/28/排序-冒泡排序法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wangzhuanxu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的独立博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/28/排序-冒泡排序法/" itemprop="url">排序--冒泡排序法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-28T09:49:54+08:00">
-                2018-11-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/11/28/排序-冒泡排序法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/11/28/排序-冒泡排序法/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h3><p>设数组长度为N。<br>1．比较相邻的前后二个数据，如果前面数据大于后面的数据，就将二个数据交换。<br>2．这样对数组的第0个数据到N-1个数据进行一次遍历后，最大的一个数据就“沉”到数组第N-1个位置。<br>3．N=N-1，如果N不为0就重复前面二步，否则排序完成。</p>
-<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public void bubbleSort()</span><br><span class="line">&#123;</span><br><span class="line">    int[] nums = &#123; 1, 2, 4, 34, 5345, 34, 43, 342 &#125;;</span><br><span class="line">    int temp = 0;</span><br><span class="line">    for(int i=0;i&lt;nums.Length-1;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        for(int j=0;j&lt;nums.Length-1-i;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            if(nums[j]&gt;nums[j+1])</span><br><span class="line">            &#123;</span><br><span class="line">                temp = nums[j];</span><br><span class="line">                nums[j] = nums[j + 1];</span><br><span class="line">                nums[j + 1] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    print(nums);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="优化一"><a href="#优化一" class="headerlink" title="优化一"></a>优化一</h3><p>设置一个标志，如果这一趟发生了交换，则为true，否则为false。明显如果有一趟没有发生交换，说明排序已经完成。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public void bubbleSort2()</span><br><span class="line">&#123;</span><br><span class="line">    int[] nums = &#123; 1, 2, 4, 34, 5345, 34, 43, 342 &#125;;</span><br><span class="line">    int temp = 0;</span><br><span class="line">    int k = nums.Length - 1;</span><br><span class="line">    bool flag = true;</span><br><span class="line">    while (flag)</span><br><span class="line">    &#123;</span><br><span class="line">        flag = false;</span><br><span class="line">        for (int i = 0; i &lt; k; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            if (nums[i] &gt; nums[i + 1])</span><br><span class="line">            &#123;</span><br><span class="line">                flag = true;</span><br><span class="line">                temp = nums[i];</span><br><span class="line">                nums[i] = nums[i + 1];</span><br><span class="line">                nums[i + 1] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        k = k-1;</span><br><span class="line">    &#125;</span><br><span class="line">    print(nums);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="优化二"><a href="#优化二" class="headerlink" title="优化二"></a>优化二</h3><p>如果有100个数的数组，仅前面10个无序，后面90个都已排好序且都大于前面10个数字，那么在第一趟遍历后，最后发生交换的位置必定小于10，且这个位置之后的数据必定已经有序了，记录下这位置，第二次只要从数组头部遍历到这个位置就可以了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"> public void bubbleSort1()</span><br><span class="line">&#123;</span><br><span class="line">    int[] nums = &#123; 1, 2, 4, 34, 5345, 34, 43, 342 &#125;;</span><br><span class="line">    int temp = 0;</span><br><span class="line">    int k = nums.Length - 1;</span><br><span class="line">    int pos = 0;</span><br><span class="line">    while (k&gt;0)</span><br><span class="line">    &#123;</span><br><span class="line">        pos = 0;</span><br><span class="line">        for(int i=0;i&lt;k;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            if(nums[i]&gt;nums[i+1])</span><br><span class="line">            &#123;</span><br><span class="line">                pos = i;</span><br><span class="line">                temp = nums[i];</span><br><span class="line">                nums[i] = nums[i + 1];</span><br><span class="line">                nums[i + 1] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        k = pos;</span><br><span class="line">    &#125;</span><br><span class="line">    print(nums);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>冒泡排序时间复杂度：O(n^2);<br>空间复杂度：O(1)</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1725,7 +1604,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1747,7 +1626,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

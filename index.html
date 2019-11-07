@@ -263,6 +263,723 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/07/堆排序/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wangzhuanxu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的独立博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/07/堆排序/" itemprop="url">堆排序</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-07T22:10:37+08:00">
+                2019-11-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/11/07/堆排序/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2019/11/07/堆排序/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="转载博客"><a href="#转载博客" class="headerlink" title="转载博客"></a>转载博客</h3><p>此人写的太好，而且很简单易懂，我只能全部拿过来，下面是链接。</p>
+<ul>
+<li><a href="https://www.cnblogs.com/MOBIN/p/5374217.html" target="_blank" rel="noopener">https://www.cnblogs.com/MOBIN/p/5374217.html</a><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3>堆排序是一种树形选择排序，在排序过程中可以把元素看成是一颗完全二叉树，每个节点都大（小）于它的两个子节点，当每个节点都大于等于它的两个子节点时，就称为<strong>大顶堆</strong>，也叫堆有序； 当每个节点都小于等于它的两个子节点时，就称为<strong>小顶堆</strong>。<br><img src="/堆排序/20191107101551817.png" alt="大顶堆"><br><img src="/堆排序/20191107101921304.png" alt="小顶堆"><h3 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h3>1.将长度为n的待排序的数组进行堆有序化构造成一个大顶堆<br>2.将根节点与尾节点交换并输出此时的尾节点<br>3.将剩余的n -1个节点重新进行堆有序化<br>4.重复步骤2，步骤3直至构造成一个有序序列<br><code>假设待排序数组为[20,50,10,30,70,20,80]</code><h3 id="构造堆"><a href="#构造堆" class="headerlink" title="构造堆"></a>构造堆</h3></li>
+<li>在构造有序堆时，我们开始只需要扫描一半的元素（n/2-1 ~ 0）即可，为什么?<br><code>因为(n/2-1)~0的节点才有子节点，如图1，n=8,(n/2-1) = 3  即3 2 1 0这个四个节点才有子节点</code><br><img src="/堆排序/20191107102115907.png" alt="初始状态"></li>
+<li>需要将将3 2 1 0这四个节点从下到上，从右到左的与它自己的子节点比较并调整最终形成大顶堆，过程如下：<br>第一次for循环将节点3和它的子节点7 8的元素进行比较，最大者作为父节点（即元素60作为父节点）<strong>红色便是交换后的状态</strong><br><img src="/堆排序/20191107102539712.png" alt=""></li>
+<li>第二次for循环将节点2和它的子节点5 6的元素进行比较，最大者为父节点（元素80作为父节点）<br><img src="/堆排序/20191107102817099.png" alt=""></li>
+<li>第三次for循环将节点1和它的子节点3 4的元素进行比较，最大者为父节点（元素70作为父节点）<br><img src="/堆排序/20191107102845032.png" alt=""></li>
+<li>第四次for循环将节点0和它的子节点1 2的元素进行比较，最大者为父节点（元素80作为父节点）<br><img src="/堆排序/20191107102919950.png" alt=""></li>
+<li><code>（注意这里，元素20和元素80交换后,20所在的节点还有子节点，所以还要再和它的子节点5 6的元素进行比较，这就是while语句里为什么药index = now 的原因）
+至此有序堆已经构造好了！如下图：</code><br><img src="/堆排序/20191107103032480.png" alt=""></li>
+</ul>
+<h3 id="调整堆"><a href="#调整堆" class="headerlink" title="调整堆"></a>调整堆</h3><ul>
+<li>堆顶元素80和尾40交换后–&gt;调整堆<br><img src="/堆排序/20191107103315842.png" alt=""></li>
+<li>堆顶元素70和尾30交换后–&gt;调整堆<br><img src="/堆排序/20191107103449597.png" alt=""></li>
+<li>堆顶元素60尾元素20交换后–&gt;调整堆<br><img src="/堆排序/20191107103515135.png" alt=""></li>
+<li>其他依次类推，最终已排好序的元素如下：<br><img src="/堆排序/20191107103539981.png" alt=""></li>
+</ul>
+<h3 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h3><p>终于到了贴代码，代码借鉴了原博主的思想，然后自己实现了一遍，加深印象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">namespace Algorithm.DataStructure.Sort</span><br><span class="line">&#123;</span><br><span class="line">    class HeapSort:SortData</span><br><span class="line">    &#123;</span><br><span class="line">        public HeapSort():base()</span><br><span class="line">        &#123;</span><br><span class="line">            name = &quot;===================堆排序&quot;;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public override void Sort(int[] array)</span><br><span class="line">        &#123;</span><br><span class="line">            for(int i = array.Length /2 - 1;i&gt;= 0;i--) //先建立堆底，堆上面放生变化可以在调整下面，</span><br><span class="line">            &#123;</span><br><span class="line">                Sort(array, array.Length,i);</span><br><span class="line">            &#125;</span><br><span class="line">            for(int i = array.Length - 1;i&gt;=0;i--)</span><br><span class="line">            &#123;</span><br><span class="line">                int temp = array[i];</span><br><span class="line">                array[i] = array[0];</span><br><span class="line">                array[0] = temp;</span><br><span class="line">                Sort(array, i, 0);//堆顶和堆底交换后，去掉原来的堆顶，重新建立堆</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public void Sort(int []array,int len,int index)</span><br><span class="line">        &#123;</span><br><span class="line">            int left = index * 2 + 1; //左子</span><br><span class="line">            int right = left + 1;//右子</span><br><span class="line">            int now = left; //左右子中比较大的一个，默认左子大</span><br><span class="line">            while(left &lt; len) //索引不能大于长度</span><br><span class="line">            &#123;</span><br><span class="line">                right = left + 1;</span><br><span class="line">                now = left;</span><br><span class="line">                if(right &lt; len &amp;&amp; array[now] &lt; array[right])</span><br><span class="line">                &#123;</span><br><span class="line">                    now = right; //更新最大的那个孩子的索引</span><br><span class="line">                &#125;</span><br><span class="line">                if(array[now] &gt; array[index]) //交换孩子和父亲的值</span><br><span class="line">                &#123;</span><br><span class="line">                    int temp = array[index];</span><br><span class="line">                    array[index] = array[now];</span><br><span class="line">                    array[now] = temp;</span><br><span class="line">                &#125;</span><br><span class="line">                else //符合大顶堆，不需要交换</span><br><span class="line">                &#123;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                index = now;//堆顶或者堆中间变化，需要查看当前值的孩子是否受影响</span><br><span class="line">                left = index * 2 + 1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/06/策略模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wangzhuanxu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的独立博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/06/策略模式/" itemprop="url">策略模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-06T21:54:32+08:00">
+                2019-11-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/11/06/策略模式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2019/11/06/策略模式/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>策略模式定义了算法簇，分别把它们封装起来，让他们之间可以相互转化（应为同一算法簇的算法继承了同意抽象类或实现了同一个接口），此模式让算法的变化独立于使用算法的客户。</p>
+<h3 id="案例示意图"><a href="#案例示意图" class="headerlink" title="案例示意图"></a>案例示意图</h3><p>在这里一《Head First》的鸭子案例为例：<br><img src="/策略模式/20191106101731010.png" alt=""></p>
+<ul>
+<li>红色区域和蓝色区域都属于算法簇，而且同种颜色之间的算法可以互相替换。例如以蓝色为例，Quack和Squeak都实现了QuackBehaviour接口，都可以赋给Duck中的quck遍历。</li>
+</ul>
+<h3 id="算法优点"><a href="#算法优点" class="headerlink" title="算法优点"></a>算法优点</h3><ul>
+<li>策略类之间可以方便的替换，因为都实现于同一个抽象。例如Duck中的fly对象，可以将FlyWithWings或FlyNoWay赋值给它。</li>
+<li>可以很方便的扩充而不影响其他策略类，例如可以很方便的让某个类实现FlyBehaviour接口，而扩充算法簇</li>
+<li>避免了if..else 和 switch那样的判断语句</li>
+<li>面向接口编程，而不是面向实现编程，既也可以实现代码复用，也避免了继承带来的冗余烦恼<h3 id="算法缺点"><a href="#算法缺点" class="headerlink" title="算法缺点"></a>算法缺点</h3></li>
+<li>策略类过多，很难维护</li>
+<li>必须将所有的实现方式暴露给使用者，以方便使用者使用，这就破环了面向对象的封装原则，而且使用者要明白算法的区别才能更好的使用。<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">namespace Algorithm.Design</span><br><span class="line">&#123;</span><br><span class="line">    class Strategy</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main()</span><br><span class="line">        &#123;</span><br><span class="line">            RedDuck redDuck = new RedDuck();</span><br><span class="line">            redDuck.SetFly(new FlyNoWay()); //先设置一种策略</span><br><span class="line">            redDuck.DoFlay();</span><br><span class="line">            redDuck.SetFly(new FlyWithWings());//更换策略</span><br><span class="line">            redDuck.DoFlay();</span><br><span class="line">            redDuck.Display();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public interface FlyBehaviour</span><br><span class="line">    &#123;</span><br><span class="line">        void Fly();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public interface QuackBehaviour</span><br><span class="line">    &#123;</span><br><span class="line">        void Quack();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public class Duck</span><br><span class="line">    &#123;</span><br><span class="line">        FlyBehaviour Fly;</span><br><span class="line">        QuackBehaviour OneQuack;</span><br><span class="line">        public virtual void Display() &#123; &#125;</span><br><span class="line">        public void SetFly(FlyBehaviour fly)</span><br><span class="line">        &#123;</span><br><span class="line">            this.Fly = fly;</span><br><span class="line">        &#125;</span><br><span class="line">        public void SetQuack(QuackBehaviour quack)</span><br><span class="line">        &#123;</span><br><span class="line">            this.OneQuack = quack;</span><br><span class="line">        &#125;</span><br><span class="line">        public void DoFlay()</span><br><span class="line">        &#123;</span><br><span class="line">            Fly?.Fly();</span><br><span class="line">        &#125;</span><br><span class="line">        public void DoQuack()</span><br><span class="line">        &#123;</span><br><span class="line">            OneQuack?.Quack();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public class RedDuck:Duck</span><br><span class="line">    &#123;</span><br><span class="line">        public override void Display()</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot; red duck&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public class RubberDuck : Duck</span><br><span class="line">    &#123;</span><br><span class="line">        public override void Display()</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot; rubber duck&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public class FlyWithWings : FlyBehaviour</span><br><span class="line">    &#123;</span><br><span class="line">        public void Fly()</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;fly with wings&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public class FlyNoWay : FlyBehaviour</span><br><span class="line">    &#123;</span><br><span class="line">        public void Fly()</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;fly no way&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public class Quack : QuackBehaviour</span><br><span class="line">    &#123;</span><br><span class="line">        void QuackBehaviour.Quack()</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;quack&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public class Squeak : QuackBehaviour</span><br><span class="line">    &#123;</span><br><span class="line">        void QuackBehaviour.Quack()</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;Squeak&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li><a href="https://blog.csdn.net/zhengzhb/article/details/7609670" target="_blank" rel="noopener">https://blog.csdn.net/zhengzhb/article/details/7609670</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/05/计数排序/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wangzhuanxu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的独立博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/05/计数排序/" itemprop="url">计数排序</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-05T23:02:28+08:00">
+                2019-11-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/11/05/计数排序/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2019/11/05/计数排序/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p> 计数排序是一种非基于比较的排序算法，其空间复杂度和时间复杂度均为O(n+k)，其中k是整数的范围。基于比较的排序算法时间复杂度最小是O(nlogn)的。该算法于1954年由 Harold H. Seward 提出。</p>
+<h3 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a>算法步骤</h3><ul>
+<li>找出待排序的数组中最大和最小的元素</li>
+<li>统计数组中每个值为i的元素出现的次数，存入数组C的第i项</li>
+<li>对所有的计数累加（从C中的第一个元素开始，每一项和前一项相加）</li>
+<li>反向填充目标数组：将每个元素i放在新数组的第C(i)项，每放一个元素就将C(i)减去1</li>
+</ul>
+<h3 id="排序示例"><a href="#排序示例" class="headerlink" title="排序示例"></a>排序示例</h3><p><img src="/计数排序/20191105113132300.png" alt=""></p>
+<ul>
+<li>算法稳定性是指排序前A在B前，排序后A还在B前，而从后往前排序，就是为了保证算法的稳定性。</li>
+<li>此算法不适合不知道大概范围的数据，否则会占用大量内存。<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3>首先需要遍历一次Array，找最大最小数，然后需要统计各个元素的出现次数，还要统计各个相同元素最后出席那的我位置（主要是用到临时数组temp），最后排序，所以时间复杂度为3O(n) + O(n+k),n+k为遍历临时数组temp的时间.<h3 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h3>该算法是稳定算法<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line">namespace Algorithm.DataStructure.Sort</span><br><span class="line">&#123;</span><br><span class="line">    class CountingSort:SortData</span><br><span class="line">    &#123;</span><br><span class="line">        public CountingSort():base()</span><br><span class="line">        &#123;</span><br><span class="line">            name = name = &quot;-======================计数排序法&quot;;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public override void Sort(int[] array)</span><br><span class="line">        &#123;</span><br><span class="line">            base.Sort(array);</span><br><span class="line">            int min = GetMin(array);</span><br><span class="line">            int max = GetMax(array);</span><br><span class="line">            int[] temp = new int[max - min + 1];</span><br><span class="line">            for(int i = 0;i&lt;array.Length;i++) //统计每个元素出现次数</span><br><span class="line">            &#123;</span><br><span class="line">                temp[array[i] - min]++;</span><br><span class="line">            &#125;</span><br><span class="line">            for(int i= 1;i&lt; temp.Length;i++) //统计每个大小的元素最后应该出现的位置，应为从后往前排</span><br><span class="line">            &#123;</span><br><span class="line">                temp[i] += temp[i - 1];</span><br><span class="line">            &#125;</span><br><span class="line">            int[] array2 = new int[array.Length];</span><br><span class="line">            for(int i= array.Length - 1;i&gt;= 0;i--) //排序</span><br><span class="line">            &#123;</span><br><span class="line">                array2[temp[array[i] - min] - 1] = array[i];</span><br><span class="line">                temp[array[i] - min]--;</span><br><span class="line">            &#125;</span><br><span class="line">            for (int i = 0; i &lt; array.Length; i++)//将排序好的数据加到array中</span><br><span class="line">            &#123;</span><br><span class="line">                array[i] = array2[i];</span><br><span class="line">            &#125;</span><br><span class="line">           </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public int GetMax(int[] array)</span><br><span class="line">        &#123;</span><br><span class="line">            int max = int.MinValue;</span><br><span class="line">            for(int i = 0;i &lt; array.Length;i++)</span><br><span class="line">            &#123;</span><br><span class="line">                if(array[i]&gt;max)</span><br><span class="line">                &#123;</span><br><span class="line">                    max = array[i];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return max;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public int GetMin(int[] array)</span><br><span class="line">        &#123;</span><br><span class="line">            int min = int.MaxValue;</span><br><span class="line">            for (int i = 0; i &lt; array.Length; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                if (array[i] &lt; min)</span><br><span class="line">                &#123;</span><br><span class="line">                    min = array[i];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return min;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li><a href="https://blog.csdn.net/liyuming0000/article/details/46913357" target="_blank" rel="noopener">https://blog.csdn.net/liyuming0000/article/details/46913357</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/%E8%AE%A1%E6%95%B0%E6%8E%92%E5%BA%8F" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/%E8%AE%A1%E6%95%B0%E6%8E%92%E5%BA%8F</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/04/桶排序1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wangzhuanxu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的独立博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/04/桶排序1/" itemprop="url">桶排序</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-04T21:30:04+08:00">
+                2019-11-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/11/04/桶排序1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2019/11/04/桶排序1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>桶排序（Bucket sort）或所谓的箱排序，是一个排序算法，工作的原理是将数组分到有限数量的桶里。每个桶再个别排序（有可能再使用别的排序算法或是以递归方式继续使用桶排序进行排序，本文使用的是插入排序）。桶排序是鸽巢排序的一种归纳结果。当要被排序的数组内的数值是均匀分配的时候，桶排序使用线性时间O(n)。</p>
+<h3 id="排序实例"><a href="#排序实例" class="headerlink" title="排序实例"></a>排序实例</h3><p><img src="/桶排序1/20191104093324875.png" alt=""></p>
+<ul>
+<li>在此说明一下，在创建桶的时候，桶和桶之间的数值间距不是一定要定义为1，可以定义为任意数值，要适情况而定，比如当知道要排序的数值在0-100之间，就可以定义10个桶，桶与桶间的距离为10。</li>
+<li>桶排序适用在知道要排序数值的范围的情况下，若不知道范围，最好不要适用该算法。</li>
+<li>桶排序是典型的以空间换时间的排序算法</li>
+<li>在使用桶排序的时候，有一个小技巧，比如定义每个桶的容量为10，每个桶中的第一个数据要定义为该桶中已经存入的数据的个数，也就是每个桶的实际容量为9，这样做的好处是可以直接知道该桶中下一个将要存入的数据的位置</li>
+</ul>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">namespace SuanFa.Sequence</span><br><span class="line">&#123;</span><br><span class="line">    class BucketSort</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main()</span><br><span class="line">        &#123;</span><br><span class="line">            //create an object</span><br><span class="line">            BucketSort bs = new BucketSort();</span><br><span class="line">            bs.bucketSort();</span><br><span class="line">        &#125;</span><br><span class="line">        public void bucketSort()</span><br><span class="line">        &#123;</span><br><span class="line">            //define ordered sequence</span><br><span class="line">            int[] array = &#123; 21, 8, 6, 11, 36, 50, 27,42,30,12 &#125;;</span><br><span class="line">            //define buckets,ten buckets ,the size of the bucket is ten</span><br><span class="line">            int[,] bucket = new int[10,10];</span><br><span class="line">            //initialize buckets</span><br><span class="line">            for(int i=0;i&lt;bucket.GetLength(0);i++)</span><br><span class="line">            &#123;</span><br><span class="line">                for(int j=0;j&lt;bucket.GetLength(1);j++)</span><br><span class="line">                &#123;</span><br><span class="line">                    bucket[i, j] = 0;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            //sort</span><br><span class="line">            for(int i=0;i&lt;array.Length;i++)</span><br><span class="line">            &#123;</span><br><span class="line">                int index = getIndex(array[i]);</span><br><span class="line">                insertSort(bucket,array[i],index);</span><br><span class="line">            &#125;</span><br><span class="line">            //put the ordered sequence to array</span><br><span class="line">            int t = 0;</span><br><span class="line">            for (int i = 0; i &lt; bucket.GetLength(0); i++)</span><br><span class="line">            &#123;</span><br><span class="line">                for (int j = 0; j &lt; bucket.GetLength(1); j++)</span><br><span class="line">                &#123;</span><br><span class="line">                    if(bucket[i,j]!=0&amp;&amp;j!=0)</span><br><span class="line">                    &#123;</span><br><span class="line">                        array[t] = bucket[i,j];</span><br><span class="line">                        t++;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            //print ordered array</span><br><span class="line">            print(array);</span><br><span class="line">        &#125;</span><br><span class="line">        //insert sort</span><br><span class="line">        public void insertSort(int[,] array,int k,int index)</span><br><span class="line">        &#123;</span><br><span class="line">            //the position of the new element</span><br><span class="line">            int i = array[index,0] + 1;</span><br><span class="line">            while (i&gt;0&amp;&amp;k&lt;array[index,i])</span><br><span class="line">            &#123;</span><br><span class="line">                //move the bigger element  back</span><br><span class="line">                array[index,i + 1] = array[index,i];</span><br><span class="line">                i--;</span><br><span class="line">            &#125;</span><br><span class="line">            //save new element</span><br><span class="line">            array[index,i + 1] = k;</span><br><span class="line">            array[index, 0]++;</span><br><span class="line">        &#125;</span><br><span class="line">        //the index of the bucket</span><br><span class="line">        public int getIndex(int i)</span><br><span class="line">        &#123;</span><br><span class="line">            return i / 10 % 10;</span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// print</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;nums&quot;&gt;the array which will printed&lt;/param&gt;</span><br><span class="line">        public void print(int[] nums)</span><br><span class="line">        &#123;</span><br><span class="line">            for (int i = 0; i &lt; nums.Length; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(&quot;i=&quot; + nums[i] + &quot;  &quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><p>桶排序速度很快，但同时多占用了大量内存，该算法的时间复杂度为O(n)</p>
+<h3 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h3><p>本文在实现排序算法时，使用的是桶排序+直接插入排序算法，所以稳定性较高。</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li><a href="https://zh.wikipedia.org/wiki/%E6%A1%B6%E6%8E%92%E5%BA%8F" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/%E6%A1%B6%E6%8E%92%E5%BA%8F</a></li>
+<li><a href="http://www.cnblogs.com/skywang12345/p/3602737.html" target="_blank" rel="noopener">http://www.cnblogs.com/skywang12345/p/3602737.html</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/28/桶排序/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wangzhuanxu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的独立博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/28/桶排序/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-28T11:33:30+08:00">
+                2019-09-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/09/28/桶排序/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2019/09/28/桶排序/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/28/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -670,151 +1387,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/25/桶排序/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wangzhuanxu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的独立博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/25/桶排序/" itemprop="url">桶排序</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-25T22:23:34+08:00">
-                2019-01-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/01/25/桶排序/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2019/01/25/桶排序/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>桶排序（Bucket sort）或所谓的箱排序，是一个排序算法，工作的原理是将数组分到有限数量的桶里。每个桶再个别排序（有可能再使用别的排序算法或是以递归方式继续使用桶排序进行排序，本文使用的是插入排序）。桶排序是鸽巢排序的一种归纳结果。当要被排序的数组内的数值是均匀分配的时候，桶排序使用线性时间O(n)。</p>
-<h2 id="排序示例"><a href="#排序示例" class="headerlink" title="排序示例"></a>排序示例</h2><p><img src="https://i.loli.net/2019/01/25/5c4b1d114ff04.png" alt=""></p>
-<ul>
-<li>在此说明一下，在创建桶的时候，桶和桶之间的数值间距不是一定要定义为1，可以定义为任意数值，要适情况而定，比如当知道要排序的数值在0-100之间，就可以定义10个桶，桶与桶间的距离为10。</li>
-<li>桶排序适用在知道要排序数值的范围的情况下，若不知道范围，最好不要适用该算法。</li>
-<li>桶排序是典型的以空间换时间的排序算法</li>
-<li>在使用桶排序的时候，有一个小技巧，比如定义每个桶的容量为10，每个桶中的第一个数据要定义为该桶中已经存入的数据的个数，也就是每个桶的实际容量为9，这样做的好处是可以直接知道该桶中下一个将要存入的数据的位置<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">namespace SuanFa.Sequence</span><br><span class="line">&#123;</span><br><span class="line">    class BucketSort</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main()</span><br><span class="line">        &#123;</span><br><span class="line">            //create an object</span><br><span class="line">            BucketSort bs = new BucketSort();</span><br><span class="line">            bs.bucketSort();</span><br><span class="line">        &#125;</span><br><span class="line">        public void bucketSort()</span><br><span class="line">        &#123;</span><br><span class="line">            //define ordered sequence</span><br><span class="line">            int[] array = &#123; 21, 8, 6, 11, 36, 50, 27,42,30,12 &#125;;</span><br><span class="line">            //define buckets,ten buckets ,the size of the bucket is ten</span><br><span class="line">            int[,] bucket = new int[10,10];</span><br><span class="line">            //initialize buckets</span><br><span class="line">            for(int i=0;i&lt;bucket.GetLength(0);i++)</span><br><span class="line">            &#123;</span><br><span class="line">                for(int j=0;j&lt;bucket.GetLength(1);j++)</span><br><span class="line">                &#123;</span><br><span class="line">                    bucket[i, j] = 0;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            //sort</span><br><span class="line">            for(int i=0;i&lt;array.Length;i++)</span><br><span class="line">            &#123;</span><br><span class="line">                int index = getIndex(array[i]);</span><br><span class="line">                insertSort(bucket,array[i],index);</span><br><span class="line">            &#125;</span><br><span class="line">            //put the ordered sequence to array</span><br><span class="line">            int t = 0;</span><br><span class="line">            for (int i = 0; i &lt; bucket.GetLength(0); i++)</span><br><span class="line">            &#123;</span><br><span class="line">                for (int j = 0; j &lt; bucket.GetLength(1); j++)</span><br><span class="line">                &#123;</span><br><span class="line">                    if(bucket[i,j]!=0&amp;&amp;j!=0)</span><br><span class="line">                    &#123;</span><br><span class="line">                        array[t] = bucket[i,j];</span><br><span class="line">                        t++;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            //print ordered array</span><br><span class="line">            print(array);</span><br><span class="line">        &#125;</span><br><span class="line">        //insert sort</span><br><span class="line">        public void insertSort(int[,] array,int k,int index)</span><br><span class="line">        &#123;</span><br><span class="line">            //the position of the new element</span><br><span class="line">            int i = array[index,0] + 1;</span><br><span class="line">            while (i&gt;0&amp;&amp;k&lt;array[index,i])</span><br><span class="line">            &#123;</span><br><span class="line">                //move the bigger element  back</span><br><span class="line">                array[index,i + 1] = array[index,i];</span><br><span class="line">                i--;</span><br><span class="line">            &#125;</span><br><span class="line">            //save new element</span><br><span class="line">            array[index,i + 1] = k;</span><br><span class="line">            array[index, 0]++;</span><br><span class="line">        &#125;</span><br><span class="line">        //the index of the bucket</span><br><span class="line">        public int getIndex(int i)</span><br><span class="line">        &#123;</span><br><span class="line">            return i / 10 % 10;</span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// print</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;nums&quot;&gt;the array which will printed&lt;/param&gt;</span><br><span class="line">        public void print(int[] nums)</span><br><span class="line">        &#123;</span><br><span class="line">            for (int i = 0; i &lt; nums.Length; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(&quot;i=&quot; + nums[i] + &quot;  &quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>桶排序速度很快，但同时多占用了大量内存，该算法的时间复杂度为O(n)</p>
-<h3 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h3><p>本文在实现排序算法时，使用的是桶排序+直接插入排序算法，所以稳定性较高。</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li><a href="https://zh.wikipedia.org/wiki/%E6%A1%B6%E6%8E%92%E5%BA%8F" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/%E6%A1%B6%E6%8E%92%E5%BA%8F</a></li>
-<li><a href="http://www.cnblogs.com/skywang12345/p/3602737.html" target="_blank" rel="noopener">http://www.cnblogs.com/skywang12345/p/3602737.html</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/25/直接插入排序/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -901,7 +1473,7 @@
 <h2 id="排序示例"><a href="#排序示例" class="headerlink" title="排序示例"></a>排序示例</h2><p><img src="https://i.loli.net/2019/01/25/5c4b167585e0c.png" alt=""></p>
 <h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>直接插入排序的时间复杂度是O(N2)。<br>假设被排序的数列中有N个数。遍历一趟的时间复杂度是O(N)，需要遍历多少次呢？N-1！因此，直接插入排序的时间复杂度是O(N2)。</p>
 <h2 id="稳定性分析"><a href="#稳定性分析" class="headerlink" title="稳定性分析"></a>稳定性分析</h2><p>直接插入排序是稳定的算法，它满足稳定算法的定义。<br>算法稳定性 – 假设在数列中存在a[i]=a[j]，若在排序之前，a[i]在a[j]前面；并且排序之后，a[i]仍然在a[j]前面。则这个排序算法是稳定的！</p>
-<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">namespace SuanFa.Sequence</span><br><span class="line">&#123;</span><br><span class="line">    class InsertSort</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main()</span><br><span class="line">        &#123;</span><br><span class="line">            //define InsertSort object</span><br><span class="line">            InsertSort ins = new InsertSort();</span><br><span class="line">            DateTime dt1 = new DateTime();</span><br><span class="line">            DateTime dt2 = new DateTime();</span><br><span class="line">            TimeSpan ts = new TimeSpan();</span><br><span class="line">            dt1 = DateTime.Now;</span><br><span class="line">            ins.insertSort();</span><br><span class="line">            dt2 = DateTime.Now;</span><br><span class="line">            ts = dt2 - dt1;</span><br><span class="line">            //print run time</span><br><span class="line">            Console.WriteLine(&quot;================================&quot; + ts.TotalMilliseconds);</span><br><span class="line">        &#125;</span><br><span class="line">        public void insertSort()</span><br><span class="line">        &#123;</span><br><span class="line">            //define order sequence</span><br><span class="line">            int[] nums = &#123; 1, 2, 4, 34, 5345, 34, 43, 342 &#125;;</span><br><span class="line">            int t, k;</span><br><span class="line">            //traversal sequence</span><br><span class="line">            for(int i=1;i&lt;nums.Length;i++)</span><br><span class="line">            &#123;</span><br><span class="line">                t = nums[i];</span><br><span class="line">                k = i - 1;</span><br><span class="line">                while(t&lt;nums[k])</span><br><span class="line">                &#123;</span><br><span class="line">                    //move small data to the back</span><br><span class="line">                    nums[k + 1] = nums[k];</span><br><span class="line">                    k--;</span><br><span class="line">                &#125;</span><br><span class="line">                //sava number</span><br><span class="line">                nums[k+1] = t;</span><br><span class="line">            &#125;</span><br><span class="line">            //print sequence</span><br><span class="line">            print(nums);</span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// print ordered sequence</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;nums&quot;&gt;ordered sequence&lt;/param&gt;</span><br><span class="line">        public void print(int[] nums)</span><br><span class="line">        &#123;</span><br><span class="line">            for (int i = 0; i &lt; nums.Length; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.Write(&quot;i=&quot; + nums[i]+&quot;  &quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class InsertSort:SortData</span><br><span class="line">&#123;</span><br><span class="line">    public InsertSort():base()</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(&quot;===============================直接插入排序================================&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public override void Sort(int[] array)</span><br><span class="line">    &#123;</span><br><span class="line">        for(int i = 1;i &lt; array.Length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            int k = array[i]; //当前值</span><br><span class="line">            int j = i - 1;//当前值的前一位</span><br><span class="line">            while(j &gt;= 0 &amp;&amp; k &lt; array[j])//若当前值小于前一位，则前一位后后移一位，以此类推</span><br><span class="line">            &#123;</span><br><span class="line">                array[j + 1] = array[j];</span><br><span class="line">                j--;</span><br><span class="line">            &#125;</span><br><span class="line">            array[j + 1] = k;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
 <li><a href="http://www.cnblogs.com/skywang12345/p/3596881.html" target="_blank" rel="noopener">http://www.cnblogs.com/skywang12345/p/3596881.html</a></li>
 <li><a href="https://www.cnblogs.com/kkun/archive/2011/11/23/insertion_sort.html" target="_blank" rel="noopener">https://www.cnblogs.com/kkun/archive/2011/11/23/insertion_sort.html</a></li>
@@ -1071,526 +1643,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/13/深度优先/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wangzhuanxu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的独立博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/13/深度优先/" itemprop="url">深度优先</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-13T09:25:22+08:00">
-                2018-12-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/12/13/深度优先/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/12/13/深度优先/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line">namespace SuanFa.Graphics</span><br><span class="line">&#123;</span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 深度优先</span><br><span class="line">    /// 难以寻找最优解，仅仅只能寻找有解。其优点就是内存消耗小，</span><br><span class="line">    /// 克服了刚刚说的广度优先搜索的缺点。</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    class DFS</span><br><span class="line">    &#123;</span><br><span class="line">        //四个方向</span><br><span class="line">        int[,] dir =</span><br><span class="line">        &#123;</span><br><span class="line">            &#123;1,0 &#125;,</span><br><span class="line">            &#123;-1,0 &#125;,</span><br><span class="line">            &#123;0,1 &#125;,</span><br><span class="line">            &#123;0,-1 &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        </span><br><span class="line">        //static void Main()</span><br><span class="line">        //&#123;</span><br><span class="line">        //    //迷宫</span><br><span class="line">        //    int[,] maze = &#123;</span><br><span class="line">        //       &#123; 0, 1, 0, 0, 0 &#125;,</span><br><span class="line">        //       &#123; 0, 1, 0, 1, 0 &#125;,</span><br><span class="line">        //       &#123; 0, 0, 0, 0, 0 &#125;,</span><br><span class="line">        //       &#123; 0, 1, 1, 1, 0 &#125;,</span><br><span class="line">        //       &#123; 0, 0, 0, 1, 0 &#125;,</span><br><span class="line">        //    &#125;;</span><br><span class="line">        //    DFS b = new DFS();</span><br><span class="line">        //    int[,] visit = new int[maze.GetLength(0), maze.GetLength(1)];//是否访问过</span><br><span class="line">        //    DFSNode r = b.dfs(new DFSNode(0, 0), new DFSNode(4, 4), maze,visit);</span><br><span class="line">        //    if (r == null)</span><br><span class="line">        //        Console.WriteLine(&quot;null&quot;);</span><br><span class="line"></span><br><span class="line">        //    while (r != null)</span><br><span class="line">        //    &#123;</span><br><span class="line">        //        Console.WriteLine(r.x + &quot;__&quot; + r.y);</span><br><span class="line">        //        r = r.parent;</span><br><span class="line">        //    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        //&#125;</span><br><span class="line">        public DFSNode dfs(DFSNode start, DFSNode end, int[,] maze,int [,]visit)</span><br><span class="line">        &#123;</span><br><span class="line">            visit[start.x, start.y] = 1;//设置为访问</span><br><span class="line">            Console.WriteLine(start.x + &quot; &quot; + start.y);</span><br><span class="line">            //Console.WriteLine(start.x + &quot; &quot; + start.y);</span><br><span class="line">            if (start==null)</span><br><span class="line">            &#123;</span><br><span class="line">                return null;</span><br><span class="line">            &#125;</span><br><span class="line">            for (int i = 0; i &lt; 4; i++)//当前节点的四个方位</span><br><span class="line">            &#123;</span><br><span class="line">                DFSNode next = new DFSNode(start.x + dir[i, 0], start.y + dir[i, 1]);//下一个方向节点</span><br><span class="line">                if (next.x &gt;= 0 &amp;&amp; next.x &lt; maze.GetLength(0) &amp;&amp; next.y &gt;= 0 &amp;&amp; next.y &lt; maze.GetLength(1) &amp;&amp; maze[next.x, next.y] != 1)//该值是否存在</span><br><span class="line">                &#123;  </span><br><span class="line">                    next.parent = start;</span><br><span class="line">                    next.len = start.len + 1;//路径加一</span><br><span class="line">                    if (next.x == end.x &amp;&amp; next.y == end.y)</span><br><span class="line">                    &#123;</span><br><span class="line">                        return next;//返回终点</span><br><span class="line">                    &#125;</span><br><span class="line">                    if (visit[next.x, next.y] == 0)//判断该点是否访问过</span><br><span class="line">                    &#123;</span><br><span class="line">                        DFSNode node = dfs(next, end, maze,visit);</span><br><span class="line">                        if (node!=null&amp;&amp;node.x == end.x &amp;&amp; node.y == end.y)//查看是否查找到相应的点</span><br><span class="line">                        &#123;</span><br><span class="line">                            return node;//返回查找到的点</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine();</span><br><span class="line">               </span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class DFSNode</span><br><span class="line">    &#123;</span><br><span class="line">        public int x;//xy坐标</span><br><span class="line">        public int y;</span><br><span class="line">        public DFSNode parent;//父节点</span><br><span class="line">        public int len;//长度</span><br><span class="line">        public DFSNode(int x, int y)</span><br><span class="line">        &#123;</span><br><span class="line">            this.x = x;</span><br><span class="line">            this.y = y;</span><br><span class="line">            this.parent = null;</span><br><span class="line">            len = 1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/13/广度优先/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wangzhuanxu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的独立博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/13/广度优先/" itemprop="url">广度优先</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-13T09:24:45+08:00">
-                2018-12-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/12/13/广度优先/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/12/13/广度优先/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line">namespace SuanFa.Graphics</span><br><span class="line">&#123;</span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 广度优先---最短路径</span><br><span class="line">    /// 在树的层次较深&amp;子节点数较多的情况下，消耗内存十分严重。</span><br><span class="line">    /// 广度优先搜索适用于节点的子节点数量不多，并且树的层次不会太深的情况。</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    class BFS</span><br><span class="line">    &#123;</span><br><span class="line">        //四个方向</span><br><span class="line">        int[,] dir =</span><br><span class="line">        &#123;</span><br><span class="line">            &#123;1,0 &#125;,</span><br><span class="line">            &#123;-1,0 &#125;,</span><br><span class="line">            &#123;0,1 &#125;,</span><br><span class="line">            &#123;0,-1 &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        //static void Main()</span><br><span class="line">        //&#123;</span><br><span class="line">        //    //迷宫</span><br><span class="line">        //    int[,] maze = &#123;</span><br><span class="line">        //       &#123; 0, 1, 0, 0, 0 &#125;,</span><br><span class="line">        //       &#123; 0, 1, 0, 1, 0 &#125;,</span><br><span class="line">        //       &#123; 0, 0, 0, 0, 0 &#125;,</span><br><span class="line">        //       &#123; 0, 1, 1, 1, 0 &#125;,</span><br><span class="line">        //       &#123; 0, 0, 0, 1, 0 &#125;,</span><br><span class="line">        //    &#125;;</span><br><span class="line">        //    BFS b = new BFS();</span><br><span class="line">        //    BFSNode r = b.bfs(new BFSNode(0, 0), new BFSNode(4, 4),maze);</span><br><span class="line">        //    //if(r==null)</span><br><span class="line">        //    Console.WriteLine(r.x+&quot; &quot;+r.y+&quot; &quot;+r.len);</span><br><span class="line"></span><br><span class="line">        //   while(r!=null)</span><br><span class="line">        //    &#123;</span><br><span class="line">        //        Console.WriteLine(r.x + &quot;__&quot;+r.y);</span><br><span class="line">        //        r = r.parent;</span><br><span class="line">        //    &#125;</span><br><span class="line"></span><br><span class="line">        //&#125;</span><br><span class="line">        public BFSNode bfs(BFSNode start,BFSNode end,int [,]maze)</span><br><span class="line">        &#123;</span><br><span class="line">            Queue&lt;BFSNode&gt; q = new Queue&lt;BFSNode&gt;();</span><br><span class="line">            int[,] visit = new int[maze.GetLength(0), maze.GetLength(1)];//是否访问过</span><br><span class="line">            q.Enqueue(start);//加入起点</span><br><span class="line">            visit[start.x, start.y] = 1;//设置访问过</span><br><span class="line">            Console.WriteLine(start.x + &quot; &quot; + start.y);</span><br><span class="line">            while(q.Count&gt;0)</span><br><span class="line">            &#123;</span><br><span class="line">                BFSNode now = q.Dequeue();//当前节点</span><br><span class="line">                for(int i=0;i&lt;4;i++)//当前节点的四个方位</span><br><span class="line">                &#123;</span><br><span class="line">                    BFSNode next = new BFSNode(now.x + dir[i, 0], now.y + dir[i, 1]);//下一个方向节点</span><br><span class="line">                   </span><br><span class="line">                    if (next.x&gt;=0&amp;&amp; next.x&lt;maze.GetLength(0)&amp;&amp;next.y&gt;=0&amp;&amp;next.y&lt;maze.GetLength(1)&amp;&amp;maze[next.x, next.y]!=1)//该值是否存在</span><br><span class="line">                    &#123;</span><br><span class="line">                        next.parent = now;</span><br><span class="line">                        next.len = now.len + 1;//路径加一</span><br><span class="line">                        if (next.x==end.x&amp;&amp;next.y==end.y)</span><br><span class="line">                        &#123;        </span><br><span class="line">                            return next;//返回终点</span><br><span class="line">                        &#125;</span><br><span class="line">                        if (visit[next.x, next.y] == 0)</span><br><span class="line">                        &#123;</span><br><span class="line">                            </span><br><span class="line">                            visit[next.x, next.y] = 1;//设置为访问</span><br><span class="line">                            q.Enqueue(next);//加入队列</span><br><span class="line">                        &#125;</span><br><span class="line">                        </span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                Console.WriteLine();</span><br><span class="line">            &#125;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class BFSNode</span><br><span class="line">    &#123;</span><br><span class="line">        public int x;//xy坐标</span><br><span class="line">        public int y;</span><br><span class="line">        public BFSNode parent;//父节点</span><br><span class="line">        public int len;//长度</span><br><span class="line">        public BFSNode(int x,int y)</span><br><span class="line">        &#123;</span><br><span class="line">            this.x = x;</span><br><span class="line">            this.y = y;</span><br><span class="line">            this.parent = null;</span><br><span class="line">            len = 1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/13/动态规划-背包问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wangzhuanxu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的独立博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/13/动态规划-背包问题/" itemprop="url">动态规划--背包问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-13T09:23:37+08:00">
-                2018-12-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/12/13/动态规划-背包问题/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/12/13/动态规划-背包问题/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line">namespace SuanFa.Graphics</span><br><span class="line">&#123;</span><br><span class="line">    class BackPack</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main()</span><br><span class="line">        &#123;</span><br><span class="line">            Monster[] monsters = &#123;</span><br><span class="line">                new Monster(12, 24),</span><br><span class="line">                new Monster(18, 20),</span><br><span class="line">                new Monster(19, 20),</span><br><span class="line"></span><br><span class="line">                new Monster(25, 30),</span><br><span class="line"></span><br><span class="line">                new Monster(10, 23),</span><br><span class="line"></span><br><span class="line">                new Monster(10, 23)</span><br><span class="line">                &#125;;</span><br><span class="line">            BackPack b = new BackPack();</span><br><span class="line">            Console.WriteLine(&quot;最大价=&quot; + b.getMaxValue(monsters, 40));;</span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 动态规划求最大价值</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;monsters&quot;&gt;怪物数组&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;allTime&quot;&gt;最大刷怪时间&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;最大金币数&lt;/returns&gt;</span><br><span class="line">        public int getMaxValue(Monster []monsters, int allTime)</span><br><span class="line">        &#123;</span><br><span class="line">            int num = monsters.GetLength(0);//怪物种类</span><br><span class="line">            int[,] dp = new int[num+1,allTime+1];//怪物个数</span><br><span class="line">            for(int i=1;i&lt;num+1;i++)//怪物种类数</span><br><span class="line">            &#123;</span><br><span class="line">                for(int j=1;j&lt;allTime+1;j++)//最大刷怪时间</span><br><span class="line">                &#123;</span><br><span class="line">                    if(monsters[i-1].costTime&lt;j)//打败该怪所需时间小于剩余规定时间</span><br><span class="line">                    &#123;</span><br><span class="line">                        //打死第i个怪物的价值大，还是不打死第i个怪物价值大</span><br><span class="line">                        if(dp[i-1,j]&lt;(dp[i-1,j-monsters[i-1].costTime]+monsters[i-1].coin))</span><br><span class="line">                        &#123;</span><br><span class="line">                            dp[i,j] = dp[i - 1, j - monsters[i - 1].costTime] + monsters[i - 1].coin;</span><br><span class="line">                        &#125;</span><br><span class="line">                        else</span><br><span class="line">                        &#123;</span><br><span class="line">                            dp[i, j] = dp[i - 1, j];</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    else</span><br><span class="line">                    &#123;</span><br><span class="line">                        dp[i, j] = dp[i - 1, j];</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return dp[num,allTime];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    class Monster</span><br><span class="line">    &#123;</span><br><span class="line">        public int costTime;</span><br><span class="line">        public int coin;</span><br><span class="line">        public Monster()</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        public Monster(int costTime,int coin)</span><br><span class="line">        &#123;</span><br><span class="line">            this.coin = coin;</span><br><span class="line">            this.costTime = costTime;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/13/A星/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wangzhuanxu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的独立博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/13/A星/" itemprop="url">A星</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-13T09:23:01+08:00">
-                2018-12-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/12/13/A星/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/12/13/A星/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line">namespace SuanFa.Graphics</span><br><span class="line">&#123;</span><br><span class="line">    class Grid:IComparable</span><br><span class="line">    &#123;</span><br><span class="line">        //位置</span><br><span class="line">        public int x;</span><br><span class="line">        public int y;</span><br><span class="line">        //f，g，h</span><br><span class="line">        public int g;</span><br><span class="line">        public int f;</span><br><span class="line">        public int h;</span><br><span class="line">        //parent</span><br><span class="line">        public Grid parent;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 比较方法</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;obj&quot;&gt;&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">        public int CompareTo(object obj)</span><br><span class="line">        &#123;</span><br><span class="line">            Grid gd = (Grid)obj;</span><br><span class="line">            if(this.f&gt;gd.f)</span><br><span class="line">            &#123;</span><br><span class="line">                return 1;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(this.f&lt;gd.f)</span><br><span class="line">            &#123;</span><br><span class="line">                return -1;</span><br><span class="line">            &#125;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Grid(int x,int y)</span><br><span class="line">        &#123;</span><br><span class="line">            this.x = x;</span><br><span class="line">            this.y = y;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public override int GetHashCode()</span><br><span class="line">        &#123;</span><br><span class="line">            return base.GetHashCode();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public override bool Equals(object obj)</span><br><span class="line">        &#123;</span><br><span class="line">            Grid node=(Grid)obj;</span><br><span class="line">            if(node.x==this.x&amp;&amp;node.y==this.y)</span><br><span class="line">            &#123;</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 保存地图信息</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    class MapInfo</span><br><span class="line">    &#123;</span><br><span class="line">        public int width;//地图宽</span><br><span class="line">        public int height;//地图高</span><br><span class="line">        public Grid start;//起点</span><br><span class="line">        public Grid end;//终点</span><br><span class="line">        public int[,] map;//地图数据</span><br><span class="line">        public MapInfo(int width,int height,Grid start,Grid end,int[,] map)</span><br><span class="line">        &#123;</span><br><span class="line">            this.width = width;</span><br><span class="line">            this.height = height;</span><br><span class="line">            this.start = start;</span><br><span class="line">            this.end = end;</span><br><span class="line">            this.map = map;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class Astar</span><br><span class="line">    &#123;</span><br><span class="line">        public List&lt;Grid&gt; openList = new List&lt;Grid&gt;();//开放列表</span><br><span class="line">        public List&lt;Grid&gt; closeList = new List&lt;Grid&gt;();//关闭列表</span><br><span class="line">        const int HYPOTENUSE = 14;//斜边</span><br><span class="line">        const int STRAIGHT = 10;//直边</span><br><span class="line">        MapInfo mapInfo;</span><br><span class="line">        //static void Main()</span><br><span class="line">        //&#123;</span><br><span class="line">        //    int[,] maze = &#123;</span><br><span class="line">        //        &#123; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 &#125;,</span><br><span class="line">        //        &#123; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 &#125;,</span><br><span class="line">        //        &#123; 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0 &#125;,</span><br><span class="line">        //        &#123; 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0 &#125;,</span><br><span class="line">        //        &#123; 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0 &#125;,</span><br><span class="line">        //        &#123; 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 &#125;,</span><br><span class="line">        //        &#123; 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 &#125;</span><br><span class="line">        //    &#125;;</span><br><span class="line">        //    Grid start = new Grid(0, 0);</span><br><span class="line">        //    Grid end = new Grid(maze.GetLength(0)-1, maze.GetLength(1)-6);</span><br><span class="line">        //    MapInfo mi = new MapInfo(maze.GetLength(0), maze.GetLength(1), start, end, maze);</span><br><span class="line">        //    Astar a = new Astar(mi);</span><br><span class="line">        //    Grid node=a.Start();</span><br><span class="line">        //    while(node!=null)</span><br><span class="line">        //    &#123;</span><br><span class="line">        //        maze[node.x, node.y] = 2;</span><br><span class="line">        //        node = node.parent;</span><br><span class="line">        //    &#125;</span><br><span class="line"></span><br><span class="line">        //    for(int i=0;i&lt;maze.GetLength(0);i++)</span><br><span class="line">        //    &#123;</span><br><span class="line">        //        for(int j=0;j&lt;maze.GetLength(1);j++)</span><br><span class="line">        //        &#123;</span><br><span class="line">        //            Console.Write(maze[i, j] + &quot;,&quot;);</span><br><span class="line">        //        &#125;</span><br><span class="line">        //        Console.WriteLine();</span><br><span class="line">        //    &#125;</span><br><span class="line">        //&#125;</span><br><span class="line"></span><br><span class="line">        public Astar(MapInfo mapInfo)</span><br><span class="line">        &#123;</span><br><span class="line">            this.mapInfo = mapInfo;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Grid Start()</span><br><span class="line">        &#123;</span><br><span class="line">            openList.Add(mapInfo.start);//放入起点</span><br><span class="line">            </span><br><span class="line">            while(openList.Count&gt;0)//开放列表中大于0</span><br><span class="line">            &#123;</span><br><span class="line">                Grid current = openList[0];//取出第一个</span><br><span class="line">                if(current.Equals(mapInfo.end))</span><br><span class="line">                &#123;</span><br><span class="line">                    return current;</span><br><span class="line">                &#125;</span><br><span class="line">                addNodeToOpenList(current);//添加顶点</span><br><span class="line">                closeList.Add(current);</span><br><span class="line">                openList.Remove(current);</span><br><span class="line">                openList.Sort();</span><br><span class="line">                Console.WriteLine(openList.Count);</span><br><span class="line">            &#125;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public void addNodeToOpenList(Grid current)</span><br><span class="line">        &#123;</span><br><span class="line">            int x = current.x;</span><br><span class="line">            int y = current.y;</span><br><span class="line">            addNodeToOpenList(current, x, y-1, STRAIGHT);//上</span><br><span class="line">            addNodeToOpenList(current, x-1, y, STRAIGHT);//左</span><br><span class="line">            addNodeToOpenList(current, x, y+1, STRAIGHT);//下</span><br><span class="line">            addNodeToOpenList(current, x + 1, y, STRAIGHT);//右</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public void addNodeToOpenList(Grid current,int x,int y,int value)</span><br><span class="line">        &#123;</span><br><span class="line">            if (gridIsOK(x,y)&amp;&amp;!isInCloseList(x,y))//格子存在,并且不包含在关闭列表中</span><br><span class="line">            &#123;</span><br><span class="line">                int g = current.g + value;//计算新的g值</span><br><span class="line">                Grid node = getNodeInOpenList(x, y);//查看是否在开放列表中</span><br><span class="line">                if(node==null)//不包含在开放列表中</span><br><span class="line">                &#123;</span><br><span class="line">                    node = new Grid(x, y);</span><br><span class="line">                    node.h = calH(node, mapInfo.end);//计算h</span><br><span class="line">                    node.g = g;//计算g</span><br><span class="line">                    node.f = node.f + node.g;//计算f</span><br><span class="line">                    node.parent = current;</span><br><span class="line">                    openList.Add(node);</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    if(node.g&gt;g)//更新g值</span><br><span class="line">                    &#123;</span><br><span class="line">                        node.g = g;</span><br><span class="line">                        node.f = node.g + node.h;</span><br><span class="line">                        node.parent = current;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 是否包含在开放列表中</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;x&quot;&gt;&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;y&quot;&gt;&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">        public Grid getNodeInOpenList(int x,int y)</span><br><span class="line">        &#123;</span><br><span class="line">            foreach (Grid ol in openList)</span><br><span class="line">            &#123;</span><br><span class="line">                if (ol.x == x &amp;&amp; ol.y == y)</span><br><span class="line">                &#123;</span><br><span class="line">                    return ol;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">           </span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 关闭列表是否包含</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;x&quot;&gt;&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;y&quot;&gt;&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;false :不包含</span><br><span class="line">        /// true：包含</span><br><span class="line">        /// &lt;/returns&gt;</span><br><span class="line">        public bool isInCloseList(int x,int y)</span><br><span class="line">        &#123;</span><br><span class="line">            foreach (Grid cl in closeList)</span><br><span class="line">            &#123;</span><br><span class="line">                if(cl.x==x&amp;&amp;cl.y==y)</span><br><span class="line">                &#123;</span><br><span class="line">                    return true;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 计算H</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;current&quot;&gt;当前节点&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;end&quot;&gt;终点&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">        public int calH(Grid current,Grid end)</span><br><span class="line">        &#123;</span><br><span class="line">            return (Math.Abs(current.x - end.x) + Math.Abs(current.y - end.y)) * STRAIGHT;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 格子是否存在</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">        public bool gridIsOK(int x,int y)</span><br><span class="line">        &#123;</span><br><span class="line">            //if (x &gt;=0 &amp;&amp; x &lt; mapInfo.width &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; mapInfo.height)</span><br><span class="line">               //Console.WriteLine(&quot;gridIsOK=&quot; + x + &quot; y=&quot; + y+ &quot; mapInfo.width=&quot;+ mapInfo.width+ &quot; mapInfo.height=&quot;+ mapInfo.height+ &quot; mapInfo.map[x,y]=&quot;+ mapInfo.map[x, y]);</span><br><span class="line">            if (x&gt;=0&amp;&amp;x&lt;mapInfo.width&amp;&amp;y&gt;=0&amp;&amp;y&lt;mapInfo.height&amp;&amp;mapInfo.map[x,y]!=1)//该格子合法</span><br><span class="line">            &#123;</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1645,7 +1697,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1667,7 +1719,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

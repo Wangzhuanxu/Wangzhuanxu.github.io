@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Sequence," />
+  <meta name="keywords" content="Sort," />
 
 
 
@@ -80,7 +80,7 @@
 
 
 <meta name="description" content="定义直接插入排序(Straight Insertion Sort)的基本思想是：把n个待排序的元素看成为一个有序表和一个无序表。开始时有序表中只包含1个元素，无序表中包含有n-1个元素，排序过程中每次从无序表中取出第一个元素，将它插入到有序表中的适当位置，使之成为新的有序表，重复n-1次可完成排序过程。 排序示例 时间复杂度直接插入排序的时间复杂度是O(N2)。假设被排序的数列中有N个数。遍历一趟">
-<meta name="keywords" content="Sequence">
+<meta name="keywords" content="Sort">
 <meta property="og:type" content="article">
 <meta property="og:title" content="直接插入排序">
 <meta property="og:url" content="http://yoursite.com/2019/01/25/直接插入排序/index.html">
@@ -88,7 +88,7 @@
 <meta property="og:description" content="定义直接插入排序(Straight Insertion Sort)的基本思想是：把n个待排序的元素看成为一个有序表和一个无序表。开始时有序表中只包含1个元素，无序表中包含有n-1个元素，排序过程中每次从无序表中取出第一个元素，将它插入到有序表中的适当位置，使之成为新的有序表，重复n-1次可完成排序过程。 排序示例 时间复杂度直接插入排序的时间复杂度是O(N2)。假设被排序的数列中有N个数。遍历一趟">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.loli.net/2019/01/25/5c4b167585e0c.png">
-<meta property="og:updated_time" content="2019-01-25T14:43:41.351Z">
+<meta property="og:updated_time" content="2019-11-04T14:54:43.860Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="直接插入排序">
 <meta name="twitter:description" content="定义直接插入排序(Straight Insertion Sort)的基本思想是：把n个待排序的元素看成为一个有序表和一个无序表。开始时有序表中只包含1个元素，无序表中包含有n-1个元素，排序过程中每次从无序表中取出第一个元素，将它插入到有序表中的适当位置，使之成为新的有序表，重复n-1次可完成排序过程。 排序示例 时间复杂度直接插入排序的时间复杂度是O(N2)。假设被排序的数列中有N个数。遍历一趟">
@@ -352,7 +352,7 @@
 <h2 id="排序示例"><a href="#排序示例" class="headerlink" title="排序示例"></a>排序示例</h2><p><img src="https://i.loli.net/2019/01/25/5c4b167585e0c.png" alt=""></p>
 <h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>直接插入排序的时间复杂度是O(N2)。<br>假设被排序的数列中有N个数。遍历一趟的时间复杂度是O(N)，需要遍历多少次呢？N-1！因此，直接插入排序的时间复杂度是O(N2)。</p>
 <h2 id="稳定性分析"><a href="#稳定性分析" class="headerlink" title="稳定性分析"></a>稳定性分析</h2><p>直接插入排序是稳定的算法，它满足稳定算法的定义。<br>算法稳定性 – 假设在数列中存在a[i]=a[j]，若在排序之前，a[i]在a[j]前面；并且排序之后，a[i]仍然在a[j]前面。则这个排序算法是稳定的！</p>
-<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">namespace SuanFa.Sequence</span><br><span class="line">&#123;</span><br><span class="line">    class InsertSort</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main()</span><br><span class="line">        &#123;</span><br><span class="line">            //define InsertSort object</span><br><span class="line">            InsertSort ins = new InsertSort();</span><br><span class="line">            DateTime dt1 = new DateTime();</span><br><span class="line">            DateTime dt2 = new DateTime();</span><br><span class="line">            TimeSpan ts = new TimeSpan();</span><br><span class="line">            dt1 = DateTime.Now;</span><br><span class="line">            ins.insertSort();</span><br><span class="line">            dt2 = DateTime.Now;</span><br><span class="line">            ts = dt2 - dt1;</span><br><span class="line">            //print run time</span><br><span class="line">            Console.WriteLine(&quot;================================&quot; + ts.TotalMilliseconds);</span><br><span class="line">        &#125;</span><br><span class="line">        public void insertSort()</span><br><span class="line">        &#123;</span><br><span class="line">            //define order sequence</span><br><span class="line">            int[] nums = &#123; 1, 2, 4, 34, 5345, 34, 43, 342 &#125;;</span><br><span class="line">            int t, k;</span><br><span class="line">            //traversal sequence</span><br><span class="line">            for(int i=1;i&lt;nums.Length;i++)</span><br><span class="line">            &#123;</span><br><span class="line">                t = nums[i];</span><br><span class="line">                k = i - 1;</span><br><span class="line">                while(t&lt;nums[k])</span><br><span class="line">                &#123;</span><br><span class="line">                    //move small data to the back</span><br><span class="line">                    nums[k + 1] = nums[k];</span><br><span class="line">                    k--;</span><br><span class="line">                &#125;</span><br><span class="line">                //sava number</span><br><span class="line">                nums[k+1] = t;</span><br><span class="line">            &#125;</span><br><span class="line">            //print sequence</span><br><span class="line">            print(nums);</span><br><span class="line">        &#125;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// print ordered sequence</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;nums&quot;&gt;ordered sequence&lt;/param&gt;</span><br><span class="line">        public void print(int[] nums)</span><br><span class="line">        &#123;</span><br><span class="line">            for (int i = 0; i &lt; nums.Length; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.Write(&quot;i=&quot; + nums[i]+&quot;  &quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class InsertSort:SortData</span><br><span class="line">&#123;</span><br><span class="line">    public InsertSort():base()</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(&quot;===============================直接插入排序================================&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public override void Sort(int[] array)</span><br><span class="line">    &#123;</span><br><span class="line">        for(int i = 1;i &lt; array.Length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            int k = array[i]; //当前值</span><br><span class="line">            int j = i - 1;//当前值的前一位</span><br><span class="line">            while(j &gt;= 0 &amp;&amp; k &lt; array[j])//若当前值小于前一位，则前一位后后移一位，以此类推</span><br><span class="line">            &#123;</span><br><span class="line">                array[j + 1] = array[j];</span><br><span class="line">                j--;</span><br><span class="line">            &#125;</span><br><span class="line">            array[j + 1] = k;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
 <li><a href="http://www.cnblogs.com/skywang12345/p/3596881.html" target="_blank" rel="noopener">http://www.cnblogs.com/skywang12345/p/3596881.html</a></li>
 <li><a href="https://www.cnblogs.com/kkun/archive/2011/11/23/insertion_sort.html" target="_blank" rel="noopener">https://www.cnblogs.com/kkun/archive/2011/11/23/insertion_sort.html</a></li>
@@ -374,7 +374,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Sequence/" rel="tag"># Sequence</a>
+            <a href="/tags/Sort/" rel="tag"># Sort</a>
           
         </div>
       
@@ -397,8 +397,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/01/25/桶排序/" rel="prev" title="桶排序">
-                桶排序 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/11/碰撞发生条件/" rel="prev" title="碰撞发生条件">
+                碰撞发生条件 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -490,7 +490,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -512,7 +512,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
